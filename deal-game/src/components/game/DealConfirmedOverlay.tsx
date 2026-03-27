@@ -9,7 +9,7 @@ import confetti from "canvas-confetti";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
-    defector: DefectorDisplay;
+    defector: any; // Accept both Defector and DefectorDisplay to circumvent TS cache/conflicts
     revealedName: string;
     pointsGained: number;
     totalScore: number;

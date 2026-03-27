@@ -2,6 +2,7 @@
 
 import { useGameStore } from "@/store/gameStore";
 import { useEffect, useRef, useState, useCallback } from "react";
+import type { DefectorDisplay } from "@/types/game";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Shield, Star, Handshake, Home, ChevronLeft, LogOut } from "lucide-react";
@@ -34,7 +35,7 @@ export default function GameScreen() {
     const inputRef = useRef<HTMLInputElement>(null);
     const { t, lang } = useTranslation();
 
-    const currentDefector = sessionDefectors[currentRound];
+    const currentDefector: DefectorDisplay = sessionDefectors[currentRound];
     const revealedName = revealedNames?.[currentRound] ?? "";
 
     useEffect(() => {
