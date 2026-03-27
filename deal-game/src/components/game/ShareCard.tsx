@@ -107,6 +107,11 @@ const ShareCard = forwardRef<HTMLDivElement, Props>(({ score, correct, total, hi
                         <span className="font-special-elite text-[8px] uppercase opacity-40">CERTIFIED INTEL</span>
                     </div>
 
+                    {/* Logo on Paper Bottom */}
+                    <div className="absolute bottom-6 flex justify-center w-full opacity-60">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/lotusCongrss.png" alt="Deal Logo" className="h-10 w-auto object-contain" />
+                    </div>
                 </div>
             </div>
 
@@ -118,7 +123,6 @@ const ShareCard = forwardRef<HTMLDivElement, Props>(({ score, correct, total, hi
                     <span className="font-barlow font-black text-[9px] uppercase tracking-[0.4em] leading-none mt-1" style={{ color: "#FF6B00" }}>KERALA POLITICAL INTEL</span>
                 </div>
                 <div className="flex-1 flex justify-center">
-                    <Handshake size={32} color="rgba(255,255,255,0.1)" />
                 </div>
                 <div className="flex flex-col items-end">
                     <span className="font-barlow font-black text-[10px] uppercase tracking-widest leading-none mb-1 opacity-40">PLAY AT</span>

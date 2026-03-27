@@ -244,7 +244,7 @@ export default function GameScreen() {
                                 <div className="flex justify-between items-baseline px-2 border-b border-black/10 pb-2">
                                     <span className="font-special-elite text-black/60 text-xs">{t.game.file_ref}</span>
                                     <span className="font-bebas text-black text-2xl tracking-widest">
-                                        #IND-DEAL-{String(currentRound + 1).padStart(3, "0")}
+                                        #CONG_BJP DEAL-{String(currentRound + 1).padStart(3, "0")}
                                     </span>
                                 </div>
                             </div>
