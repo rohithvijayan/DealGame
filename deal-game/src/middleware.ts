@@ -5,27 +5,42 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     const { pathname } = url;
 
-    // Subdomain routing for Production
-    // dealers.cjp.info -> /game/...
+    // 1. Dealers Subdomain (The Game)
+    // dealers.cjp.info/ should show the Splash Screen (root /)
+    // /game and other subpaths should work as normal
     if (hostname.includes('dealers.cjp.info')) {
-        if (!pathname.startsWith('/game') && !pathname.startsWith('/api') && !pathname.includes('.')) {
-            url.pathname = `/game${pathname === '/' ? '' : pathname}`;
-            return rewriteWithCsp(request, url);
+        // If they try to access /intel on the game subdomain, redirect them to root
+        if (pathname.startsWith('/intel')) {
+            return NextResponse.redirect(new URL('/', request.url));
         }
-    }
-    // cjp.info -> /intel/...
-    else if (hostname.includes('cjp.info') && !hostname.includes('dealers.')) {
-        if (!pathname.startsWith('/intel') && !pathname.startsWith('/api') && !pathname.includes('.')) {
-            url.pathname = `/intel${pathname === '/' ? '' : pathname}`;
-            return rewriteWithCsp(request, url);
-        }
+        // Allow / (splash) and /game (game) to proceed naturally
+        return handleSecurity(request);
     }
 
-    // Default: Just add CSP/nonce and proceed
+    // 2. Main Domain (The Intel Archive)
+    // cjp.info/ should show the Intel landing page (/intel)
+    // cjp.info/[slug] should show the Intel article (/intel/[slug])
+    else if (hostname.includes('cjp.info')) {
+        // Skip Rewriting for API, Next.js internals, and Files
+        if (pathname.startsWith('/api') || pathname.startsWith('/_next') || pathname.includes('.')) {
+            return handleSecurity(request);
+        }
+
+        // Already on /intel or /results? Proceed
+        if (pathname.startsWith('/intel') || pathname.startsWith('/results')) {
+            return handleSecurity(request);
+        }
+
+        // Rewrite root and subpaths to /intel
+        url.pathname = `/intel${pathname === '/' ? '' : pathname}`;
+        return rewriteWithCsp(request, url);
+    }
+
+    // Default: Just add CSP/nonce and proceed (Localhost or other domains)
     return handleSecurity(request);
 }
 
-/** Utility to rewrite with the same CSP logic as handleSecurity */
+/** Utility to rewrite with security headers */
 function rewriteWithCsp(request: NextRequest, url: URL) {
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
     const isDev = process.env.NODE_ENV === 'development';
