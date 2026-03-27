@@ -4,7 +4,9 @@
       "Bash(npm test:*)",
       "Bash(node -e \"const {defectors} = require\\(''./src/data/defectors.ts''\\); console.log\\(''count:'', defectors.length\\)\")",
       "Bash(npx tsx:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(ls:*)",
+      "Bash(find /home/rohithvijayan/Desktop/DealGame/deal-game/.next -name *client-reference-manifest*)"
     ]
   }
 }
