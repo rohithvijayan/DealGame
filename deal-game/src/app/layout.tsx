@@ -3,6 +3,7 @@ import { inter, specialElite, playfairDisplay, barlowCondensed, bebasNeue, yatra
 import "./globals.css";
 import LangWatcher from "@/components/common/LangWatcher";
 import Script from 'next/script';
+import { headers } from 'next/headers';
 
 const BASE_URL = "https://thecongressbjpdeal.com";
 
@@ -57,11 +58,13 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get('x-nonce') ?? '';
+
   return (
     <html lang="en" suppressHydrationWarning className={`
       ${inter.variable} 
@@ -78,6 +81,7 @@ export default function RootLayout({
         <Script
           id="fb-pixel"
           strategy="afterInteractive"
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s)
@@ -109,3 +113,4 @@ export default function RootLayout({
     </html>
   );
 }
+

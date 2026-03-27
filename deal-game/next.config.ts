@@ -22,10 +22,9 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
-          // CSP is set per-request with a nonce by src/proxy.ts to allow strict-dynamic.
+          // CSP is set per-request with a nonce by src/middleware.ts to allow strict-dynamic.
+          // NOTE: COEP is intentionally omitted — it would block cross-origin resources (FB Pixel, fonts, manifest).
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
-          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
           { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
           { key: "X-DNS-Prefetch-Control", value: "on" },
         ],

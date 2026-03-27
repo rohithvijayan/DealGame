@@ -40,7 +40,7 @@ const en = {
         tagline_line2: "Midnight RSS.",
     },
     game: {
-        classified_the_deal: "CLASSIFIED: THE DEAL",
+        classified_the_deal: "CONGRSS DEAL",
         home: "Home",
         back: "Back",
         streak: "Streak",
