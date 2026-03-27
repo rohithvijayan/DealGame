@@ -14,8 +14,9 @@ interface GameState {
 
     // Actions
     startNewGame: () => void;
-    submitGuess: (name: string) => { correct: boolean; points: number };
+    submitGuess: (name: string, p?: number) => { correct: boolean; points: number };
     skipRound: () => void;
+    markAsSkipped: (id: string) => void;
     nextRound: () => void;
     prevRound: () => void;
     reset: () => void;
@@ -48,7 +49,7 @@ export const useGameStore = create<GameState>()(
                 });
             },
 
-            submitGuess: (guess: string) => {
+            submitGuess: (guess: string, pointsOverride?: number) => {
                 const { sessionDefectors, currentRound, streak, score } = get();
                 const currentDefector = sessionDefectors[currentRound];
 
@@ -63,7 +64,7 @@ export const useGameStore = create<GameState>()(
                 });
 
                 if (isMatch) {
-                    const pointsGained = 10; // For MVP, no hint logic yet
+                    const pointsGained = pointsOverride ?? 10;
                     const newStreak = streak + 1;
                     const streakBonus = newStreak >= 3 ? 5 : 0;
 
@@ -80,13 +81,17 @@ export const useGameStore = create<GameState>()(
                 }
             },
 
+            markAsSkipped: (id: string) => {
+                set((state) => ({
+                    streak: 0,
+                    skippedIds: state.skippedIds.includes(id) ? state.skippedIds : [...state.skippedIds, id],
+                }));
+            },
+
             skipRound: () => {
                 const { sessionDefectors, currentRound } = get();
                 const currentDefector = sessionDefectors[currentRound];
-                set((state) => ({
-                    streak: 0,
-                    skippedIds: [...state.skippedIds, currentDefector.id],
-                }));
+                get().markAsSkipped(currentDefector.id);
                 get().nextRound();
             },
 
@@ -100,16 +105,12 @@ export const useGameStore = create<GameState>()(
             },
 
             prevRound: () => {
-                const { currentRound, sessionDefectors } = get();
+                const { currentRound } = get();
                 if (currentRound <= 0) return;
-                const prevDefector = sessionDefectors[currentRound - 1];
-                set((state) => ({
+                set({
                     currentRound: currentRound - 1,
                     isGameComplete: false,
-                    // Remove prev defector from completed/skipped so it resets to playing state
-                    completedIds: state.completedIds.filter(id => id !== prevDefector?.id),
-                    skippedIds: state.skippedIds.filter(id => id !== prevDefector?.id),
-                }));
+                });
             },
 
             reset: () => {

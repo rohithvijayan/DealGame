@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Shield, SkipForward } from "lucide-react";
 import Image from "next/image";
 import { Defector } from "@/data/defectors";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
     defector: Defector;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export default function CaseUnsolvedOverlay({ defector, score, round, onNext, onEndGame }: Props) {
+    const { t, lang } = useTranslation();
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -46,21 +49,21 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
 
             {/* Top AppBar */}
             <header className="relative z-10 flex justify-between items-center w-full px-4 h-14 bg-[#131313]">
-                <div className="flex items-center gap-2">
-                    <Shield size={18} className="text-mid-grey" />
-                    <h1 className="font-barlow font-black tracking-widest uppercase text-mid-grey text-lg">
-                        DOSSIER: CASE SKIPPED
+                <div className="flex items-center gap-2 max-w-[55%]">
+                    <Shield size={18} className="text-mid-grey shrink-0" />
+                    <h1 className={`font-barlow font-black tracking-widest uppercase text-mid-grey ${lang === 'ml' ? 'text-xs leading-tight' : 'text-lg'}`}>
+                        {t.caseUnsolved.title}
                     </h1>
                 </div>
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-2 md:gap-4 items-center shrink-0">
                     <div className="flex flex-col items-end">
-                        <span className="font-barlow text-[10px] leading-none opacity-60 uppercase">Score</span>
-                        <span className="font-bebas text-xl leading-none text-saffron">{score.toLocaleString()}</span>
+                        <span className="font-barlow text-[9px] leading-none opacity-60 uppercase">{t.common.score}</span>
+                        <span className={`font-bebas text-saffron ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{score.toLocaleString()}</span>
                     </div>
                     <div className="h-8 w-px bg-mid-grey/30" />
                     <div className="flex flex-col items-end">
                         <SkipForward size={14} className="text-mid-grey ml-auto" />
-                        <span className="font-bebas text-xl leading-none text-mid-grey">ROUND {round}</span>
+                        <span className={`font-bebas text-mid-grey ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{t.caseUnsolved.round(round)}</span>
                     </div>
                 </div>
                 <div className="absolute bottom-0 left-0 bg-mid-grey/30 h-1 w-full" />
@@ -100,7 +103,7 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                     <div className="relative h-full p-8 pl-10 flex flex-col items-center text-[#131313] gap-4">
                         {/* Label */}
                         <div className="self-start font-barlow text-xs tracking-widest opacity-40 uppercase">
-                            CLASSIFIED // EYES ONLY
+                            {t.common.classified_eyes}
                         </div>
 
                         {/* Photo zone — REVEALED in greyscale */}
@@ -132,15 +135,17 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                             initial={{ scale: 4, opacity: 0, rotate: -20 }}
                             animate={{ scale: 1, opacity: 0.85, rotate: -12 }}
                             transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 15 }}
-                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-8 border-mid-grey px-4 py-1 bg-white/10"
+                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-8 border-mid-grey px-4 py-1 bg-white/20 shadow-xl"
                         >
-                            <span className="font-yatra text-mid-grey text-5xl uppercase leading-none block whitespace-nowrap">CASE CLOSED</span>
+                            <span className={`font-yatra text-mid-grey uppercase leading-none block whitespace-nowrap ${lang === 'ml' ? 'text-2xl' : 'text-5xl'}`}>
+                                {t.caseUnsolved.case_closed}
+                            </span>
                         </motion.div>
 
                         {/* Defector Revealed */}
                         <div className="w-full bg-[#131313]/8 border-l-4 border-mid-grey px-4 py-3 mt-2">
                             <div className="font-special-elite text-[9px] text-black/40 uppercase mb-1">
-                                Identity Was:
+                                {t.caseUnsolved.identity_was}
                             </div>
                             <div className="font-playfair font-black text-xl text-[#131313]">{defector.name}</div>
                             <div className="font-special-elite text-[10px] text-black/50 mt-0.5">
@@ -151,23 +156,28 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                             </div>
                         </div>
 
-                        {/* Intel fields — blank since skipped */}
+                        {/* Intel fields — Revealed */}
                         <div className="w-full space-y-3">
-                            {["POSITION:", "STATE:", "YEAR OF DEAL:"].map((label) => (
-                                <div key={label} className="flex items-end gap-3">
-                                    <span className="font-special-elite text-xs font-bold w-24 flex-shrink-0 opacity-40">{label}</span>
-                                    <div className="flex-1 border-b border-dotted border-[#131313]/20 h-5 relative">
-                                        {/* half-redacted */}
-                                        <div className="absolute bottom-1 left-0 h-3 w-1/2 bg-[#131313] opacity-50 rounded-sm" />
+                            {[
+                                { label: t.common.position, value: defector.position },
+                                { label: t.common.state, value: defector.state },
+                                { label: t.common.year_of_deal, value: defector.year },
+                            ].map((field) => (
+                                <div key={field.label} className="flex items-start gap-3">
+                                    <span className={`font-special-elite text-xs font-bold flex-shrink-0 opacity-50 ${lang === 'ml' ? 'w-32' : 'w-24'}`}>
+                                        {field.label}
+                                    </span>
+                                    <div className="flex-1 border-b border-dotted border-[#131313]/20 h-5 relative font-special-elite text-xs uppercase flex items-end pb-0.5">
+                                        {field.value}
                                     </div>
                                 </div>
                             ))}
                         </div>
 
                         {/* Message */}
-                        <div className="text-center mt-1">
-                            <p className="font-special-elite text-mid-grey text-sm tracking-tight">
-                                ASSET WENT DARK. MOVING TO NEXT TARGET.
+                        <div className="text-center mt-2 px-2">
+                            <p className={`font-special-elite text-danger-red/80 text-center ${lang === 'ml' ? 'text-[15px] font-black leading-normal' : 'text-sm font-bold tracking-tight'}`}>
+                                {t.caseUnsolved.asset_unmasked}
                             </p>
                         </div>
                     </div>
@@ -179,9 +189,9 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                 <div className="max-w-md mx-auto flex flex-col gap-3">
                     <button
                         disabled
-                        className="w-full py-3 bg-[#353535] text-white/20 font-barlow font-black text-xl tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed"
+                        className={`w-full bg-[#353535] text-white/20 font-barlow font-black tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed ${lang === 'ml' ? 'text-lg py-2' : 'text-xl py-3'}`}
                     >
-                        🔒 CONFIRM DEAL
+                        {t.common.confirm_deal}
                     </button>
                     <motion.button
                         initial={{ y: 10, opacity: 0 }}
@@ -189,9 +199,9 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                         transition={{ delay: 0.3 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={onNext}
-                        className="w-full py-4 bg-mid-grey/20 text-[#e5e2e1] border-2 border-mid-grey/40 font-barlow font-black text-2xl tracking-widest uppercase flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-0.5 active:shadow-none transition-all"
+                        className={`w-full bg-mid-grey/20 text-[#e5e2e1] border-2 border-mid-grey/40 font-barlow font-black tracking-widest uppercase flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-0.5 active:shadow-none transition-all ${lang === 'ml' ? 'text-xl py-3' : 'text-2xl py-4'}`}
                     >
-                        <SkipForward size={20} /> NEXT DOSSIER
+                        <SkipForward size={20} /> {t.caseUnsolved.next_dossier}
                     </motion.button>
                 </div>
             </footer>

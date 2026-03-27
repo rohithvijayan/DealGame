@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Defector } from "@/data/defectors";
 import { useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
     defector: Defector;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function DealConfirmedOverlay({ defector, pointsGained, totalScore, round, onNext, onEndGame }: Props) {
+    const { t, lang } = useTranslation();
     const launched = useRef(false);
 
     useEffect(() => {
@@ -65,10 +67,10 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
 
             {/* Top App Bar */}
             <header className="relative z-10 flex justify-between items-center px-6 h-16 bg-[#131313] border-b-4 border-congress-blue">
-                <div className="flex items-center gap-3">
-                    <Shield size={20} className="text-saffron" fill="#FF6B00" />
-                    <h1 className="font-barlow font-black uppercase tracking-widest text-saffron text-lg">
-                        INTEL RECOVERED
+                <div className="flex items-center gap-3 max-w-[65%]">
+                    <Shield size={20} className="text-saffron shrink-0" fill="#FF6B00" />
+                    <h1 className={`font-barlow font-black uppercase tracking-widest text-saffron ${lang === 'ml' ? 'text-xs leading-tight' : 'text-lg'}`}>
+                        {t.dealConfirmed.deal_discovered}
                     </h1>
                 </div>
                 <div className="flex items-center gap-2">
@@ -111,7 +113,7 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                     className="flex flex-col items-center gap-2"
                 >
                     <div className="bg-[#0e0e0e] px-4 py-1 border-2 border-saffron/30">
-                        <span className="font-bebas text-saffron text-xl tracking-widest">+{pointsGained} POINTS</span>
+                        <span className="font-bebas text-saffron text-xl tracking-widest">{t.dealConfirmed.points(pointsGained)}</span>
                     </div>
                     <div className="flex gap-1">
                         {scoreDigits.map((d, i) => (
@@ -145,14 +147,14 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                     />
 
                     <div className="text-center space-y-2 relative">
-                        {/* Hindi heading */}
-                        <h2 className="font-playfair text-[#131313] text-5xl font-bold">सही जवाब</h2>
-                        <p className="font-barlow font-black text-congress-blue text-xl tracking-widest uppercase">
-                            ROUND {round}: ALLIANCE CONFIRMED
+                        {/* Heading */}
+                        <h2 className={`font-playfair text-[#131313] font-bold ${lang === 'ml' ? 'text-3xl' : 'text-5xl'}`}>{t.dealConfirmed.correct_answer}</h2>
+                        <p className={`font-barlow font-black text-congress-blue tracking-widest uppercase ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>
+                            {t.dealConfirmed.round_confirmed(round)}
                         </p>
 
                         <div className="my-4 border-y border-[#131313]/10 py-4 italic font-special-elite text-[#131313]/70 text-sm leading-relaxed">
-                            "The asset has flipped. Intelligence confirms the defection. Deal is formalised."
+                            {t.dealConfirmed.asset_flipped}
                         </div>
 
                         {/* Defector revealed */}
@@ -169,12 +171,12 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                                         />
                                     </div>
                                     <div className="absolute bottom-1 left-1/2 -translate-x-1/2 font-special-elite text-[7px] text-zinc-400 whitespace-nowrap">
-                                        ID CONFIRMED
+                                        {t.dealConfirmed.id_confirmed}
                                     </div>
                                 </div>
                             )}
                             <div className="flex-1 min-w-0">
-                                <div className="font-special-elite text-[10px] text-black/40 uppercase mb-1">Identity Confirmed:</div>
+                                <div className="font-special-elite text-[10px] text-black/40 uppercase mb-1">{t.dealConfirmed.identity_confirmed}</div>
                                 <div className="font-playfair font-black text-2xl text-[#131313] leading-tight">{defector.name}</div>
                                 <div className="font-special-elite text-xs text-black/50 mt-1">
                                     {defector.position} · {defector.state} · {defector.year}
@@ -188,9 +190,9 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                             initial={{ scale: 4, opacity: 0, rotate: -25 }}
                             animate={{ scale: 1, opacity: 0.9, rotate: -12 }}
                             transition={{ delay: 0.5, type: "spring", stiffness: 300, damping: 18 }}
-                            className="absolute -top-2 left-1/2 -translate-x-1/2 pointer-events-none border-8 border-danger-red px-6 py-2 flex flex-col items-center justify-center bg-white/30"
+                            className="absolute -top-2 left-1/2 -translate-x-1/2 pointer-events-none border-8 border-danger-red px-6 py-2 flex flex-col items-center justify-center bg-white/40 shadow-xl z-30"
                         >
-                            <div className="font-yatra text-danger-red text-3xl leading-none uppercase">DEAL CONFIRMED</div>
+                            <div className={`font-yatra text-danger-red leading-none uppercase ${lang === 'ml' ? 'text-2xl' : 'text-3xl'}`}>{t.dealConfirmed.deal_confirmed}</div>
                             <span className="text-danger-red text-4xl">✓</span>
                         </motion.div>
                     </div>
@@ -205,9 +207,9 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={onNext}
-                        className="w-full bg-saffron text-near-black font-barlow font-black text-2xl py-4 uppercase tracking-wider shadow-xl active:scale-95 transition-transform"
+                        className={`w-full bg-saffron text-near-black font-barlow font-black uppercase tracking-wider shadow-xl active:scale-95 transition-transform ${lang === 'ml' ? 'text-xl py-3' : 'text-2xl py-4'}`}
                     >
-                        Proceed to Extraction →
+                        {t.dealConfirmed.proceed}
                     </motion.button>
 
                     {onEndGame && (
@@ -218,7 +220,7 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                             onClick={onEndGame}
                             className="w-full border-2 border-white/20 text-white/60 font-barlow font-black text-lg py-3 uppercase tracking-widest hover:bg-white/5 transition-colors"
                         >
-                            End Mission Early
+                            {t.common.end_mission_early}
                         </motion.button>
                     )}
                 </div>

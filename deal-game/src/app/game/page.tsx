@@ -10,6 +10,8 @@ import Link from "next/link";
 import DealConfirmedOverlay from "@/components/game/DealConfirmedOverlay";
 import WrongLeadOverlay from "@/components/game/WrongLeadOverlay";
 import CaseUnsolvedOverlay from "@/components/game/CaseUnsolvedOverlay";
+import { useTranslation } from "@/hooks/useTranslation";
+import { LangToggle } from "@/components/ui/LangToggle";
 
 type AnswerState = "playing" | "correct" | "wrong" | "skipped";
 
@@ -17,7 +19,7 @@ export default function GameScreen() {
     const router = useRouter();
     const {
         currentRound, score, streak,
-        sessionDefectors, submitGuess, skipRound, nextRound, prevRound,
+        sessionDefectors, submitGuess, skipRound, markAsSkipped, nextRound, prevRound,
         isGameComplete, completedIds, skippedIds,
     } = useGameStore();
 
@@ -28,8 +30,9 @@ export default function GameScreen() {
     const [mistakes, setMistakes] = useState(0);
     const [hintsShown, setHintsShown] = useState(0);
     const [imageError, setImageError] = useState(false);
-    const MAX_MISTAKES = 3;
+    const MAX_MISTAKES = 4;
     const inputRef = useRef<HTMLInputElement>(null);
+    const { t, lang } = useTranslation();
 
     const currentDefector = sessionDefectors[currentRound];
 
@@ -51,22 +54,34 @@ export default function GameScreen() {
         e?.preventDefault();
         if (answerState !== "playing" || !guess.trim()) return;
 
-        const result = submitGuess(guess);
+        // Scoring: 1st=10, 2nd=8, 3rd=6, 4th=4
+        const points = Math.max(4, 10 - (mistakes * 2));
+        const result = submitGuess(guess, points);
+
         if (result.correct) {
             setLastPoints(result.points);
             setAnswerState("correct");
         } else {
+            const nextMistakes = mistakes + 1;
             setWrongGuess(guess);
-            setMistakes((m) => m + 1);
-            setAnswerState("wrong");
+            setMistakes(nextMistakes);
             setGuess("");
+
+            if (nextMistakes >= MAX_MISTAKES) {
+                // Out of chances after 3 hints / 4 tries
+                if (currentDefector) markAsSkipped(currentDefector.id);
+                setAnswerState("skipped");
+            } else {
+                setAnswerState("wrong");
+            }
         }
-    }, [guess, answerState, submitGuess]);
+    }, [guess, answerState, submitGuess, mistakes, currentDefector, markAsSkipped]);
 
     const handleSkip = useCallback(() => {
-        skipRound();
+        if (!currentDefector) return;
+        markAsSkipped(currentDefector.id);
         setAnswerState("skipped");
-    }, [skipRound]);
+    }, [markAsSkipped, currentDefector]);
 
     const handleTryAgain = useCallback(() => {
         setAnswerState("playing");
@@ -92,9 +107,7 @@ export default function GameScreen() {
     }, [nextRound]);
 
     const handleEndGame = useCallback(() => {
-        console.log("Ending game, navigating to results...");
-        const sessionStamp = Date.now();
-        router.push(`/results/${sessionStamp}`);
+        router.push(`/results/${Date.now()}`);
     }, [router]);
 
     if (!currentDefector) return null;
@@ -123,7 +136,7 @@ export default function GameScreen() {
                             className="flex flex-col items-center justify-center px-3 py-2 text-mid-grey hover:text-saffron hover:bg-white/5 transition-colors cursor-pointer"
                         >
                             <Home size={18} />
-                            <span className="font-barlow font-black text-[8px] uppercase tracking-widest leading-none mt-0.5">Home</span>
+                            <span className={`font-barlow font-black uppercase tracking-widest leading-none mt-0.5 ${lang === 'ml' ? 'text-[7px]' : 'text-[8px]'}`}>{t.game.home}</span>
                         </Link>
                         {currentRound > 0 && answerState === "playing" && (
                             <button
@@ -132,36 +145,37 @@ export default function GameScreen() {
                                 className="flex flex-col items-center justify-center px-2 py-2 text-mid-grey hover:text-saffron hover:bg-white/5 transition-colors cursor-pointer"
                             >
                                 <ChevronLeft size={18} />
-                                <span className="font-barlow font-black text-[8px] uppercase tracking-widest leading-none mt-0.5">Back</span>
+                                <span className={`font-barlow font-black uppercase tracking-widest leading-none mt-0.5 ${lang === 'ml' ? 'text-[7px]' : 'text-[8px]'}`}>{t.game.back}</span>
                             </button>
                         )}
                     </div>
 
                     {/* Center — Title + Shield */}
-                    <div className="flex items-center gap-2 flex-1 justify-center">
-                        <Shield size={16} className="text-saffron" fill="#FF6B00" />
-                        <span className="font-barlow font-black uppercase tracking-widest text-base text-saffron">CLASSIFIED: THE DEAL</span>
+                    <div className="flex items-center gap-1 md:gap-2 flex-1 justify-center px-1">
+                        <Shield size={16} className="text-saffron shrink-0" fill="#FF6B00" />
+                        <span className={`font-barlow font-black uppercase tracking-widest text-saffron ${lang === 'ml' ? 'text-[10px] sm:text-sm leading-tight' : 'text-base'}`}>{t.game.classified_the_deal}</span>
                     </div>
 
                     {/* Right — Score + Streak + END */}
                     <div className="flex items-center gap-2 sm:gap-4 pr-1">
                         <div className="flex flex-col items-end">
-                            <span className="text-[9px] font-barlow font-black text-mid-grey leading-none tracking-widest uppercase">Score</span>
+                            <span className="text-[9px] font-barlow font-black text-mid-grey leading-none tracking-widest uppercase">{t.common.score}</span>
                             <span className="text-xl font-bebas text-saffron leading-none tabular-nums">{score}</span>
                         </div>
                         {streak > 0 && (
                             <div className="hidden sm:flex flex-col items-end">
-                                <span className="text-[9px] font-barlow font-black text-mid-grey leading-none tracking-widest uppercase">Streak</span>
+                                <span className="text-[9px] font-barlow font-black text-mid-grey leading-none tracking-widest uppercase">{t.game.streak}</span>
                                 <span className="text-xl font-bebas text-turmeric leading-none">{streak}🔥</span>
                             </div>
                         )}
                         <button
                             onClick={handleEndGame}
-                            className="ml-2 flex flex-col items-center justify-center p-2 text-danger-red hover:bg-danger-red/10 transition-colors border border-danger-red/20 rounded cursor-pointer pointer-events-auto"
+                            className="ml-1 flex flex-col items-center justify-center p-1 sm:p-2 text-danger-red hover:bg-danger-red/10 transition-colors border border-danger-red/20 rounded cursor-pointer pointer-events-auto shrink-0"
                         >
                             <LogOut size={16} />
-                            <span className="font-barlow font-black text-[8px] uppercase tracking-widest leading-none mt-0.5 whitespace-nowrap">End Mission</span>
+                            <span className={`font-barlow font-black uppercase tracking-widest leading-none mt-0.5 whitespace-nowrap ${lang === 'ml' ? 'text-[7px]' : 'text-[8px]'}`}>{t.game.end_mission}</span>
                         </button>
+                        <LangToggle className="ml-1" />
                     </div>
 
                     <div className="absolute bottom-0 left-0 h-1 w-full bg-congress-blue" />
@@ -220,7 +234,7 @@ export default function GameScreen() {
                             {/* CLASSIFIED Header */}
                             <div className="flex flex-col gap-2">
                                 <div className="bg-danger-red py-2 px-4 flex justify-between items-center -mx-6 transform -rotate-1 shadow-md">
-                                    <span className="font-barlow font-black text-white tracking-[0.2em] text-lg uppercase">CLASSIFIED INFORMATION</span>
+                                    <span className="font-barlow font-black text-white tracking-[0.2em] text-lg uppercase">{t.game.classified_information}</span>
                                     <div className="flex gap-0.5">
                                         {Array.from({ length: currentDefector.difficulty }).map((_, i) => (
                                             <Star key={i} size={14} className="text-white" fill="white" />
@@ -228,7 +242,7 @@ export default function GameScreen() {
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-baseline px-2 border-b border-black/10 pb-2">
-                                    <span className="font-special-elite text-black/60 text-xs">FILE REF:</span>
+                                    <span className="font-special-elite text-black/60 text-xs">{t.game.file_ref}</span>
                                     <span className="font-bebas text-black text-2xl tracking-widest">
                                         #IND-DEAL-{String(currentRound + 1).padStart(3, "0")}
                                     </span>
@@ -255,7 +269,7 @@ export default function GameScreen() {
                                                 <div className="absolute inset-0 flex items-center justify-center">
                                                     <div className="border-4 border-danger-red px-2 py-1 transform -rotate-12 bg-danger-red/10">
                                                         <span className="font-barlow font-black text-danger-red text-[9px] text-center leading-tight block">
-                                                            IDENTITY<br />WITHHELD
+                                                            {t.game.identity_withheld_line1}<br />{t.game.identity_withheld_line2}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -263,7 +277,7 @@ export default function GameScreen() {
                                         )}
                                     </div>
                                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 font-special-elite text-[9px] text-zinc-400 whitespace-nowrap">
-                                        EXP-DATE: N/A
+                                        {t.game.exp_date}
                                     </div>
                                 </div>
                                 {/* Mistakes tracker dots */}
@@ -277,9 +291,9 @@ export default function GameScreen() {
                                 {/* Intel Fields */}
                                 <div className="flex-1 space-y-3 w-full min-w-0">
                                     {[
-                                        { label: "POSITION:", value: currentDefector.position },
-                                        { label: "STATE:", value: currentDefector.state },
-                                        { label: "YEAR OF DEAL:", value: String(currentDefector.year) },
+                                        { label: t.common.position, value: currentDefector.position },
+                                        { label: t.common.state, value: currentDefector.state },
+                                        { label: t.common.year_of_deal, value: String(currentDefector.year) },
                                     ].map((field) => (
                                         <div key={field.label} className="space-y-0 sm:space-y-0.5">
                                             <label className="font-special-elite text-black/50 text-[9px] sm:text-[10px] block">{field.label}</label>
@@ -296,7 +310,7 @@ export default function GameScreen() {
                                 <div className="absolute -top-3 left-4">
                                     <div className="w-2 h-8 border-2 border-slate-400 rounded-full opacity-60" />
                                 </div>
-                                <span className="font-special-elite text-[9px] text-black/40 uppercase block mb-0.5">Field Agent Note:</span>
+                                <span className="font-special-elite text-[9px] text-black/40 uppercase block mb-0.5">{t.game.field_agent_note}</span>
                                 <p className="font-special-elite text-xs sm:text-sm text-black leading-snug sm:leading-relaxed">{currentDefector.clue}</p>
                                 <div className="absolute bottom-1 right-2 opacity-10 transform rotate-12 text-2xl">📎</div>
                             </div>
@@ -312,7 +326,7 @@ export default function GameScreen() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 className="bg-congress-blue/10 border-l-4 border-congress-blue px-3 py-2"
                                             >
-                                                <span className="font-special-elite text-[9px] text-congress-blue uppercase block mb-0.5">HINT {i + 1}</span>
+                                                <span className="font-special-elite text-[9px] text-congress-blue uppercase block mb-0.5">{t.game.hint_label(i)}</span>
                                                 <p className="font-special-elite text-[11px] text-black/80 leading-snug">{hint}</p>
                                             </motion.div>
                                         ))}
@@ -325,7 +339,7 @@ export default function GameScreen() {
                                 <div className="flex items-center justify-between gap-4">
                                     <div className="flex items-center gap-2">
                                         <Handshake size={18} className="text-congress-blue" />
-                                        <span className="font-barlow font-black text-black/70 text-xs tracking-tight uppercase">THE CONGRESS DEFECTION DEAL</span>
+                                        <span className="font-barlow font-black text-black/70 text-xs tracking-tight uppercase">{t.game.the_deal_footer}</span>
                                     </div>
                                     <div className="flex gap-1">
                                         <div className="w-8 h-3 bg-congress-blue rounded-full" />
@@ -336,7 +350,7 @@ export default function GameScreen() {
 
                             {/* PENDING Stamp */}
                             <div className="absolute bottom-20 right-4 transform rotate-[-15deg] opacity-40 pointer-events-none border-4 border-[#2E7D32] px-4 py-2">
-                                <span className="font-yatra text-[#2E7D32] text-2xl font-black uppercase">PENDING</span>
+                                <span className="font-yatra text-[#2E7D32] text-2xl font-black uppercase">{t.game.pending}</span>
                             </div>
                         </motion.div>
                     </AnimatePresence>
@@ -347,7 +361,7 @@ export default function GameScreen() {
                     <nav className="flex w-full h-14 border-b border-white/5">
                         <div className="flex-1 flex flex-col items-center justify-center bg-saffron text-near-black">
                             <span className="text-lg">📋</span>
-                            <span className="font-barlow font-black uppercase text-[10px] tracking-widest">Mission</span>
+                            <span className="font-barlow font-black uppercase text-[10px] tracking-widest">{t.game.mission}</span>
                         </div>
                         <button
                             onClick={() => hintsShown < (currentDefector?.hints.length ?? 0) && setHintsShown((h) => h + 1)}
@@ -356,7 +370,9 @@ export default function GameScreen() {
                         >
                             <span className="text-lg">💡</span>
                             <span className="font-barlow font-black uppercase text-[10px] tracking-widest">
-                                Hint{hintsShown > 0 ? ` (${hintsShown}/${currentDefector?.hints.length})` : ""}
+                                {hintsShown > 0
+                                    ? t.game.hint_with_count(hintsShown, currentDefector?.hints.length ?? 0)
+                                    : t.game.hint}
                             </span>
                         </button>
                         <button
@@ -365,7 +381,7 @@ export default function GameScreen() {
                             className="flex-1 flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                             <span className="text-lg">⏭</span>
-                            <span className="font-barlow font-black uppercase text-[10px] tracking-widest">Skip</span>
+                            <span className="font-barlow font-black uppercase text-[10px] tracking-widest">{t.game.skip}</span>
                         </button>
                     </nav>
 
@@ -377,7 +393,7 @@ export default function GameScreen() {
                                     type="text"
                                     value={guess}
                                     onChange={(e) => setGuess(e.target.value)}
-                                    placeholder="NAME THE DEFECTOR..."
+                                    placeholder={t.game.placeholder}
                                     disabled={answerState !== "playing"}
                                     className={`w-full bg-[#1b1b1b] border-b-2 border-white/20 focus:border-saffron px-4 py-3 font-special-elite text-lg text-white placeholder:text-white/20 focus:outline-none transition-colors uppercase disabled:opacity-50`}
                                 />
@@ -387,7 +403,7 @@ export default function GameScreen() {
                                 disabled={!guess.trim() || answerState !== "playing"}
                                 className="bg-saffron text-[#131313] px-6 py-3 font-barlow font-black text-xl uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                             >
-                                ID
+                                {t.game.id_button}
                             </button>
                         </form>
                     </div>

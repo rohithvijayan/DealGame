@@ -65,6 +65,7 @@ export const defectors: Defector[] = [
             "He was given a Cabinet post by Modi almost immediately."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Chaudhary Birendra Singh .jpg",
         source_url: "https://www.ndtv.com/india-news/chaudhary-birendra-singh-joins-bjp-550023"
     },
     {
@@ -190,6 +191,7 @@ export const defectors: Defector[] = [
             "He passed away in 2018, about a year after joining."
         ],
         difficulty: 2,
+        photo_url: "/politicians/N.D. Tiwari.jpg",
         source_url: "https://www.livemint.com/Politics/oMZiYmHMSJ8c1sEFoaedTN/ND-Tiwari-joins-BJP.html"
     },
     {
@@ -207,6 +209,7 @@ export const defectors: Defector[] = [
             "He was also the Governor of Maharashtra."
         ],
         difficulty: 2,
+        photo_url: "/politicians/S.M. Krishna.jpeg",
         source_url: "https://www.thehindu.com/news/national/sm-krishna-joins-bjp/article19044266.ece"
     },
     {
@@ -242,6 +245,7 @@ export const defectors: Defector[] = [
             "He joined BJP just before the 2019 Lok Sabha elections."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Tom Vadakkan.jpg",
         source_url: "https://www.ndtv.com/india-news/tom-vadakkan-joins-bjp-1999025"
     },
     {
@@ -259,6 +263,7 @@ export const defectors: Defector[] = [
             "He was made the Chairman of the Hajj Committee."
         ],
         difficulty: 4,
+        photo_url: "/politicians/A.P. Abdullakutty.jpeg",
         source_url: "https://www.thehindu.com/news/national/kerala/abdullakutty-joins-bjp/article26440555.ece"
     },
     {
@@ -276,6 +281,7 @@ export const defectors: Defector[] = [
             "He is from Assam."
         ],
         difficulty: 4,
+        photo_url: "/politicians/Bhubaneswar Kalita.jpeg",
         source_url: "https://www.ndtv.com/india-news/bhubaneswar-kalita-resigns-from-rajya-sabha-joins-bjp-2075013"
     },
     {
@@ -293,6 +299,7 @@ export const defectors: Defector[] = [
             "He joined BJP in 2019 ahead of Lok Sabha elections."
         ],
         difficulty: 3,
+        photo_url: "/politicians/N. Kiran Kumar Reddy.jpg",
         source_url: "https://www.thehindu.com/news/national/andhra-pradesh/kiran-kumar-reddy-joins-bjp/article26741944.ece"
     },
     {
@@ -310,6 +317,7 @@ export const defectors: Defector[] = [
             "He is from the sugar belt of Ahmednagar."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Radha Krishna Vikhe Patil.jpeg",
         source_url: "https://www.ndtv.com/india-news/radhakrishna-vikhe-patil-joins-bjp-days-after-son-ashutosh-gets-bjp-ticket-2033459"
     },
     {
@@ -363,6 +371,7 @@ export const defectors: Defector[] = [
             "He defected while still listed as a Congress star campaigner."
         ],
         difficulty: 3,
+        photo_url: "/politicians/R.P.N. Singh.jpeg",
         source_url: "https://www.hindustantimes.com/india-news/rpn-singh-joins-bjp-101643105740428.html"
     },
     {
@@ -380,6 +389,7 @@ export const defectors: Defector[] = [
             "He joined the Congress before then joining the BJP."
         ],
         difficulty: 1,
+        photo_url: "/politicians/Hardik Patel.avif",
         source_url: "https://www.thehindu.com/news/national/hardik-patel-joins-bjp/article65484042.ece"
     },
     {
@@ -415,6 +425,7 @@ export const defectors: Defector[] = [
             "He became the BJP's Punjab state unit chief."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Sunil Jakhar.jpeg",
         source_url: "https://www.ndtv.com/india-news/sunil-jakhar-joins-bjp-3129039"
     },
     {
@@ -432,6 +443,7 @@ export const defectors: Defector[] = [
             "He had a very public feud with Navjot Singh Sidhu."
         ],
         difficulty: 1,
+        photo_url: "/politicians/Capt. Amarinder Singh.webp",
         source_url: "https://www.thehindu.com/news/national/amarinder-singh-merges-plc-with-bjp/article65059984.ece"
     },
     {
@@ -467,6 +479,7 @@ export const defectors: Defector[] = [
             "He was the Haryana Congress chief before defecting."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Ashok Tanwar.jpeg",
         source_url: "https://www.ndtv.com/india-news/ashok-tanwar-joins-bjp-3968099"
     },
     {
@@ -484,6 +497,7 @@ export const defectors: Defector[] = [
             "He is from Kerala and lost the 2024 LS election for BJP."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Anil Antony.webp",
         source_url: "https://www.thehindu.com/news/national/kerala/anil-antony-joins-bjp/article66393050.ece"
     },
     {
@@ -519,6 +533,7 @@ export const defectors: Defector[] = [
             "She joined BJP in 2024 ahead of elections."
         ],
         difficulty: 4,
+        photo_url: "/politicians/Padmaja Venugopal.avif",
         source_url: "https://www.thehindu.com/news/national/kerala/padmaja-venugopal-joins-bjp/article67916802.ece"
     },
     {
@@ -572,6 +587,7 @@ export const defectors: Defector[] = [
             "He chaired the Parliament committee on the Waqf Amendment Bill."
         ],
         difficulty: 3,
+        photo_url: "/politicians/Jagdambika Pal.webp",
         source_url: "https://www.thehindu.com/news/national/politics-and-policy/jagdambika-pal-joins-bjp/article5164963.ece"
     },
     {
@@ -589,6 +605,7 @@ export const defectors: Defector[] = [
             "He joined and then left Congress within two years."
         ],
         difficulty: 4,
+        photo_url: "/politicians/Alpesh Thakor.jpeg",
         source_url: "https://www.thehindu.com/news/national/alpesh-thakor-joins-bjp/article27991918.ece"
     },
     {
@@ -642,6 +659,7 @@ export const defectors: Defector[] = [
             "He won the Kurukshetra Lok Sabha seat for BJP in 2024."
         ],
         difficulty: 2,
+        photo_url: "/politicians/Naveen Jindal.jpg",
         source_url: "https://www.thehindu.com/news/national/naveen-jindal-joins-bjp/article68001782.ece"
     },
     {
@@ -659,6 +677,7 @@ export const defectors: Defector[] = [
             "She is a former Congress MP from Rajasthan."
         ],
         difficulty: 4,
+        photo_url: "/politicians/Jyoti Mirdha.jpeg",
         source_url: "https://www.ndtv.com/india-news/jyoti-mirdha-joins-bjp-5097813"
     },
     {
@@ -694,6 +713,7 @@ export const defectors: Defector[] = [
             "He was later elected to the Rajya Sabha under BJP."
         ],
         difficulty: 5,
+        photo_url: "/politicians/Pradeep Balmuchu.jpg",
         source_url: "https://www.ndtv.com/india-news/pradeep-balmuchu-joins-bjp-2115819"
     },
     {
@@ -747,6 +767,7 @@ export const defectors: Defector[] = [
             "He joined BJP ahead of the 2022 Himachal Assembly elections."
         ],
         difficulty: 5,
+        photo_url: "/politicians/Pawan Kumar Kajal.jpeg",
         source_url: "https://www.ndtv.com/india-news/congress-mla-joins-bjp-himachal-elections-3310419"
     },
     {
@@ -782,6 +803,7 @@ export const defectors: Defector[] = [
             "He defected alongside Suresh Pachouri in 2024."
         ],
         difficulty: 5,
+        photo_url: "/politicians/Gajendra Singh Rajukhedi.jpeg",
         source_url: "https://www.ndtv.com/india-news/gajendra-singh-rajukhedi-joins-bjp-madhya-pradesh-5098831"
     },
     {
@@ -871,6 +893,7 @@ export const defectors: Defector[] = [
             "He joined BJP ahead of the 2019 Lok Sabha elections."
         ],
         difficulty: 5,
+        photo_url: "/politicians/Sanjay Patil.jpeg",
         source_url: "https://www.ndtv.com/india-news/sanjay-patil-joins-bjp-maharashtra-2020841"
     },
     {
@@ -888,6 +911,7 @@ export const defectors: Defector[] = [
             "He joined BJP ahead of the 2024 Lok Sabha elections."
         ],
         difficulty: 5,
+        photo_url: "/politicians/Om Prakash Pahadia.webp",
         source_url: "https://www.ndtv.com/india-news/om-prakash-pahadia-joins-bjp-rajasthan-5097831"
     },
 ];

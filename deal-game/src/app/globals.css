@@ -18,25 +18,98 @@
   --font-bebas: var(--font-bebas);
   --font-yatra: var(--font-yatra);
   --font-noto: var(--font-noto);
+  --font-noto-ml: var(--font-noto-ml);
+  --font-anek-ml: var(--font-anek-ml);
 }
 
 :root {
   --background: #1a1309;
   --foreground: #f5e6c8;
+  --font-ml: var(--font-anek-ml), var(--font-noto-ml), sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-noto), sans-serif;
+  font-family: var(--font-noto), var(--font-ml);
   overflow-x: hidden;
+}
+
+/* Global Malayalam Overrides */
+[lang="ml"],
+.lang-ml {
+  font-family: var(--font-ml) !important;
+  line-height: 1.55 !important;
+  letter-spacing: 0.01em !important;
+}
+
+[lang="ml"] button,
+.lang-ml button {
+  font-family: var(--font-ml) !important;
+  line-height: 1.2 !important;
+}
+
+[lang="ml"] .font-barlow,
+.lang-ml .font-barlow {
+  font-family: var(--font-ml) !important;
+}
+
+[lang="ml"] .font-black,
+.lang-ml .font-black,
+[lang="ml"] .font-bebas,
+.lang-ml .font-bebas,
+[lang="ml"] .font-yatra,
+.lang-ml .font-yatra,
+[lang="ml"] .font-bold,
+.lang-ml .font-bold,
+[lang="ml"] .font-semibold,
+.lang-ml .font-semibold {
+  font-weight: 800 !important;
+}
+
+/* Specific component fixes */
+[lang="ml"] .exposed-stamp,
+.lang-ml .exposed-stamp {
+  font-size: 1.8rem !important;
+  padding: 8px 16px !important;
+  line-height: 1.1 !important;
+}
+
+[lang="ml"] header nav button span,
+.lang-ml header nav button span {
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+[lang="ml"] input::placeholder,
+.lang-ml input::placeholder {
+  font-size: 14px !important;
+  text-transform: none !important;
+}
+
+[lang="ml"] .font-bebas,
+.lang-ml .font-bebas {
+  letter-spacing: 0.05em !important;
+}
+
+[lang="ml"] input,
+.lang-ml input {
+  text-transform: none !important;
+  font-weight: 800 !important;
+}
+
+.ml-font-fix {
+  line-height: 1.6 !important;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  font-weight: 800;
 }
 
 /* Texture Overlays */
 .bg-paper {
   background-color: #f5e6c8;
-  background-image: 
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.02) 0%, transparent 100%),
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 100%),
     url("https://www.transparenttextures.com/patterns/natural-paper.png");
 }
 
@@ -47,7 +120,7 @@ body {
 
 .bg-notepad {
   background-color: #ffffff;
-  background-image: 
+  background-image:
     linear-gradient(#e5e5e5 1px, transparent 1px);
   background-size: 100% 2rem;
 }
@@ -64,17 +137,49 @@ body {
 
 /* Shared film-grain overlay — used on splash, game, and results */
 @keyframes grain-anim {
-  0%   { transform: translate(0, 0);      }
-  10%  { transform: translate(-5%, -10%); }
-  20%  { transform: translate(-15%, 5%);  }
-  30%  { transform: translate(7%, -25%);  }
-  40%  { transform: translate(-5%, 25%);  }
-  50%  { transform: translate(-15%, 10%); }
-  60%  { transform: translate(15%, 0%);   }
-  70%  { transform: translate(0%, 15%);   }
-  80%  { transform: translate(3%, 35%);   }
-  90%  { transform: translate(-10%, 10%); }
-  100% { transform: translate(0, 0);      }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  10% {
+    transform: translate(-5%, -10%);
+  }
+
+  20% {
+    transform: translate(-15%, 5%);
+  }
+
+  30% {
+    transform: translate(7%, -25%);
+  }
+
+  40% {
+    transform: translate(-5%, 25%);
+  }
+
+  50% {
+    transform: translate(-15%, 10%);
+  }
+
+  60% {
+    transform: translate(15%, 0%);
+  }
+
+  70% {
+    transform: translate(0%, 15%);
+  }
+
+  80% {
+    transform: translate(3%, 35%);
+  }
+
+  90% {
+    transform: translate(-10%, 10%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 .grain-overlay,
@@ -90,5 +195,12 @@ body {
   z-index: 50;
 }
 
-.grain-overlay       { opacity: 0.038; }
-.grain-results-overlay { opacity: 0.03; z-index: 0; position: fixed; }
+.grain-overlay {
+  opacity: 0.038;
+}
+
+.grain-results-overlay {
+  opacity: 0.03;
+  z-index: 0;
+  position: fixed;
+}

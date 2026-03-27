@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
-import { inter, specialElite, playfairDisplay, barlowCondensed, bebasNeue, yatraOne, notoSans } from "@/styles/fonts";
+import type { Metadata, Viewport } from "next";
+import { inter, specialElite, playfairDisplay, barlowCondensed, bebasNeue, yatraOne, notoSans, notoSansMalayalam, anekMalayalam } from "@/styles/fonts";
 import "./globals.css";
+import LangWatcher from "@/components/common/LangWatcher";
 
 export const metadata: Metadata = {
   title: "The Congress BJP Deal",
   description: "A Political Expose Mobile Game",
   manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
   themeColor: "#FF6B00",
 };
 
@@ -21,10 +25,13 @@ export default function RootLayout({
       ${playfairDisplay.variable} 
       ${barlowCondensed.variable} 
       ${bebasNeue.variable} 
-      ${yatraOne.variable} 
+      ${yatraOne.variable}
       ${notoSans.variable}
+      ${notoSansMalayalam.variable}
+      ${anekMalayalam.variable}
     `}>
       <body suppressHydrationWarning className="antialiased min-h-dvh flex flex-col font-noto overflow-x-hidden">
+        <LangWatcher />
         {children}
       </body>
     </html>

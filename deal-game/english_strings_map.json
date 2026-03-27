@@ -1,0 +1,312 @@
+{
+    "project": "DealGame",
+    "version": "1.0.0",
+    "strings": {
+        "common": {
+            "score": {
+                "text": "SCORE",
+                "element": "span",
+                "context": "Global score label"
+            },
+            "mistakes": {
+                "text": "Mistakes",
+                "element": "span",
+                "context": "Mistake counter label"
+            },
+            "position": {
+                "text": "POSITION:",
+                "element": "span",
+                "context": "Defector detail label"
+            },
+            "state": {
+                "text": "STATE:",
+                "element": "span",
+                "context": "Defector detail label"
+            },
+            "year_of_deal": {
+                "text": "YEAR OF DEAL:",
+                "element": "span",
+                "context": "Defector detail label"
+            },
+            "classified_eyes": {
+                "text": "CLASSIFIED // EYES ONLY",
+                "element": "div",
+                "context": "Security clearance warning"
+            },
+            "confirm_deal": {
+                "text": "🔒 CONFIRM DEAL",
+                "element": "button",
+                "context": "Main action button"
+            },
+            "end_mission_early": {
+                "text": "End Mission Early",
+                "element": "button",
+                "context": "Exit button"
+            },
+            "end_mission_brackets": {
+                "text": "[ END MISSION EARLY ]",
+                "element": "button",
+                "context": "Exit button variant"
+            },
+            "classified": {
+                "text": "CLASSIFIED",
+                "element": "div",
+                "context": "Security badge"
+            }
+        },
+        "splash": {
+            "breaking": {
+                "text": "BREAKING",
+                "element": "span",
+                "context": "Ticker prefix"
+            },
+            "exposed": {
+                "text": "EXPOSED",
+                "element": "h2",
+                "context": "Header decoration"
+            },
+            "title_line1": {
+                "text": "THE CONGRESS",
+                "element": "h1",
+                "context": "Main Title Part 1"
+            },
+            "title_line2": {
+                "text": "BJP DEAL",
+                "element": "h1",
+                "context": "Main Title Part 2"
+            },
+            "description_line1": {
+                "text": "60+ Congress leaders crossed the floor.",
+                "element": "p",
+                "context": "Intro text"
+            },
+            "description_line2": {
+                "text": "Can you identify them from classified intel?",
+                "element": "p",
+                "context": "Intro text"
+            },
+            "begin_mission": {
+                "text": "Begin Mission",
+                "element": "button",
+                "context": "Start game"
+            },
+            "how_to_play": {
+                "text": "How to Play",
+                "element": "button",
+                "context": "Help trigger"
+            },
+            "tagline": {
+                "text": "Congress Today. BJP Tomorrow.",
+                "element": "p",
+                "context": "Slogan"
+            }
+        },
+        "game": {
+            "classified_information": {
+                "text": "CLASSIFIED INFORMATION",
+                "element": "span",
+                "context": "In-game header"
+            },
+            "file_ref": {
+                "text": "FILE REF:",
+                "element": "span",
+                "context": "Dossier reference"
+            },
+            "field_agent_note": {
+                "text": "Field Agent Note:",
+                "element": "span",
+                "context": "Hint prefix"
+            },
+            "hint": {
+                "text": "Hint",
+                "element": "button",
+                "context": "Hint trigger"
+            },
+            "skip": {
+                "text": "Skip",
+                "element": "button",
+                "context": "Skip round"
+            },
+            "placeholder": {
+                "text": "NAME THE DEFECTOR...",
+                "element": "input",
+                "context": "Search placeholder"
+            },
+            "id_button": {
+                "text": "ID",
+                "element": "button",
+                "context": "Identify button"
+            }
+        },
+        "dealConfirmed": {
+            "deal_discovered": {
+                "text": "DEAL DISCOVERED",
+                "element": "h1",
+                "context": "Success header"
+            },
+            "points": {
+                "text": "+{n} POINTS",
+                "element": "span",
+                "context": "Points awarded badge"
+            },
+            "correct_answer": {
+                "text": "CORRECT ANSWER",
+                "element": "h2",
+                "context": "Success title"
+            },
+            "asset_flipped": {
+                "text": "The asset has flipped. Intelligence confirms the defection. Deal is formalised.",
+                "element": "div",
+                "context": "Narrative text"
+            },
+            "identity_confirmed_label": {
+                "text": "Identity Confirmed:",
+                "element": "div",
+                "context": "Result label"
+            },
+            "deal_confirmed": {
+                "text": "DEAL CONFIRMED",
+                "element": "div",
+                "context": "Rubber stamp text"
+            },
+            "proceed": {
+                "text": "Proceed to Extraction →",
+                "element": "button",
+                "context": "Next round button"
+            }
+        },
+        "wrongLead": {
+            "title": {
+                "text": "DOSSIER: INTEL FLAWED",
+                "element": "h1",
+                "context": "Error header"
+            },
+            "incorrect": {
+                "text": "INCORRECT",
+                "element": "span",
+                "context": "Error stamp"
+            },
+            "your_guess": {
+                "text": "Your guess:",
+                "element": "span",
+                "context": "Input record"
+            },
+            "intel_flawed_msg": {
+                "text": "INTEL FLAWED. CROSS-CHECK SOURCES.",
+                "element": "p",
+                "context": "Error narrative"
+            },
+            "try_again": {
+                "text": "⚠️ TRY AGAIN",
+                "element": "button",
+                "context": "Retry action"
+            },
+            "skip_dossier": {
+                "text": "Skip This Dossier →",
+                "element": "button",
+                "context": "Bypass action"
+            }
+        },
+        "caseUnsolved": {
+            "title": {
+                "text": "MISSION INTEL: REVEALED",
+                "element": "h1",
+                "context": "Failure header"
+            },
+            "case_closed": {
+                "text": "CASE CLOSED",
+                "element": "span",
+                "context": "Failure stamp"
+            },
+            "identity_was": {
+                "text": "Identity Was:",
+                "element": "div",
+                "context": "Reveal label"
+            },
+            "asset_unmasked": {
+                "text": "ASSET UNMASKED. TARGET ESCAPED.",
+                "element": "p",
+                "context": "Failure narrative"
+            },
+            "next_dossier": {
+                "text": "NEXT DOSSIER",
+                "element": "button",
+                "context": "Navigation button"
+            }
+        },
+        "results": {
+            "mission_briefing": {
+                "text": "MISSION BRIEFING",
+                "element": "h1",
+                "context": "Final screen header"
+            },
+            "session_complete": {
+                "text": "Session Complete",
+                "element": "span",
+                "context": "Status subheader"
+            },
+            "top_secret": {
+                "text": "TOP SECRET",
+                "element": "div",
+                "context": "Header badge"
+            },
+            "mission_report": {
+                "text": "MISSION REPORT",
+                "element": "h2",
+                "context": "Card title"
+            },
+            "analysis_progress": {
+                "text": "ANALYSIS PROGRESS",
+                "element": "span",
+                "context": "Chart label"
+            },
+            "extracted": {
+                "text": "{n}% EXTRACTED",
+                "element": "span",
+                "context": "Completion percentage"
+            },
+            "correct": {
+                "text": "CORRECT",
+                "element": "h4",
+                "context": "Score breakdown label"
+            },
+            "skipped": {
+                "text": "SKIPPED",
+                "element": "h4",
+                "context": "Score breakdown label"
+            },
+            "share_label": {
+                "text": "SHARE RESULTS",
+                "element": "button",
+                "context": "Social action"
+            },
+            "play_again": {
+                "text": "PLAY AGAIN",
+                "element": "button",
+                "context": "Restart action"
+            },
+            "archival_record": {
+                "text": "Archival Record — March 2026",
+                "element": "span",
+                "context": "Footer tagline"
+            }
+        },
+        "howToPlay": {
+            "title": {
+                "text": "MISSION PROTOCOL",
+                "element": "h2",
+                "context": "Modal title"
+            },
+            "scoring_title": {
+                "text": "Scoring Protocol",
+                "element": "h3",
+                "context": "Modal section"
+            },
+            "understood": {
+                "text": "Understood, Agent",
+                "element": "button",
+                "context": "Close modal"
+            }
+        }
+    }
+}

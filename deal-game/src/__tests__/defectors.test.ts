@@ -142,6 +142,21 @@ describe('defectors – source URLs', () => {
   })
 })
 
+describe('defectors – photo_url', () => {
+  it('photo_url, when present, starts with /politicians/ and ends with .jpg', () => {
+    defectors.forEach(d => {
+      if (d.photo_url !== undefined) {
+        expect(d.photo_url).toMatch(/^\/politicians\/.+\.(jpg|jpeg|webp|avif)$/)
+      }
+    })
+  })
+
+  it('at least 20% of defectors have a photo_url', () => {
+    const withPhoto = defectors.filter(d => d.photo_url).length
+    expect(withPhoto / defectors.length).toBeGreaterThanOrEqual(0.2)
+  })
+})
+
 describe('defectors – difficulty distribution', () => {
   it('dataset contains entries at every difficulty level', () => {
     const difficulties = new Set(defectors.map(d => d.difficulty))

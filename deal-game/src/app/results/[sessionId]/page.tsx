@@ -1,32 +1,31 @@
 "use client";
 
 import { useGameStore } from "@/store/gameStore";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { RotateCcw, Share2, Handshake, Shield, CheckCircle2 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { useTranslation } from "@/hooks/useTranslation";
+import { LangToggle } from "@/components/ui/LangToggle";
+import ShareCard from "@/components/game/ShareCard";
 
-// ── Verdict table ─────────────────────────────────────────────────────────────
 interface Verdict { minScore: number; label: string; sub: string; quote: string; }
-const VERDICTS: Verdict[] = [
-    { minScore: 90, label: "VETERAN ANALYST", sub: "ELITE GRADE",  quote: "Elite grade. You have mapped the deep state." },
-    { minScore: 60, label: "FIELD AGENT",     sub: "OPERATIVE",    quote: "Solid recon. Your political intel is sharp." },
-    { minScore: 30, label: "TRAINEE",         sub: "IN TRAINING",  quote: "Good start, agent. There is more to uncover." },
-    { minScore: 0,  label: "NEEDS CHAI",      sub: "RECRUIT",      quote: "Watch more news or join the next deal yourself." },
-];
 
 export default function ResultsScreen() {
     const router = useRouter();
     const { score, completedIds, skippedIds, reset } = useGameStore();
-    const [stampActive,  setStampActive]  = useState(false);
-    const [shareLabel,   setShareLabel]   = useState("SHARE RESULTS");
+    const [stampActive, setStampActive] = useState(false);
+    const { t, lang } = useTranslation();
+    const [shareLabel, setShareLabel] = useState(t.results.share_label);
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [isSharing, setIsSharing] = useState(false);
 
-    const total        = 10;
-    const correct      = completedIds.length;
-    const skipped      = skippedIds.length;
+    const total = 10;
+    const correct = completedIds.length;
+    const skipped = skippedIds.length;
     const pctExtracted = Math.round((correct / total) * 100);
-    const verdict: Verdict = VERDICTS.find(v => score >= v.minScore) ?? VERDICTS[3];
+    const verdict = t.results.verdicts.find(v => score >= v.minScore) ?? t.results.verdicts[3];
 
     useEffect(() => {
         if (correct > 0) {
@@ -41,17 +40,69 @@ export default function ResultsScreen() {
     const handleRestart = useCallback(() => { reset(); router.push("/"); }, [reset, router]);
 
     const handleShare = useCallback(async () => {
-        const text = `I exposed ${correct}/${total} Congress-BJP defectors! Score: ${score}. Can you beat me?\n#TheDeal #CongressBJPDeal`;
+        if (!cardRef.current || isSharing) return;
+        setIsSharing(true);
+        setShareLabel(`${t.common.classified}...`);
+
         try {
-            if (navigator.share) {
-                await navigator.share({ title: "The Congress BJP Deal", text });
+            // Defer loading of dom-to-image to prevent SSR errors
+            const domtoimage = (await import("dom-to-image-more")).default;
+
+            // Wait for paper animations
+            await new Promise(r => setTimeout(r, 600));
+
+            // Capture with dom-to-image-more (better handling of modern CSS)
+            const blob = await domtoimage.toBlob(cardRef.current, {
+                width: 540,
+                height: 960,
+                quality: 0.95,
+                bgcolor: "#000000",
+                style: {
+                    transform: 'none',
+                    left: '0',
+                    top: '0',
+                    position: 'static'
+                }
+            });
+
+            if (!blob) throw new Error("Capture failed");
+
+            // Auto-download logic
+            const downloadUrl = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `the-deal-report-${new Date().getTime()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(downloadUrl), 100);
+
+            const file = new File([blob], 'deal-mission-report.png', { type: 'image/png' });
+            const shareData: ShareData = {
+                title: t.results.the_deal_title,
+                text: t.results.share_text(correct, total, score),
+                files: [file]
+            };
+
+            if (navigator.canShare && navigator.canShare(shareData)) {
+                await navigator.share(shareData);
             } else {
+                // Fallback: Copy link/text
+                const text = t.results.share_text(correct, total, score);
                 await navigator.clipboard.writeText(text);
-                setShareLabel("COPIED!");
-                setTimeout(() => setShareLabel("SHARE RESULTS"), 2200);
+                setShareLabel(t.results.copied);
+                setTimeout(() => setShareLabel(t.results.share_label), 2200);
             }
-        } catch { /* user dismissed */ }
-    }, [correct, score]);
+        } catch (err) {
+            console.error("Share failed", err);
+            // Even if share fails, we can fallback to clipboard
+            const text = t.results.share_text(correct, total, score);
+            await navigator.clipboard.writeText(text).catch(() => { });
+        } finally {
+            setIsSharing(false);
+            setShareLabel(t.results.share_label);
+        }
+    }, [correct, score, t, isSharing]);
 
     return (
         <div className="min-h-dvh bg-[#0e0a06] flex flex-col overflow-x-hidden relative">
@@ -69,7 +120,7 @@ export default function ResultsScreen() {
                     <div className="flex-1 bg-near-black/10 mt-2" />
                 </div>
                 <div className="w-44 h-60 bg-aged-paper -rotate-6 flex flex-col p-3 gap-1">
-                    {[1,2,3].map(i => <div key={i} className="h-2 w-full bg-near-black/25" />)}
+                    {[1, 2, 3].map(i => <div key={i} className="h-2 w-full bg-near-black/25" />)}
                     <div className="flex-1 bg-near-black/8 mt-2" />
                 </div>
                 <div className="w-72 h-36 bg-aged-paper rotate-12" />
@@ -79,11 +130,12 @@ export default function ResultsScreen() {
             <header className="fixed top-0 w-full z-50 bg-congress-blue flex justify-between items-center px-5 py-3 shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
                 <div className="flex items-center gap-3">
                     <Shield size={18} className="text-saffron" fill="#FF6B00" />
-                    <h1 className="font-yatra text-aged-paper text-xl leading-none tracking-wide">MISSION BRIEFING</h1>
+                    <h1 className="font-yatra text-aged-paper text-xl leading-none tracking-wide">{t.results.mission_briefing}</h1>
                 </div>
                 <div className="flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-saffron" />
-                    <span className="font-barlow font-black text-saffron text-sm tracking-widest uppercase">Session Complete</span>
+                    <span className="font-barlow font-black text-saffron text-sm tracking-widest uppercase">{t.results.session_complete}</span>
+                    <LangToggle className="ml-2" />
                 </div>
             </header>
 
@@ -109,7 +161,7 @@ export default function ResultsScreen() {
                     <div className="absolute top-0 bottom-0 left-1/2 w-px bg-[#131313]/5 pointer-events-none" />
                     {/* Hole punches */}
                     <div className="absolute left-2.5 inset-y-0 flex flex-col justify-around py-10 pointer-events-none">
-                        {[0,1,2].map(i => <div key={i} className="w-4 h-4 rounded-full bg-[#131313]/15 border border-[#131313]/10 shadow-inner" />)}
+                        {[0, 1, 2].map(i => <div key={i} className="w-4 h-4 rounded-full bg-[#131313]/15 border border-[#131313]/10 shadow-inner" />)}
                     </div>
                     {/* Paperclip */}
                     <div className="absolute top-4 left-7 z-20 pointer-events-none">
@@ -120,21 +172,21 @@ export default function ResultsScreen() {
                     {/* ── Card header ─── */}
                     <div className="flex justify-between items-start mb-6 pl-10">
                         <div className="border-2 border-danger-red text-danger-red px-2 py-0.5 text-[9px] font-barlow font-black tracking-widest">
-                            TOP SECRET
+                            {t.results.top_secret}
                         </div>
                         <h2 className="font-yatra text-3xl font-bold uppercase tracking-tight leading-none text-center text-[#131313]">
-                            MISSION REPORT
+                            {t.results.mission_report}
                         </h2>
                         <div className="border-2 border-danger-red text-danger-red px-2 py-0.5 text-[9px] font-barlow font-black tracking-widest">
-                            CLASSIFIED
+                            {t.common.classified}
                         </div>
                     </div>
 
                     {/* ── Analysis progress bar ─── */}
                     <div className="mb-8 space-y-1.5 pl-2">
                         <div className="flex justify-between font-barlow font-black text-[10px] tracking-widest text-[#131313]/50 uppercase">
-                            <span>ANALYSIS PROGRESS</span>
-                            <span>{pctExtracted}% EXTRACTED</span>
+                            <span>{t.results.analysis_progress}</span>
+                            <span>{t.results.extracted(pctExtracted)}</span>
                         </div>
                         <div className="h-6 w-full flex bg-[#131313]">
                             <motion.div
@@ -154,9 +206,9 @@ export default function ResultsScreen() {
                     <div className="relative grid grid-cols-1 gap-0 pl-2">
 
                         {[
-                            { label: "CORRECT",  value: `${correct}/${total}`, color: "text-[#131313]" },
-                            { label: "SKIPPED",  value: String(skipped),       color: "text-[#131313]/60" },
-                            { label: "SCORE",    value: String(score),          color: "text-saffron" },
+                            { label: t.results.correct, value: `${correct}/${total}`, color: "text-[#131313]" },
+                            { label: t.results.skipped, value: String(skipped), color: "text-[#131313]/60" },
+                            { label: t.common.score, value: String(score), color: "text-saffron" },
                         ].map(({ label, value, color }, i) => (
                             <motion.div
                                 key={label}
@@ -211,21 +263,36 @@ export default function ResultsScreen() {
                         initial={{ y: 16, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="mt-6 bg-white p-4 shadow-sm rotate-[0.8deg] flex flex-col items-center border border-[#131313]/10"
+                        className="mt-8 bg-white p-6 shadow-sm rotate-[0.8deg] flex flex-col items-center border border-[#131313]/10 relative overflow-hidden"
                     >
-                        <div className="flex items-center gap-2 mb-2">
+                        {/* Verdict Overlay Stamp - Stylized */}
+                        <AnimatePresence>
+                            {stampActive && (
+                                <motion.div
+                                    initial={{ scale: 3, opacity: 0, rotate: -30 }}
+                                    animate={{ scale: 1, opacity: 0.25, rotate: -25 }}
+                                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                                >
+                                    <div className="border-[8px] border-danger-red px-4 py-1">
+                                        <span className="font-yatra text-danger-red text-6xl uppercase leading-none">{verdict.sub}</span>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        <div className="flex items-center gap-2 mb-2 relative z-10">
                             <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 rounded-full bg-congress-blue" />
                                 <div className="w-3 h-3 rounded-full bg-saffron" />
                             </div>
-                            <span className="font-barlow font-black text-[10px] tracking-widest text-[#131313]/60 uppercase">THE CONGRESS BJP DEAL</span>
+                            <span className="font-barlow font-black text-[10px] tracking-widest text-[#131313]/60 uppercase">{t.results.the_deal_title}</span>
                         </div>
-                        <p className="font-special-elite text-sm text-center text-[#131313] mb-4 leading-relaxed">
-                            &ldquo;I exposed {correct}/{total} Congress-BJP deals!&rdquo;
+                        <p className="font-special-elite text-sm text-center text-[#131313] mb-4 leading-relaxed relative z-10">
+                            &ldquo;{t.results.social_exposed(correct, total)}&rdquo;
                         </p>
                         <button
                             onClick={handleShare}
-                            className="flex items-center gap-2 text-[#131313]/40 hover:text-[#131313] transition-colors font-barlow font-black text-[11px] tracking-widest uppercase"
+                            className="relative z-10 flex items-center gap-2 text-[#131313]/40 hover:text-[#131313] transition-colors font-barlow font-black text-[11px] tracking-widest uppercase"
                         >
                             <Share2 size={16} />
                             {shareLabel}
@@ -234,7 +301,7 @@ export default function ResultsScreen() {
 
                     {/* ── Archival footer ─── */}
                     <div className="mt-6 pt-4 border-t border-[#131313]/10 flex items-center gap-2 opacity-25 justify-center">
-                        <span className="font-special-elite text-[9px] uppercase tracking-widest">Archival Record — March 2026</span>
+                        <span className="font-special-elite text-[9px] uppercase tracking-widest">{t.results.archival_record}</span>
                     </div>
                 </motion.div>
 
@@ -263,7 +330,7 @@ export default function ResultsScreen() {
                     className="w-full bg-saffron text-[#131313] font-barlow font-black text-xl py-4 flex items-center justify-center gap-2 uppercase tracking-wider shadow-[0_5px_0_0_#9B3A00,inset_0_1px_0_0_rgba(255,200,120,0.35)] border border-[#FF8C2A] active:shadow-none active:translate-y-1 transition-all"
                 >
                     <RotateCcw size={20} />
-                    PLAY AGAIN
+                    {t.results.play_again}
                 </motion.button>
 
                 <motion.button
@@ -272,11 +339,27 @@ export default function ResultsScreen() {
                     transition={{ delay: 0.6 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={handleShare}
-                    className="w-full border border-aged-paper/30 text-aged-paper font-barlow font-black text-xl py-4 flex items-center justify-center gap-2 uppercase tracking-wider hover:bg-aged-paper/5 transition-colors"
+                    disabled={isSharing}
+                    className="w-full border border-aged-paper/30 text-aged-paper font-barlow font-black text-xl py-4 flex items-center justify-center gap-2 uppercase tracking-wider hover:bg-aged-paper/5 transition-colors disabled:opacity-50"
                 >
-                    <Share2 size={20} />
+                    {isSharing ? <Shield className="animate-spin" size={20} /> : <Share2 size={20} />}
                     {shareLabel}
                 </motion.button>
+            </div>
+
+            {/* ── Hidden Share Card for Capture ─────── */}
+            <div className="fixed top-[-9999px] left-[-9999px] pointer-events-none overflow-hidden">
+                <ShareCard
+                    ref={cardRef}
+                    score={score}
+                    correct={correct}
+                    total={total}
+                    hintsUsed={0} // We can compute this if stored, for now 0
+                    skipped={skipped}
+                    verdict={verdict}
+                    date={new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+                    lang={lang}
+                />
             </div>
 
         </div>

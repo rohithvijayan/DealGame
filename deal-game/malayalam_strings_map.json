@@ -1,0 +1,312 @@
+{
+    "project": "DealGame",
+    "version": "1.0.0",
+    "strings": {
+        "common": {
+            "score": {
+                "text": "സ്കോർ",
+                "element": "span",
+                "context": "Global score label"
+            },
+            "mistakes": {
+                "text": "തെറ്റുകൾ",
+                "element": "span",
+                "context": "Mistake counter label"
+            },
+            "position": {
+                "text": "മുൻ പദവി:",
+                "element": "span",
+                "context": "Defector detail label"
+            },
+            "state": {
+                "text": "സംസ്ഥാനം:",
+                "element": "span",
+                "context": "Defector detail label"
+            },
+            "year_of_deal": {
+                "text": "കച്ചവടം നടന്ന വർഷം:",
+                "element": "span",
+                "context": "Defector detail label"
+            },
+            "classified_eyes": {
+                "text": "അതീവ രഹസ്യം // ചോർത്താൻ പാടില്ലാത്തത്",
+                "element": "div",
+                "context": "Security clearance warning"
+            },
+            "confirm_deal": {
+                "text": "🔒 കച്ചവടം ഉറപ്പിക്കുക",
+                "element": "button",
+                "context": "Main action button"
+            },
+            "end_mission_early": {
+                "text": "അവസാനിപ്പിക്കുക",
+                "element": "button",
+                "context": "Exit button"
+            },
+            "end_mission_brackets": {
+                "text": "[അവസാനിപ്പിക്കുക ]",
+                "element": "button",
+                "context": "Exit button variant"
+            },
+            "classified": {
+                "text": "അതീവ രഹസ്യം",
+                "element": "div",
+                "context": "Security badge"
+            }
+        },
+        "splash": {
+            "breaking": {
+                "text": "മറനീക്കി പുറത്ത്",
+                "element": "span",
+                "context": "Ticker prefix"
+            },
+            "exposed": {
+                "text": "ചുരുളഴിയുന്നു",
+                "element": "h2",
+                "context": "Header decoration"
+            },
+            "title_line1": {
+                "text": "കോൺഗ്രസ്സ് -",
+                "element": "h1",
+                "context": "Main Title Part 1"
+            },
+            "title_line2": {
+                "text": "ബി.ജെ.പി ഡീൽ",
+                "element": "h1",
+                "context": "Main Title Part 2"
+            },
+            "description_line1": {
+                "text": "60-ലധികം കോൺഗ്രസ്സ് നേതാക്കൾ സംഘപരിവാർ പാളയത്തിൽ എത്തിക്കഴിഞ്ഞു.",
+                "element": "p",
+                "context": "Intro text"
+            },
+            "description_line2": {
+                "text": "ഈ രഹസ്യരേഖകളിൽ നിന്ന് കൂറുമാറിയവരെ നിങ്ങൾക്ക് തിരിച്ചറിയാൻ സാധിക്കുമോ?",
+                "element": "p",
+                "context": "Intro text"
+            },
+            "begin_mission": {
+                "text": "അന്വേഷണം തുടങ്ങുക",
+                "element": "button",
+                "context": "Start game"
+            },
+            "how_to_play": {
+                "text": "നിർദ്ദേശങ്ങൾ",
+                "element": "button",
+                "context": "Help trigger"
+            },
+            "tagline": {
+                "text": "പകൽ കോൺഗ്രസ്... രാത്രി ആർ.എസ്.എസ്.",
+                "element": "p",
+                "context": "Slogan"
+            }
+        },
+        "game": {
+            "classified_information": {
+                "text": "രഹസ്യ വിവരങ്ങൾ",
+                "element": "span",
+                "context": "In-game header"
+            },
+            "file_ref": {
+                "text": "ഫയൽ നമ്പർ:",
+                "element": "span",
+                "context": "Dossier reference"
+            },
+            "field_agent_note": {
+                "text": "രഹസ്യാന്വേഷണ റിപ്പോർട്ട്:",
+                "element": "span",
+                "context": "Hint prefix"
+            },
+            "hint": {
+                "text": "സൂചന",
+                "element": "button",
+                "context": "Hint trigger"
+            },
+            "skip": {
+                "text": "ഒഴിവാക്കുക",
+                "element": "button",
+                "context": "Skip round"
+            },
+            "placeholder": {
+                "text": "കൂറുമാറിയ നേതാവിന്റെ പേര്...",
+                "element": "input",
+                "context": "Search placeholder"
+            },
+            "id_button": {
+                "text": "കണ്ടെത്തുക",
+                "element": "button",
+                "context": "Identify button"
+            }
+        },
+        "dealConfirmed": {
+            "deal_discovered": {
+                "text": "കച്ചവടം കയ്യോടെ പിടികൂടി",
+                "element": "h1",
+                "context": "Success header"
+            },
+            "points": {
+                "text": "+{n} പോയിന്റുകൾ",
+                "element": "span",
+                "context": "Points awarded badge"
+            },
+            "correct_answer": {
+                "text": "കൃത്യമായ കണ്ടെത്തൽ",
+                "element": "h2",
+                "context": "Success title"
+            },
+            "asset_flipped": {
+                "text": "കോൺഗ്രസ് നേതാവിനെ ബി.ജെ.പി വിലക്കെടുത്തു. കൂറുമാറ്റം രഹസ്യാന്വേഷണ വിഭാഗം സ്ഥിരീകരിച്ചു. ഡീൽ ഉറപ്പിച്ചു.",
+                "element": "div",
+                "context": "Narrative text"
+            },
+            "identity_confirmed_label": {
+                "text": "ആളെ തിരിച്ചറിഞ്ഞു:",
+                "element": "div",
+                "context": "Result label"
+            },
+            "deal_confirmed": {
+                "text": "കച്ചവടം ഉറപ്പിച്ചു",
+                "element": "div",
+                "context": "Rubber stamp text"
+            },
+            "proceed": {
+                "text": "അടുത്ത രേഖയിലേക്ക് →",
+                "element": "button",
+                "context": "Next round button"
+            }
+        },
+        "wrongLead": {
+            "title": {
+                "text": "റിപ്പോർട്ട്: വിവരം തെറ്റാണ്",
+                "element": "h1",
+                "context": "Error header"
+            },
+            "incorrect": {
+                "text": "തെറ്റ്",
+                "element": "span",
+                "context": "Error stamp"
+            },
+            "your_guess": {
+                "text": "നിങ്ങളുടെ ഉത്തരം:",
+                "element": "span",
+                "context": "Input record"
+            },
+            "intel_flawed_msg": {
+                "text": "കണ്ടെത്തൽ തെറ്റാണ്. രേഖകൾ ഒന്നുകൂടി പരിശോധിക്കുക.",
+                "element": "p",
+                "context": "Error narrative"
+            },
+            "try_again": {
+                "text": "⚠️ വീണ്ടും ശ്രമിക്കുക",
+                "element": "button",
+                "context": "Retry action"
+            },
+            "skip_dossier": {
+                "text": "ഈ ഫയൽ ഒഴിവാക്കുക →",
+                "element": "button",
+                "context": "Bypass action"
+            }
+        },
+        "caseUnsolved": {
+            "title": {
+                "text": "രഹസ്യരേഖ: വെളിപ്പെടുത്തി",
+                "element": "h1",
+                "context": "Failure header"
+            },
+            "case_closed": {
+                "text": "അന്വേഷണം പൂർത്തിയായി",
+                "element": "span",
+                "context": "Failure stamp"
+            },
+            "identity_was": {
+                "text": "യഥാർത്ഥ വ്യക്തി:",
+                "element": "div",
+                "context": "Reveal label"
+            },
+            "asset_unmasked": {
+                "text": "കൂറുമാറിയ നേതാവിനെ തിരിച്ചറിഞ്ഞു. ബിജെപി ഇയാളെ വിലക്കെടുത്തു കഴിഞ്ഞു.",
+                "element": "p",
+                "context": "Failure narrative"
+            },
+            "next_dossier": {
+                "text": "അടുത്ത ഫയൽ",
+                "element": "button",
+                "context": "Navigation button"
+            }
+        },
+        "results": {
+            "mission_briefing": {
+                "text": "അന്വേഷണ റിപ്പോർട്ട്",
+                "element": "h1",
+                "context": "Final screen header"
+            },
+            "session_complete": {
+                "text": "മിഷൻ പൂർത്തിയായി",
+                "element": "span",
+                "context": "Status subheader"
+            },
+            "top_secret": {
+                "text": "അതീവ രഹസ്യം",
+                "element": "div",
+                "context": "Header badge"
+            },
+            "mission_report": {
+                "text": "അന്തിമ റിപ്പോർട്ട്",
+                "element": "h2",
+                "context": "Card title"
+            },
+            "analysis_progress": {
+                "text": "അന്വേഷണ പുരോഗതി",
+                "element": "span",
+                "context": "Chart label"
+            },
+            "extracted": {
+                "text": "{n}% വിവരങ്ങൾ കണ്ടെത്തി",
+                "element": "span",
+                "context": "Completion percentage"
+            },
+            "correct": {
+                "text": "ശരി",
+                "element": "h4",
+                "context": "Score breakdown label"
+            },
+            "skipped": {
+                "text": "ഒഴിവാക്കിയത്",
+                "element": "h4",
+                "context": "Score breakdown label"
+            },
+            "share_label": {
+                "text": "റിപ്പോർട്ട് പങ്കുവെക്കുക",
+                "element": "button",
+                "context": "Social action"
+            },
+            "play_again": {
+                "text": "വീണ്ടും തുടങ്ങുക",
+                "element": "button",
+                "context": "Restart action"
+            },
+            "archival_record": {
+                "text": "രഹസ്യരേഖകൾ — മാർച്ച് 2026",
+                "element": "span",
+                "context": "Footer tagline"
+            }
+        },
+        "howToPlay": {
+            "title": {
+                "text": "അന്വേഷണ രീതി",
+                "element": "h2",
+                "context": "Modal title"
+            },
+            "scoring_title": {
+                "text": "പോയിന്റ് വിവരങ്ങൾ",
+                "element": "h3",
+                "context": "Modal section"
+            },
+            "understood": {
+                "text": "മനസ്സിലായി",
+                "element": "button",
+                "context": "Close modal"
+            }
+        }
+    }
+}

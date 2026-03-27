@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Shield } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
     wrongGuess: string;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMistakes, onTryAgain, onSkip, onEndGame }: Props) {
+    const { t, lang } = useTranslation();
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -47,21 +50,21 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
 
             {/* Top AppBar */}
             <header className="relative z-10 flex justify-between items-center w-full px-4 h-14 bg-[#131313]">
-                <div className="flex items-center gap-2">
-                    <Shield size={18} className="text-saffron" />
-                    <h1 className="font-barlow font-black tracking-widest uppercase text-saffron text-lg">
-                        DOSSIER: INTEL FLAWED
+                <div className="flex items-center gap-2 max-w-[55%]">
+                    <Shield size={18} className="text-saffron shrink-0" />
+                    <h1 className={`font-barlow font-black tracking-widest uppercase text-saffron ${lang === 'ml' ? 'text-xs leading-tight' : 'text-lg'}`}>
+                        {t.wrongLead.title}
                     </h1>
                 </div>
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-2 md:gap-4 items-center shrink-0">
                     <div className="flex flex-col items-end">
-                        <span className="font-barlow text-[10px] leading-none opacity-60 uppercase">Score</span>
-                        <span className="font-bebas text-xl leading-none text-saffron">{score.toLocaleString()}</span>
+                        <span className="font-barlow text-[9px] leading-none opacity-60 uppercase">{t.common.score}</span>
+                        <span className={`font-bebas text-saffron ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{score.toLocaleString()}</span>
                     </div>
                     <div className="h-8 w-px bg-mid-grey/30" />
                     <div className="flex flex-col items-end">
-                        <span className="font-barlow text-[10px] leading-none opacity-60 uppercase">Mistakes</span>
-                        <span className="font-bebas text-xl leading-none text-danger-red">{mistakes}/{maxMistakes}</span>
+                        <span className="font-barlow text-[9px] leading-none opacity-60 uppercase">{t.common.mistakes}</span>
+                        <span className={`font-bebas text-danger-red ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{mistakes}/{maxMistakes}</span>
                     </div>
                 </div>
                 <div className="absolute bottom-0 left-0 bg-congress-blue h-1 w-full" />
@@ -99,7 +102,7 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                     <div className="relative h-full p-8 pl-10 flex flex-col items-center text-[#131313] gap-5">
                         {/* CLASSIFIED label */}
                         <div className="self-start font-barlow text-xs tracking-widest opacity-40 uppercase">
-                            CLASSIFIED // EYES ONLY
+                            {t.common.classified_eyes}
                         </div>
 
                         {/* Photo zone — blurred silhouette */}
@@ -116,20 +119,24 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                             initial={{ scale: 4, opacity: 0, rotate: 25 }}
                             animate={{ scale: 1, opacity: 1, rotate: 15 }}
                             transition={{ delay: 0.2, type: "spring", stiffness: 280, damping: 14 }}
-                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-8 border-danger-red px-5 py-1 bg-white/10"
+                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-8 border-danger-red px-5 py-1 bg-white/20 shadow-xl"
                         >
-                            <span className="font-yatra text-danger-red text-6xl uppercase leading-none block">INCORRECT</span>
+                            <span className={`font-yatra text-danger-red uppercase leading-none block ${lang === 'ml' ? 'text-4xl' : 'text-6xl'}`}>
+                                {t.wrongLead.incorrect}
+                            </span>
                         </motion.div>
 
                         {/* Intel Fields — values are redacted/blank */}
                         <div className="w-full space-y-4 mt-2">
                             {[
-                                { label: "POSITION:" },
-                                { label: "STATE:" },
-                                { label: "YEAR OF DEAL:" },
+                                { label: t.common.position },
+                                { label: t.common.state },
+                                { label: t.common.year_of_deal },
                             ].map((f) => (
-                                <div key={f.label} className="flex items-end gap-3">
-                                    <span className="font-special-elite text-sm font-bold w-24 flex-shrink-0">{f.label}</span>
+                                <div key={f.label} className="flex items-start gap-3">
+                                    <span className={`font-special-elite text-sm font-bold flex-shrink-0 opacity-50 ${lang === 'ml' ? 'w-32' : 'w-24'}`}>
+                                        {f.label}
+                                    </span>
                                     <div className="flex-1 border-b-2 border-[#131313]/25 h-6 relative">
                                         {/* redacted bar */}
                                         <div className="absolute bottom-1 left-0 h-4 w-3/4 bg-[#131313] opacity-80 rounded-sm" />
@@ -140,14 +147,14 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
 
                         {/* Your wrong guess */}
                         <div className="w-full bg-danger-red/10 border-l-4 border-danger-red px-4 py-2 mt-2">
-                            <span className="font-special-elite text-[10px] text-danger-red uppercase block mb-0.5">Your guess:</span>
+                            <span className="font-special-elite text-[10px] text-danger-red uppercase block mb-0.5">{t.wrongLead.your_guess}</span>
                             <span className="font-special-elite text-sm text-[#131313] line-through opacity-70">{wrongGuess || "—"}</span>
                         </div>
 
                         {/* Intel flawed message */}
                         <div className="text-center mt-2">
                             <p className="font-special-elite text-danger-red text-sm font-bold tracking-tight">
-                                INTEL FLAWED. CROSS-CHECK SOURCES.
+                                {t.wrongLead.intel_flawed_msg}
                             </p>
                         </div>
                     </div>
@@ -162,7 +169,7 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                         disabled
                         className="w-full py-3 bg-[#353535] text-white/20 font-barlow font-black text-xl tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed"
                     >
-                        🔒 CONFIRM DEAL
+                        {t.common.confirm_deal}
                     </button>
                     {/* Try Again */}
                     <motion.button
@@ -173,21 +180,21 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                         onClick={onTryAgain}
                         className="w-full py-4 bg-saffron text-[#131313] font-barlow font-black text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
                     >
-                        ⚠️ TRY AGAIN
+                        {t.wrongLead.try_again}
                     </motion.button>
                     {/* Skip instead */}
                     <button
                         onClick={onSkip}
                         className="w-full py-2 text-mid-grey font-barlow font-black text-sm tracking-widest uppercase opacity-60 hover:opacity-100 transition-opacity"
                     >
-                        Skip This Dossier →
+                        {t.wrongLead.skip_dossier}
                     </button>
                     {onEndGame && (
                         <button
                             onClick={onEndGame}
                             className="w-full py-2 text-danger-red/60 font-barlow font-black text-xs tracking-[0.2em] uppercase hover:text-danger-red transition-colors mt-2"
                         >
-                            [ END MISSION EARLY ]
+                            {t.common.end_mission_brackets}
                         </button>
                     )}
                 </div>
