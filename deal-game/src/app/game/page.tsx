@@ -19,8 +19,8 @@ export default function GameScreen() {
     const router = useRouter();
     const {
         currentRound, score, streak,
-        sessionDefectors, submitGuess, skipRound, markAsSkipped, nextRound, prevRound,
-        isGameComplete, completedIds, skippedIds,
+        sessionDefectors, submitGuess, revealRound, markAsSkipped, nextRound, prevRound,
+        isGameComplete, completedIds, skippedIds, revealedNames,
     } = useGameStore();
 
     const [guess, setGuess] = useState("");
@@ -35,9 +35,13 @@ export default function GameScreen() {
     const { t, lang } = useTranslation();
 
     const currentDefector = sessionDefectors[currentRound];
+    const revealedName = revealedNames?.[currentRound] ?? "";
 
     useEffect(() => {
-        if (isGameComplete) router.push(`/results/${Date.now()}`);
+        if (isGameComplete) {
+            const sid = Math.random().toString(36).substring(2, 15);
+            router.push(`/results/${sid}`);
+        }
     }, [isGameComplete, router]);
 
     useEffect(() => {
@@ -50,13 +54,13 @@ export default function GameScreen() {
         setTimeout(() => inputRef.current?.focus(), 400);
     }, [currentRound]);
 
-    const handleSubmit = useCallback((e?: React.FormEvent) => {
+    const handleSubmit = useCallback(async (e?: React.FormEvent) => {
         e?.preventDefault();
         if (answerState !== "playing" || !guess.trim()) return;
 
         // Scoring: 1st=10, 2nd=8, 3rd=6, 4th=4
         const points = Math.max(4, 10 - (mistakes * 2));
-        const result = submitGuess(guess, points);
+        const result = await submitGuess(guess, points);
 
         if (result.correct) {
             setLastPoints(result.points);
@@ -69,19 +73,23 @@ export default function GameScreen() {
 
             if (nextMistakes >= MAX_MISTAKES) {
                 // Out of chances after 3 hints / 4 tries
-                if (currentDefector) markAsSkipped(currentDefector.id);
+                if (currentDefector) {
+                    markAsSkipped(currentDefector.id);
+                    await revealRound(currentRound);
+                }
                 setAnswerState("skipped");
             } else {
                 setAnswerState("wrong");
             }
         }
-    }, [guess, answerState, submitGuess, mistakes, currentDefector, markAsSkipped]);
+    }, [guess, answerState, submitGuess, mistakes, currentDefector, markAsSkipped, revealRound, currentRound]);
 
-    const handleSkip = useCallback(() => {
+    const handleSkip = useCallback(async () => {
         if (!currentDefector) return;
         markAsSkipped(currentDefector.id);
+        await revealRound(currentRound);
         setAnswerState("skipped");
-    }, [markAsSkipped, currentDefector]);
+    }, [markAsSkipped, currentDefector, revealRound, currentRound]);
 
     const handleTryAgain = useCallback(() => {
         setAnswerState("playing");
@@ -107,7 +115,8 @@ export default function GameScreen() {
     }, [nextRound]);
 
     const handleEndGame = useCallback(() => {
-        router.push(`/results/${Date.now()}`);
+        const sid = Math.random().toString(36).substring(2, 15);
+        router.push(`/results/${sid}`);
     }, [router]);
 
     if (!currentDefector) return null;
@@ -257,7 +266,7 @@ export default function GameScreen() {
                                         {currentDefector.photo_url && !imageError ? (
                                             <Image
                                                 src={currentDefector.photo_url}
-                                                alt={currentDefector.name}
+                                                alt="Defector photo"
                                                 fill
                                                 className="object-cover object-top"
                                                 sizes="144px"
@@ -431,6 +440,7 @@ export default function GameScreen() {
                     <DealConfirmedOverlay
                         key="correct"
                         defector={currentDefector}
+                        revealedName={revealedName}
                         pointsGained={lastPoints}
                         totalScore={score}
                         round={currentRound + 1}
@@ -454,6 +464,7 @@ export default function GameScreen() {
                     <CaseUnsolvedOverlay
                         key="skipped"
                         defector={currentDefector}
+                        revealedName={revealedName}
                         score={score}
                         round={currentRound + 1}
                         onNext={handleNext}

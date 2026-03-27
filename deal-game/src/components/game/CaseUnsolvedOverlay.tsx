@@ -3,18 +3,19 @@
 import { motion } from "framer-motion";
 import { Shield, SkipForward } from "lucide-react";
 import Image from "next/image";
-import { Defector } from "@/data/defectors";
+import type { DefectorDisplay } from "@/types/game";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
-    defector: Defector;
+    defector: DefectorDisplay;
+    revealedName: string;
     score: number;
     round: number;
     onNext: () => void;
     onEndGame?: () => void;
 }
 
-export default function CaseUnsolvedOverlay({ defector, score, round, onNext, onEndGame }: Props) {
+export default function CaseUnsolvedOverlay({ defector, revealedName, score, round, onNext, onEndGame }: Props) {
     const { t, lang } = useTranslation();
 
     return (
@@ -111,7 +112,7 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                             {defector.photo_url ? (
                                 <Image
                                     src={defector.photo_url}
-                                    alt={defector.name}
+                                    alt={revealedName}
                                     fill
                                     className="object-cover object-top"
                                     sizes="160px"
@@ -147,7 +148,7 @@ export default function CaseUnsolvedOverlay({ defector, score, round, onNext, on
                             <div className="font-special-elite text-[9px] text-black/40 uppercase mb-1">
                                 {t.caseUnsolved.identity_was}
                             </div>
-                            <div className="font-playfair font-black text-xl text-[#131313]">{defector.name}</div>
+                            <div className="font-playfair font-black text-xl text-[#131313]">{revealedName}</div>
                             <div className="font-special-elite text-[10px] text-black/50 mt-0.5">
                                 {defector.position} · {defector.state} · {defector.year}
                             </div>

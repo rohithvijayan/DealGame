@@ -3,13 +3,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield } from "lucide-react";
 import Image from "next/image";
-import { Defector } from "@/data/defectors";
+import type { DefectorDisplay } from "@/types/game";
 import { useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
-    defector: Defector;
+    defector: DefectorDisplay;
+    revealedName: string;
     pointsGained: number;
     totalScore: number;
     round: number;
@@ -17,7 +18,7 @@ interface Props {
     onEndGame?: () => void;
 }
 
-export default function DealConfirmedOverlay({ defector, pointsGained, totalScore, round, onNext, onEndGame }: Props) {
+export default function DealConfirmedOverlay({ defector, revealedName, pointsGained, totalScore, round, onNext, onEndGame }: Props) {
     const { t, lang } = useTranslation();
     const launched = useRef(false);
 
@@ -164,7 +165,7 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                                     <div className="relative w-20 h-20 overflow-hidden">
                                         <Image
                                             src={defector.photo_url}
-                                            alt={defector.name}
+                                            alt={revealedName}
                                             fill
                                             className="object-cover object-top"
                                             sizes="80px"
@@ -177,7 +178,7 @@ export default function DealConfirmedOverlay({ defector, pointsGained, totalScor
                             )}
                             <div className="flex-1 min-w-0">
                                 <div className="font-special-elite text-[10px] text-black/40 uppercase mb-1">{t.dealConfirmed.identity_confirmed}</div>
-                                <div className="font-playfair font-black text-2xl text-[#131313] leading-tight">{defector.name}</div>
+                                <div className="font-playfair font-black text-2xl text-[#131313] leading-tight">{revealedName}</div>
                                 <div className="font-special-elite text-xs text-black/50 mt-1">
                                     {defector.position} · {defector.state} · {defector.year}
                                 </div>

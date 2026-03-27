@@ -23,8 +23,8 @@ export default function SplashScreen() {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleStart = () => {
-        startNewGame();
+    const handleStart = async () => {
+        await startNewGame();
         router.push("/game");
     };
 

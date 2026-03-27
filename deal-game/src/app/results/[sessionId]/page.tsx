@@ -12,14 +12,28 @@ import ShareCard from "@/components/game/ShareCard";
 
 interface Verdict { minScore: number; label: string; sub: string; quote: string; }
 
-export default function ResultsScreen() {
+interface PageProps {
+    params: Promise<{ sessionId: string }>;
+}
+
+export default function ResultsScreen({ params }: PageProps) {
     const router = useRouter();
-    const { score, completedIds, skippedIds, reset } = useGameStore();
+    const { score, completedIds, skippedIds, sessionDefectors, reset } = useGameStore();
     const [stampActive, setStampActive] = useState(false);
     const { t, lang } = useTranslation();
     const [shareLabel, setShareLabel] = useState(t.results.share_label);
     const cardRef = useRef<HTMLDivElement>(null);
     const [isSharing, setIsSharing] = useState(false);
+
+    // Validate that there is actual game data to display
+    useEffect(() => {
+        params.then(({ sessionId }) => {
+            const hasPlayed = sessionDefectors.length > 0 && (completedIds.length + skippedIds.length) > 0;
+            if (!sessionId || !hasPlayed) {
+                router.replace('/');
+            }
+        });
+    }, [params, sessionDefectors, completedIds, skippedIds, router]);
 
     const total = 10;
     const correct = completedIds.length;

@@ -16,7 +16,10 @@
       "Bash(npx next:*)",
       "Bash(curl -sL \"https://www.transparenttextures.com/patterns/dark-matter.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/dark-matter.png)",
       "Bash(curl -sL \"https://www.transparenttextures.com/patterns/natural-paper.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/natural-paper.png)",
-      "Bash(curl -sL \"https://www.transparenttextures.com/patterns/cardboard-flat.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/cardboard-flat.png)"
+      "Bash(curl -sL \"https://www.transparenttextures.com/patterns/cardboard-flat.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/cardboard-flat.png)",
+      "Bash(npm install:*)",
+      "Bash(openssl rand:*)",
+      "Bash(xargs cat:*)"
     ]
   }
 }
