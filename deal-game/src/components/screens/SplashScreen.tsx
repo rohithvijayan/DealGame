@@ -85,7 +85,7 @@ export default function SplashScreen() {
             </header>
 
             {/* ── MAIN CONTENT (flex, top-to-bottom) ──────────── */}
-            <main className="relative z-10 flex flex-col items-center flex-1 px-6 pt-24 pb-6">
+            <main className="relative z-10 flex flex-col items-center flex-1 px-6 pt-16 pb-6 md:pt-10 md:pb-10 justify-between">
 
                 {/* ─── TITLE BLOCK — sits above the graphic ─── */}
                 <motion.div
@@ -131,40 +131,8 @@ export default function SplashScreen() {
                 </motion.div>
 
                 {/* ─── GRAPHIC AREA — let bg image breathe ─── */}
-                {/* Spacer that gives the central graphic room */}
-                <div className="flex-1 flex items-center justify-center min-h-[140px] md:min-h-[200px]">
-                    {/* Central Intel Label — floats over the graphic area */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6, duration: 0.5 }}
-                        className="relative"
-                    >
-                        {/* Torn paper reveal label */}
-                        {/*
-                        <div
-                            className="font-special-elite italic text-center px-5 py-2 rounded-none"
-                            style={{
-                                background: "rgba(10, 10, 10, 0.65)",
-                                backdropFilter: "blur(4px)",
-                                border: "1px solid rgba(255,255,255,0.12)",
-                                color: "rgba(255, 255, 255, 0.92)",
-                                textShadow: "0 1px 4px rgba(12, 11, 11, 0.9)",
-                                fontSize: "clamp(1rem, 4vw, 1.25rem)",
-                                letterSpacing: "0.05em",
-                            }}
-                        >
-                            A Political{" "}
-                            <span
-                                className="font-barlow font-black not-italic"
-                                style={{ color: "#FF8C2A", textShadow: "0 0 12px rgba(255,107,0,0.7)" }}
-                            >
-                                Exposé
-                            </span>{" "}
-                            Mobile Game
-                        </div>
-                        */}
-                    </motion.div>
+                <div className="flex-1 flex items-center justify-center min-h-[100px] md:min-h-0">
+                    {/* Spacer that gives the central graphic room */}
                 </div>
 
                 {/* ─── BOTTOM SECTION — fine print + buttons ─── */}
@@ -172,7 +140,7 @@ export default function SplashScreen() {
                     initial={{ y: 24, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.55 }}
-                    className="w-full max-w-md flex flex-col gap-3"
+                    className="w-full max-w-md flex flex-col gap-2 md:gap-3"
                 >
                     {/* Thin classified divider — bridges gap between graphic and copy */}
                     <div className="flex items-center gap-3 mb-1">
