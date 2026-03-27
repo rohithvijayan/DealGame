@@ -388,7 +388,11 @@ export default function GameScreen() {
                     <div className="px-4 pt-3 pb-6 max-w-md mx-auto w-full">
                         <form onSubmit={handleSubmit} className="flex gap-2">
                             <div className="flex-1 relative">
+                                <label htmlFor="defector-input" className="sr-only">
+                                    Name the defector
+                                </label>
                                 <input
+                                    id="defector-input"
                                     ref={inputRef}
                                     type="text"
                                     value={guess}

@@ -409,18 +409,17 @@ describe('prevRound', () => {
     expect(useGameStore.getState().currentRound).toBe(0)
   })
 
-  it('removes the previous defector from completedIds', () => {
+  it('does not modify completedIds when going back', () => {
     useGameStore.setState({ currentRound: 2, completedIds: ['d-0', 'd-1'] })
     useGameStore.getState().prevRound()
-    expect(useGameStore.getState().completedIds).not.toContain('d-1')
-    expect(useGameStore.getState().completedIds).toContain('d-0')
+    // prevRound navigates back without touching completedIds
+    expect(useGameStore.getState().completedIds).toEqual(['d-0', 'd-1'])
   })
 
-  it('removes the previous defector from skippedIds', () => {
+  it('does not modify skippedIds when going back', () => {
     useGameStore.setState({ currentRound: 2, skippedIds: ['d-0', 'd-1'] })
     useGameStore.getState().prevRound()
-    expect(useGameStore.getState().skippedIds).not.toContain('d-1')
-    expect(useGameStore.getState().skippedIds).toContain('d-0')
+    expect(useGameStore.getState().skippedIds).toEqual(['d-0', 'd-1'])
   })
 
   it('clears isGameComplete when going back from a completed game', () => {

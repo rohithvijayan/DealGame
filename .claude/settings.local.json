@@ -6,7 +6,17 @@
       "Bash(npx tsx:*)",
       "Bash(npm run:*)",
       "Bash(ls:*)",
-      "Bash(find /home/rohithvijayan/Desktop/DealGame/deal-game/.next -name *client-reference-manifest*)"
+      "Bash(find /home/rohithvijayan/Desktop/DealGame/deal-game/.next -name *client-reference-manifest*)",
+      "Bash(identify public/lotusCongrss.png)",
+      "Bash(convert public/lotusCongrss.png -resize 192x192 -background \"#131313\" -gravity center -extent 192x192 public/icon-192.png)",
+      "Bash(convert public/lotusCongrss.png -resize 512x512 -background \"#131313\" -gravity center -extent 512x512 public/icon-512.png)",
+      "Bash(python3 -c \"from PIL import Image, ImageDraw, ImageFont; print\\(''PIL available''\\)\")",
+      "Bash(python3:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx next:*)",
+      "Bash(curl -sL \"https://www.transparenttextures.com/patterns/dark-matter.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/dark-matter.png)",
+      "Bash(curl -sL \"https://www.transparenttextures.com/patterns/natural-paper.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/natural-paper.png)",
+      "Bash(curl -sL \"https://www.transparenttextures.com/patterns/cardboard-flat.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/cardboard-flat.png)"
     ]
   }
 }

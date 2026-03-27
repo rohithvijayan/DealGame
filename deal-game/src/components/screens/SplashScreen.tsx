@@ -55,7 +55,7 @@ export default function SplashScreen() {
             />
 
             {/* Dark-matter texture */}
-            <div className="fixed inset-0 z-[3] bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-10 pointer-events-none" />
+            <div className="fixed inset-0 z-[3] bg-[url('/textures/dark-matter.png')] opacity-10 pointer-events-none" />
 
             {/* ── TOP TICKER BAR ──────────────────────────────── */}
             <header className="relative z-30 w-full overflow-hidden bg-[#0c0804]/90 border-b-2 border-saffron/60 py-[6px] shadow-[0_2px_12px_rgba(255,107,0,0.2)]">

@@ -54,6 +54,7 @@ export const useGameStore = create<GameState>()(
                 const currentDefector = sessionDefectors[currentRound];
 
                 if (!currentDefector) return { correct: false, points: 0 };
+                if (guess.length > 100) return { correct: false, points: 0 };
 
                 const isMatch = [
                     currentDefector.name.toLowerCase(),

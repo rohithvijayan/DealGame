@@ -109,7 +109,7 @@ export default function ResultsScreen() {
 
             {/* ── Grain + texture ─────────────────────── */}
             <div className="fixed inset-0 z-0 opacity-20 pointer-events-none
-                bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
+                bg-[url('/textures/dark-matter.png')]" />
             <div className="fixed inset-0 z-0 pointer-events-none grain-results-overlay" />
 
             {/* ── Newspaper collage fragments ─────────── */}

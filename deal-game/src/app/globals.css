@@ -110,12 +110,12 @@ body {
   background-color: #f5e6c8;
   background-image:
     radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 100%),
-    url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    url("/textures/natural-paper.png");
 }
 
 .bg-manila {
   background-color: #e6d5b8;
-  background-image: url("https://www.transparenttextures.com/patterns/cardboard-flat.png");
+  background-image: url("/textures/cardboard-flat.png");
 }
 
 .bg-notepad {
