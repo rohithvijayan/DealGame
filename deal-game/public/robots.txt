@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /results/
 
-Sitemap: https://thecongressbjpdeal.com/sitemap.xml
+Sitemap: https://dealers.cjp.info/sitemap.xml

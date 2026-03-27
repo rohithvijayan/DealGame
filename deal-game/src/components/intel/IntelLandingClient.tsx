@@ -7,7 +7,7 @@ import { BookOpen, Play, FileText } from "lucide-react";
 import ArticleCard from "@/components/intel/ArticleCard";
 import type { DefectorMeta } from "@/types/intel";
 
-const GAME_BASE = "https://thecongressbjpdeal.com";
+const GAME_BASE = "https://dealers.cjp.info";
 
 interface Props {
     defectors: DefectorMeta[];

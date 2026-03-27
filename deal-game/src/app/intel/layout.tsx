@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-const INTEL_BASE = 'https://intel.congress-bjp-deal.in';
-const GAME_BASE = 'https://thecongressbjpdeal.com';
+const INTEL_BASE = 'https://cjp.info';
+const GAME_BASE = 'https://dealers.cjp.info';
 
 export const metadata: Metadata = {
   metadataBase: new URL(INTEL_BASE),

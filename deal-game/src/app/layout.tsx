@@ -5,7 +5,7 @@ import LangWatcher from "@/components/common/LangWatcher";
 import Script from 'next/script';
 import { headers } from 'next/headers';
 
-const BASE_URL = "https://thecongressbjpdeal.com";
+const BASE_URL = "https://dealers.cjp.info";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
