@@ -7,7 +7,7 @@ interface Props {
   variant: 'mid' | 'bottom';
 }
 
-const GAME_BASE = 'https://thecongressbjpdeal.com';
+const GAME_BASE = 'https://dealers.cjp.info';
 
 export default function PlayGameCTA({ defectorName, variant }: Props) {
   const isMid = variant === 'mid';
