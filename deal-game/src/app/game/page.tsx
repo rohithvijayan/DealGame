@@ -92,9 +92,9 @@ export default function GameScreen() {
     }, [nextRound]);
 
     const handleEndGame = useCallback(() => {
-        if (window.confirm("End mission now? Your current score will be finalized.")) {
-            router.push(`/results/${Date.now()}`);
-        }
+        console.log("Ending game, navigating to results...");
+        const sessionStamp = Date.now();
+        router.push(`/results/${sessionStamp}`);
     }, [router]);
 
     if (!currentDefector) return null;
@@ -157,7 +157,7 @@ export default function GameScreen() {
                         )}
                         <button
                             onClick={handleEndGame}
-                            className="ml-2 flex flex-col items-center justify-center p-2 text-danger-red hover:bg-danger-red/10 transition-colors border border-danger-red/20 rounded"
+                            className="ml-2 flex flex-col items-center justify-center p-2 text-danger-red hover:bg-danger-red/10 transition-colors border border-danger-red/20 rounded cursor-pointer pointer-events-auto"
                         >
                             <LogOut size={16} />
                             <span className="font-barlow font-black text-[8px] uppercase tracking-widest leading-none mt-0.5 whitespace-nowrap">End Mission</span>

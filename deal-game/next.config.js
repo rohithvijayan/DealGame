@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Config options here
-    turbopack: {}
+    reactStrictMode: true,
 };
 
 module.exports = nextConfig;
