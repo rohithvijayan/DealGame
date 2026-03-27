@@ -230,60 +230,6 @@ export default function SplashScreen() {
                 isOpen={showHowToPlay}
                 onClose={() => setShowHowToPlay(false)}
             />
-
-            <style jsx global>{`
-        .splash-root {
-          background-color: #0e0a06;
-        }
-        .grain-overlay { opacity: 0.032; }
-        @keyframes ticker {
-          0%   { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-ticker {
-          animation: ticker 30s linear infinite;
-        }
-        .exposed-stamp {
-          display: inline-block;
-          border: 8px solid rgba(185, 28, 28, 0.88);
-          color: rgba(185, 28, 28, 0.88);
-          padding: 4px 24px 2px;
-          font-size: 2.6rem;
-          font-family: var(--font-special-elite);
-          font-weight: 900;
-          letter-spacing: -0.02em;
-          text-transform: uppercase;
-          text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-          box-shadow: inset 0 0 20px rgba(185,28,28,0.08);
-        }
-        .exposed-stamp::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: repeating-linear-gradient(
-            -55deg,
-            transparent,
-            transparent 3px,
-            rgba(185,28,28,0.04) 3px,
-            rgba(185,28,28,0.04) 4px
-          );
-          pointer-events: none;
-        }
-        #__next-build-watcher,
-        .blink-cursor {
-          display: inline-block;
-          margin-left: 2px;
-          animation: blink 1.1s step-end infinite;
-          color: rgba(255, 107, 0, 0.7);
-        }
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-        nextjs-portal {
-          display: none !important;
-        }
-      `}</style>
         </div>
     );
 }

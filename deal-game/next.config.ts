@@ -22,9 +22,7 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
-          // Targeted CSP: prevent clickjacking, plugin execution, and base-tag injection
-          // script-src/style-src left open because Next.js requires unsafe-inline for hydration
-          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://www.facebook.com; font-src 'self' data:; connect-src 'self' https://www.facebook.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self';" },
+          // CSP is set per-request with a nonce by src/proxy.ts to allow strict-dynamic.
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
           { key: "Cross-Origin-Resource-Policy", value: "same-origin" },

@@ -6,11 +6,11 @@ export function proxy(request: NextRequest) {
 
     const cspHeader = `
         default-src 'self';
-        script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''};
-        style-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-inline'" : ''};
-        img-src 'self' blob: data:;
-        font-src 'self';
-        connect-src 'self';
+        script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''} https://connect.facebook.net;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' blob: data: https://www.facebook.com;
+        font-src 'self' data:;
+        connect-src 'self' https://www.facebook.com;
         object-src 'none';
         base-uri 'self';
         form-action 'self';
