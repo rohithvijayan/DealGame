@@ -1,0 +1,482 @@
+[
+    {
+        "id": 1,
+        "name": "Chaudhary Birendra Singh",
+        "position": "MP (Rajya Sabha)",
+        "state": "Haryana",
+        "year": "2014",
+        "outcome": "Union Cabinet Minister under Modi Govt"
+    },
+    {
+        "id": 2,
+        "name": "Rao Inderjit Singh",
+        "position": "MP (Lok Sabha)",
+        "state": "Haryana",
+        "year": "2014",
+        "outcome": "Union Minister of State"
+    },
+    {
+        "id": 3,
+        "name": "Satpal Maharaj",
+        "position": "MP/Minister",
+        "state": "Uttarakhand",
+        "year": "2014",
+        "outcome": "Cabinet Minister in Uttarakhand BJP Govt"
+    },
+    {
+        "id": 4,
+        "name": "Himanta Biswa Sarma",
+        "position": "MLA/Minister in Assam",
+        "state": "Assam",
+        "year": "2015",
+        "outcome": "Chief Minister of Assam (since 2021)"
+    },
+    {
+        "id": 5,
+        "name": "Girdhar Gamang",
+        "position": "Former Chief Minister",
+        "state": "Odisha",
+        "year": "2015",
+        "outcome": "Later returned to Congress"
+    },
+    {
+        "id": 6,
+        "name": "Rita Bahuguna Joshi",
+        "position": "UPCC President/MLA",
+        "state": "Uttar Pradesh",
+        "year": "2016",
+        "outcome": "Won Assembly and Lok Sabha seats for BJP"
+    },
+    {
+        "id": 7,
+        "name": "Pema Khandu (+43 MLAs)",
+        "position": "Chief Minister",
+        "state": "Arunachal Pradesh",
+        "year": "2016",
+        "outcome": "Continued as CM under BJP"
+    },
+    {
+        "id": 8,
+        "name": "N. Biren Singh",
+        "position": "MLA",
+        "state": "Manipur",
+        "year": "2016",
+        "outcome": "BJP Chief Minister of Manipur (since 2017)"
+    },
+    {
+        "id": 9,
+        "name": "N.D. Tiwari",
+        "position": "Former Chief Minister",
+        "state": "Uttarakhand/UP",
+        "year": "2016",
+        "outcome": "Joined before 2017 elections; passed away 2018"
+    },
+    {
+        "id": 10,
+        "name": "S.M. Krishna",
+        "position": "Former CM / Union EAM",
+        "state": "Karnataka",
+        "year": "2017",
+        "outcome": "Largely ceremonial role in BJP"
+    },
+    {
+        "id": 11,
+        "name": "Vijay Bahuguna",
+        "position": "Former Chief Minister",
+        "state": "Uttarakhand",
+        "year": "2017",
+        "outcome": "Son Saurabh later won on BJP ticket"
+    },
+    {
+        "id": 12,
+        "name": "9 Congress MLAs",
+        "position": "MLAs (mass defection)",
+        "state": "Uttarakhand",
+        "year": "2014",
+        "outcome": "Opened door to BJP power in Uttarakhand"
+    },
+    {
+        "id": 13,
+        "name": "Tom Vadakkan",
+        "position": "Congress National Spokesperson",
+        "state": "Kerala",
+        "year": "2019",
+        "outcome": "BJP National Spokesperson"
+    },
+    {
+        "id": 14,
+        "name": "A.P. Abdullakutty",
+        "position": "Former MP",
+        "state": "Kerala",
+        "year": "2019",
+        "outcome": "BJP National VP; Hajj Committee Chairman"
+    },
+    {
+        "id": 15,
+        "name": "Bhubaneswar Kalita",
+        "position": "Rajya Sabha MP",
+        "state": "Assam",
+        "year": "2019",
+        "outcome": "Resigned from RS to join BJP"
+    },
+    {
+        "id": 16,
+        "name": "N. Kiran Kumar Reddy",
+        "position": "Former Chief Minister",
+        "state": "Andhra Pradesh",
+        "year": "2019",
+        "outcome": "Joined BJP before LS elections"
+    },
+    {
+        "id": 17,
+        "name": "Sanjay Singh",
+        "position": "Former Union Minister",
+        "state": "Uttar Pradesh",
+        "year": "2019",
+        "outcome": "Joined BJP ahead of elections"
+    },
+    {
+        "id": 18,
+        "name": "Radha Krishna Vikhe Patil",
+        "position": "Leader of Opposition",
+        "state": "Maharashtra",
+        "year": "2019",
+        "outcome": "Minister in Fadnavis BJP Govt"
+    },
+    {
+        "id": 19,
+        "name": "10 Congress MLAs",
+        "position": "MLAs (mass defection)",
+        "state": "Goa",
+        "year": "2019",
+        "outcome": "Gave BJP majority after hung assembly"
+    },
+    {
+        "id": 20,
+        "name": "16 Congress-JDS MLAs",
+        "position": "MLAs (coalition collapse)",
+        "state": "Karnataka",
+        "year": "2019",
+        "outcome": "Toppled Kumaraswamy Govt; BJP took power"
+    },
+    {
+        "id": 21,
+        "name": "Jyotiraditya Scindia",
+        "position": "MP/Former Union Minister",
+        "state": "Madhya Pradesh",
+        "year": "2020",
+        "outcome": "Union Minister (Civil Aviation, Communications)"
+    },
+    {
+        "id": 22,
+        "name": "22 Congress MLAs",
+        "position": "MLAs (Scindia faction)",
+        "state": "Madhya Pradesh",
+        "year": "2020",
+        "outcome": "Toppled Kamal Nath Govt; most won bypolls"
+    },
+    {
+        "id": 23,
+        "name": "Khushbu Sundar",
+        "position": "National Spokesperson",
+        "state": "Tamil Nadu",
+        "year": "2020",
+        "outcome": "BJP National Spokesperson"
+    },
+    {
+        "id": 24,
+        "name": "Jitin Prasada",
+        "position": "MP/Former Union MoS",
+        "state": "Uttar Pradesh",
+        "year": "2021",
+        "outcome": "Minister in UP Govt; won Pilibhit LS 2024"
+    },
+    {
+        "id": 25,
+        "name": "Lalitesh Pati Tripathi",
+        "position": "Youth leader / scion",
+        "state": "Uttar Pradesh",
+        "year": "2021",
+        "outcome": "Joined BJP from Congress"
+    },
+    {
+        "id": 26,
+        "name": "R.P.N. Singh",
+        "position": "MP/Former Union MoS",
+        "state": "Uttar Pradesh",
+        "year": "2022",
+        "outcome": "Joined ahead of UP Assembly elections"
+    },
+    {
+        "id": 27,
+        "name": "Hardik Patel",
+        "position": "Working President, Guj Congress",
+        "state": "Gujarat",
+        "year": "2022",
+        "outcome": "Joined BJP ahead of Gujarat elections"
+    },
+    {
+        "id": 28,
+        "name": "Kuldeep Bishnoi",
+        "position": "MLA",
+        "state": "Haryana",
+        "year": "2022",
+        "outcome": "Cross-voted for BJP RS candidate; formally joined"
+    },
+    {
+        "id": 29,
+        "name": "Sunil Jakhar",
+        "position": "Former State Congress Chief",
+        "state": "Punjab",
+        "year": "2022",
+        "outcome": "Became BJP Punjab State President"
+    },
+    {
+        "id": 30,
+        "name": "Capt. Amarinder Singh",
+        "position": "Former Chief Minister",
+        "state": "Punjab",
+        "year": "2022",
+        "outcome": "Merged Punjab Lok Congress with BJP"
+    },
+    {
+        "id": 31,
+        "name": "Digambar Kamat",
+        "position": "Former Chief Minister",
+        "state": "Goa",
+        "year": "2022",
+        "outcome": "Joined BJP with other Congress MLAs"
+    },
+    {
+        "id": 32,
+        "name": "8 Congress MLAs",
+        "position": "MLAs (mass defection)",
+        "state": "Goa",
+        "year": "2022",
+        "outcome": "Defected despite written loyalty pledge"
+    },
+    {
+        "id": 33,
+        "name": "Ashok Tanwar",
+        "position": "Former Haryana PCC Chief",
+        "state": "Haryana",
+        "year": "2023",
+        "outcome": "Contested 2024 LS polls for BJP (lost)"
+    },
+    {
+        "id": 34,
+        "name": "Anil Antony",
+        "position": "Leader (son of A.K. Antony)",
+        "state": "Kerala",
+        "year": "2023",
+        "outcome": "BJP National Spokesperson; lost LS 2024"
+    },
+    {
+        "id": 35,
+        "name": "Narayan Rane",
+        "position": "Former CM (via SS, then Congress)",
+        "state": "Maharashtra",
+        "year": "2019",
+        "outcome": "Union MSME Minister; won Ratnagiri LS 2024"
+    },
+    {
+        "id": 36,
+        "name": "Ashok Chavan",
+        "position": "Former Chief Minister (2-time)",
+        "state": "Maharashtra",
+        "year": "2024",
+        "outcome": "Nominated to Rajya Sabha by BJP"
+    },
+    {
+        "id": 37,
+        "name": "Padmaja Venugopal",
+        "position": "Leader (daughter of K. Karunakaran)",
+        "state": "Kerala",
+        "year": "2024",
+        "outcome": "Joined BJP ahead of elections"
+    },
+    {
+        "id": 38,
+        "name": "Ravneet Singh Bittu",
+        "position": "MP (Lok Sabha, 3-time)",
+        "state": "Punjab",
+        "year": "2024",
+        "outcome": "Fielded from Ludhiana; lost LS 2024"
+    },
+    {
+        "id": 39,
+        "name": "Preneet Kaur",
+        "position": "MP (wife of Amarinder Singh)",
+        "state": "Punjab",
+        "year": "2024",
+        "outcome": "Fielded from Patiala; lost LS 2024"
+    },
+    {
+        "id": 40,
+        "name": "Jagdambika Pal",
+        "position": "Former CM / MP",
+        "state": "Uttar Pradesh",
+        "year": "Pre-2014",
+        "outcome": "Headed Joint Parl. Committee on Waqf Bill"
+    },
+    {
+        "id": 41,
+        "name": "Alpesh Thakor",
+        "position": "MLA (Radhanpur)",
+        "state": "Gujarat",
+        "year": "2019",
+        "outcome": "Won Gandhinagar South on BJP ticket in 2022"
+    },
+    {
+        "id": 42,
+        "name": "Aditi Singh",
+        "position": "MLA (Rae Bareli)",
+        "state": "Uttar Pradesh",
+        "year": "2022",
+        "outcome": "Formally joined BJP after supporting it while in Congress"
+    },
+    {
+        "id": 43,
+        "name": "Krishna Tirath",
+        "position": "Former Union Minister (WCD)",
+        "state": "Delhi",
+        "year": "2015",
+        "outcome": "Joined BJP: limited role afterwards"
+    },
+    {
+        "id": 44,
+        "name": "Naveen Jindal",
+        "position": "Former MP (Kurukshetra)",
+        "state": "Haryana",
+        "year": "2024",
+        "outcome": "Won Kurukshetra LS 2024 on BJP ticket"
+    },
+    {
+        "id": 45,
+        "name": "Ravi Kishan",
+        "position": "Actor / Congress supporter",
+        "state": "Uttar Pradesh",
+        "year": "2017",
+        "outcome": "Won Gorakhpur LS seat for BJP (2019, 2024)"
+    },
+    {
+        "id": 46,
+        "name": "Yashpal Arya",
+        "position": "Former Speaker, Uttarakhand Assembly",
+        "state": "Uttarakhand",
+        "year": "2016",
+        "outcome": "Joined BJP; later returned to Congress in 2022"
+    },
+    {
+        "id": 47,
+        "name": "6 Congress MLAs",
+        "position": "MLAs (Sudhir Sharma, Rajinder Rana, et al.)",
+        "state": "Himachal Pradesh",
+        "year": "2024",
+        "outcome": "Cross-voted for BJP in RS polls; joined BJP"
+    },
+    {
+        "id": 48,
+        "name": "Pawan Kumar Kajal",
+        "position": "MLA / Congress Working Committee",
+        "state": "Himachal Pradesh",
+        "year": "2022",
+        "outcome": "Joined BJP ahead of HP Assembly elections"
+    },
+    {
+        "id": 49,
+        "name": "Harsh Mahajan",
+        "position": "State Congress Working President",
+        "state": "Himachal Pradesh",
+        "year": "2022",
+        "outcome": "Joined BJP; won RS seat in 2024"
+    },
+    {
+        "id": 50,
+        "name": "Suresh Pachouri",
+        "position": "Former Union MoS (Defence)",
+        "state": "Madhya Pradesh",
+        "year": "2024",
+        "outcome": "Left Congress after 52 years; joined BJP"
+    },
+    {
+        "id": 51,
+        "name": "Gajendra Singh Rajukhedi",
+        "position": "Former 3-time MP (Dhar)",
+        "state": "Madhya Pradesh",
+        "year": "2024",
+        "outcome": "Tribal leader; joined BJP with Pachouri"
+    },
+    {
+        "id": 52,
+        "name": "Pradeep Balmuchu",
+        "position": "Former Speaker / RS MP",
+        "state": "Jharkhand",
+        "year": "2019",
+        "outcome": "Joined BJP; limited role afterwards"
+    },
+    {
+        "id": 53,
+        "name": "Sanjay Patil",
+        "position": "MP (Lok Sabha)",
+        "state": "Maharashtra",
+        "year": "2019",
+        "outcome": "Joined BJP; cited ED pressure concerns"
+    },
+    {
+        "id": 54,
+        "name": "Om Prakash Pahadia",
+        "position": "Son of Jagannath Pahadia (former CM)",
+        "state": "Rajasthan",
+        "year": "2024",
+        "outcome": "Joined BJP ahead of LS elections"
+    },
+    {
+        "id": 55,
+        "name": "Jyoti Mirdha",
+        "position": "Former MP (Nagaur)",
+        "state": "Rajasthan",
+        "year": "2024",
+        "outcome": "Contested Nagaur for BJP in 2024 LS (lost)"
+    },
+    {
+        "id": 56,
+        "name": "Pradyut Bordoloi",
+        "position": "MP (Lok Sabha, 2-time)",
+        "state": "Assam",
+        "year": "2026",
+        "outcome": "Given BJP ticket for Dispur Assembly seat"
+    },
+    {
+        "id": 57,
+        "name": "Bhupen Kumar Borah",
+        "position": "Former Assam PCC President",
+        "state": "Assam",
+        "year": "2026",
+        "outcome": "Given BJP ticket for Bihpuria Assembly seat"
+    },
+    {
+        "id": 58,
+        "name": "3 Congress MLAs",
+        "position": "MLAs: Sofia Firdous, Dasarathi Gamango, Ramesh Jena",
+        "state": "Odisha",
+        "year": "2026",
+        "outcome": "Cross-voted for BJP-backed candidate; expelled"
+    },
+    {
+        "id": 59,
+        "name": "5 Congress MLAs",
+        "position": "MLAs (Identity under investigation)",
+        "state": "Haryana",
+        "year": "2026",
+        "outcome": "Cross-voted in RS polls; party warned strict action"
+    },
+    {
+        "id": 60,
+        "name": "3 Congress MLAs",
+        "position": "MLAs: Manohar Prasad Singh, et al.",
+        "state": "Bihar",
+        "year": "2026",
+        "outcome": "Incommunicado during RS voting; helped NDA sweep"
+    }
+]

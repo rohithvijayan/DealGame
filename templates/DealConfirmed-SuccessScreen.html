@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Barlow+Condensed:wght@400;700&amp;family=Newsreader:opsz,wght@6..72,200..800&amp;family=Public+Sans:wght@300..900&amp;family=Yatra+One&amp;family=Special+Elite&amp;family=Bebas+Neue&amp;family=Tiro+Devanagari+Hindi&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#690005",
+                        "primary": "#ffb693",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-bright": "#393939",
+                        "on-tertiary": "#690005",
+                        "secondary": "#bdc2ff",
+                        "on-surface": "#e5e2e1",
+                        "secondary-fixed": "#e0e0ff",
+                        "surface-dim": "#131313",
+                        "on-tertiary-fixed": "#410002",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb4ab",
+                        "secondary-container": "#343d96",
+                        "surface-tint": "#ffb693",
+                        "on-secondary-container": "#a8afff",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary-fixed-variant": "#343d96",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "background": "#131313",
+                        "outline": "#a98a7d",
+                        "surface": "#131313",
+                        "on-primary-container": "#572000",
+                        "on-surface-variant": "#e2bfb0",
+                        "tertiary-container": "#ff675b",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-tertiary-container": "#6a0005",
+                        "on-secondary": "#1b247f",
+                        "primary-container": "#ff6b00",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "surface-container-highest": "#353535",
+                        "on-primary": "#561f00",
+                        "outline-variant": "#5a4136",
+                        "surface-variant": "#353535",
+                        "surface-container-low": "#1b1b1b",
+                        "surface-container": "#20201f",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-secondary-fixed": "#000767",
+                        "inverse-on-surface": "#313030",
+                        "primary-fixed": "#ffdbcc",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-primary": "#a04100",
+                        "secondary-fixed-dim": "#bdc2ff",
+                        "on-primary-fixed": "#351000",
+                        "error": "#ffb4ab",
+                        "success-glow": "#2e7d32"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Newsreader"],
+                        "label": ["Public Sans"],
+                        "yatra": ["Yatra One"],
+                        "elite": ["Special Elite"],
+                        "bebas": ["Bebas Neue"],
+                        "hindi": ["Tiro Devanagari Hindi"],
+                        "barlow": ["Barlow Condensed"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .grainy-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .vignette-success {
+            background: radial-gradient(circle, transparent 20%, rgba(46, 125, 50, 0.4) 100%);
+        }
+
+        .paper-stack {
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.5), 8px 8px 0px 0px #1b1b1b;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#131313] dark:bg-[#131313] border-b-4 border-[#1A237E] flat no shadows">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[#FF6B00]">security</span>
+            <h1 class="font-['Space_Grotesk'] tracking-tighter uppercase font-bold text-[#FF6B00]">INTEL RECOVERED</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-2xl font-black text-[#FF6B00] italic">D.C.X</span>
+            <span class="material-symbols-outlined text-[#FF6B00]">payments</span>
+        </div>
+    </header>
+    <main class="relative h-screen w-full flex flex-col items-center justify-center p-4 pt-16 pb-20">
+        <!-- Central Background Element -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img alt="A chaotic stack of aged Manila folders and classified documents scattered across a dark wooden desk with low-key lighting"
+                class="w-full h-full object-cover opacity-40 mix-blend-luminosity"
+                data-alt="a stack of aged intelligence dossiers, manila folders, and loose paper evidence scattered on a dark desk with dramatic shadows"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC10u7Ro_JGtlX_UWMHr-qf5Nn15M0UGxNEs2qxaN0SNy7gBbwW5hJP1opc1JQ8GxhHeeNh_CxUvIX7RJQ63CGWCACOjdLcZVmJBeXaWS-_PdbfBYGBUoFQLHvlpf6WeQe9m7Lz4xvuIlukCU7hb-ybgPFm0en-U-bDvtxSsobhvEkkIrDt9DCN1I9c0PFImfObXiGQbI5ztPmdNGxlwbbfkPY76BRVImOW4-g0e7FuTloudsqj2wIkmxL9M9VXnk-uyDkS8jAniX0" />
+            <div class="absolute inset-0 vignette-success grainy-overlay"></div>
+        </div>
+        <!-- Score Counter UI -->
+        <div class="relative z-10 flex flex-col items-center mb-8">
+            <div class="bg-surface-container-lowest p-1 px-4 border-2 border-primary-container/30">
+                <span class="font-bebas text-primary-container text-2xl tracking-widest">+100 POINTS</span>
+            </div>
+            <div class="flex gap-1 mt-2">
+                <!-- Digital Flip-Clock Style -->
+                <div
+                    class="bg-surface-container-high px-3 py-1 font-bebas text-5xl text-on-surface border-b-4 border-black">
+                    2</div>
+                <div
+                    class="bg-surface-container-high px-3 py-1 font-bebas text-5xl text-on-surface border-b-4 border-black">
+                    1</div>
+                <div
+                    class="bg-surface-container-high px-3 py-1 font-bebas text-5xl text-on-surface border-b-4 border-black">
+                    0</div>
+                <div
+                    class="bg-surface-container-high px-3 py-1 font-bebas text-5xl text-on-surface border-b-4 border-black">
+                    0</div>
+            </div>
+        </div>
+        <!-- Main Dossier Card Content -->
+        <div class="relative z-10 w-full max-w-lg bg-[#F5E6C8] p-8 paper-stack transform -rotate-1">
+            <div class="grainy-overlay absolute inset-0"></div>
+            <div class="text-center space-y-2">
+                <h2 class="font-hindi text-[#131313] text-5xl font-bold">सही जवाब</h2>
+                <p class="font-barlow text-[#1A237E] text-xl font-bold tracking-widest uppercase">ROUND 5: ALLIANCE
+                    CONFIRMED</p>
+                <div class="my-6 border-y border-[#131313]/10 py-4 italic font-elite text-[#131313]/80">
+                    "The asset has flipped. The coordinates provided match the signal intercept. Alliance is formalised
+                    under protocol 9."
+                </div>
+                <!-- RUBBER STAMP -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transform -rotate-12 border-8 border-[#B71C1C] px-6 py-2 flex flex-col items-center justify-center opacity-90 scale-110">
+                    <div class="text-[#B71C1C] font-yatra text-4xl leading-none">DEAL CONFIRMED</div>
+                    <span class="material-symbols-outlined text-[#B71C1C] text-6xl"
+                        style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Coins -->
+        <div class="absolute inset-0 pointer-events-none z-20">
+            <!-- Coin 1 -->
+            <div class="absolute top-1/4 left-1/4 transform -rotate-12 blur-[1px]">
+                <div
+                    class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-700 to-yellow-400 border-2 border-yellow-200 flex items-center justify-center shadow-lg">
+                    <span class="font-bebas text-yellow-900 text-2xl">₹</span>
+                </div>
+            </div>
+            <!-- Coin 2 -->
+            <div class="absolute top-1/3 right-1/4 transform rotate-45 blur-[2px]">
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-700 to-yellow-400 border-2 border-yellow-200 flex items-center justify-center shadow-lg">
+                    <span class="font-bebas text-yellow-900 text-xl">₹</span>
+                </div>
+            </div>
+            <!-- Coin 3 -->
+            <div class="absolute bottom-1/4 left-1/3 transform rotate-12">
+                <div
+                    class="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-700 to-yellow-400 border-2 border-yellow-200 flex items-center justify-center shadow-lg">
+                    <span class="font-bebas text-yellow-900 text-3xl">₹</span>
+                </div>
+            </div>
+            <!-- Coin 4 -->
+            <div class="absolute top-2/3 right-1/3 transform -rotate-45 blur-[0.5px]">
+                <div
+                    class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-700 to-yellow-400 border-2 border-yellow-200 flex items-center justify-center shadow-lg">
+                    <span class="font-bebas text-yellow-900 text-2xl">₹</span>
+                </div>
+            </div>
+        </div>
+        <!-- Action Button -->
+        <button
+            class="relative z-30 mt-12 bg-primary-container text-on-primary-container font-barlow font-bold text-2xl px-12 py-4 uppercase tracking-tighter hover:scale-105 active:scale-95 transition-all shadow-xl">
+            Proceed to Extraction
+        </button>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+        class="fixed bottom-0 w-full z-50 flex justify-around items-center pb-safe bg-[#131313] dark:bg-[#131313] border-t-4 border-[#1A237E] shadow-[0_-8px_0_0_rgba(26,35,126,0.3)]">
+        <a class="flex flex-col items-center justify-center text-[#F5E6C8]/60 p-2 hover:bg-[#1A237E]/50" href="#">
+            <span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">DOSSIERS</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#F5E6C8]/60 p-2 hover:bg-[#1A237E]/50" href="#">
+            <span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">BLACK_MARKET</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-[#FF6B00] text-[#131313] p-2 scale-105 transition-transform translate-y-1"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="ads_click">ads_click</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">OPERATIONS</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#F5E6C8]/60 p-2 hover:bg-[#1A237E]/50" href="#">
+            <span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">ARCHIVE</span>
+        </a>
+    </nav>
+</body>
+
+</html>

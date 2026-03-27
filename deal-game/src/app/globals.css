@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --color-saffron: #FF6B00;
+  --color-bjp-dark: #E65100;
+  --color-congress-blue: #1A237E;
+  --color-near-black: #1a1309;
+  --color-aged-paper: #F5E6C8;
+  --color-danger-red: #B71C1C;
+  --color-turmeric: #FFD600;
+  --color-verified-green: #2E7D32;
+  --color-mid-grey: #9E9E9E;
+
+  --font-inter: var(--font-inter);
+  --font-special-elite: var(--font-special-elite);
+  --font-playfair: var(--font-playfair);
+  --font-barlow: var(--font-barlow);
+  --font-bebas: var(--font-bebas);
+  --font-yatra: var(--font-yatra);
+  --font-noto: var(--font-noto);
+}
+
+:root {
+  --background: #1a1309;
+  --foreground: #f5e6c8;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-noto), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Texture Overlays */
+.bg-paper {
+  background-color: #f5e6c8;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.02) 0%, transparent 100%),
+    url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+
+.bg-manila {
+  background-color: #e6d5b8;
+  background-image: url("https://www.transparenttextures.com/patterns/cardboard-flat.png");
+}
+
+.bg-notepad {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(#e5e5e5 1px, transparent 1px);
+  background-size: 100% 2rem;
+}
+
+.classified-stamp {
+  font-family: var(--font-special-elite);
+  border: 4px solid currentColor;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transform: rotate(-15deg);
+  display: inline-block;
+  opacity: 0.8;
+}
+
+/* Shared film-grain overlay — used on splash, game, and results */
+@keyframes grain-anim {
+  0%   { transform: translate(0, 0);      }
+  10%  { transform: translate(-5%, -10%); }
+  20%  { transform: translate(-15%, 5%);  }
+  30%  { transform: translate(7%, -25%);  }
+  40%  { transform: translate(-5%, 25%);  }
+  50%  { transform: translate(-15%, 10%); }
+  60%  { transform: translate(15%, 0%);   }
+  70%  { transform: translate(0%, 15%);   }
+  80%  { transform: translate(3%, 35%);   }
+  90%  { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0);      }
+}
+
+.grain-overlay,
+.grain-results-overlay {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grain-anim 0.2s steps(1) infinite;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.grain-overlay       { opacity: 0.038; }
+.grain-results-overlay { opacity: 0.03; z-index: 0; position: fixed; }

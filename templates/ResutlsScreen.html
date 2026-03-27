@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&amp;family=Special+Elite&amp;family=Yatra+One&amp;family=Space+Grotesk:wght@700&amp;family=Newsreader:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:wght@400;700&amp;family=Bebas+Neue&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-container": "#343d96",
+                        "on-primary": "#561f00",
+                        "background": "#131313",
+                        "surface-container-low": "#1b1b1b",
+                        "surface-bright": "#393939",
+                        "primary-container": "#ff6b00",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "surface-container": "#20201f",
+                        "secondary-fixed": "#e0e0ff",
+                        "on-primary-container": "#572000",
+                        "primary-fixed-dim": "#ffb693",
+                        "tertiary": "#ffb4ab",
+                        "on-tertiary-fixed": "#410002",
+                        "on-secondary": "#1b247f",
+                        "on-tertiary-container": "#6a0005",
+                        "surface-container-highest": "#353535",
+                        "surface-container-high": "#2a2a2a",
+                        "outline-variant": "#5a4136",
+                        "inverse-on-surface": "#313030",
+                        "surface-tint": "#ffb693",
+                        "on-secondary-container": "#a8afff",
+                        "on-error-container": "#ffdad6",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-secondary-fixed-variant": "#343d96",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#a04100",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary": "#690005",
+                        "surface-variant": "#353535",
+                        "surface": "#131313",
+                        "primary-fixed": "#ffdbcc",
+                        "outline": "#a98a7d",
+                        "secondary-fixed-dim": "#bdc2ff",
+                        "tertiary-container": "#ff675b",
+                        "primary": "#ffb693",
+                        "on-primary-fixed": "#351000",
+                        "on-surface-variant": "#e2bfb0",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary": "#bdc2ff",
+                        "on-secondary-fixed": "#000767",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#93000b"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Newsreader"],
+                        "label": ["Public Sans"],
+                        "typewriter": ["Special Elite"],
+                        "arcade": ["Barlow Condensed"],
+                        "stamp": ["Yatra One"],
+                        "numbers": ["Bebas Neue"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+
+        .coffee-stain {
+            background: radial-gradient(circle, rgba(101, 67, 33, 0.15) 0%, rgba(101, 67, 33, 0) 70%);
+            filter: blur(8px);
+        }
+
+        .redacted-bar {
+            background: repeating-linear-gradient(90deg, #131313, #131313 10px, transparent 10px, transparent 12px);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-background font-body min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Top App Bar -->
+    <header
+        class="bg-[#1A237E] dark:bg-[#1A237E] text-[#F5E6C8] font-['Barlow_Condensed'] font-bold uppercase tracking-tighter fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#F5E6C8]">menu</span>
+            <h1 class="text-2xl font-['Yatra_One'] text-[#F5E6C8]">MISSION BRIEFING</h1>
+        </div>
+        <span class="material-symbols-outlined text-[#FF6B00]">account_circle</span>
+    </header>
+    <main class="pt-24 pb-32 px-4 flex flex-col items-center justify-center min-h-screen relative overflow-hidden">
+        <!-- Background Elements: Newspaper Collage Look -->
+        <div
+            class="fixed inset-0 pointer-events-none opacity-20 flex flex-wrap gap-4 p-8 items-start justify-center overflow-hidden">
+            <div class="w-64 h-80 bg-surface-container-highest rotate-3 mix-blend-multiply flex flex-col p-4">
+                <div class="h-4 w-full bg-on-surface/20 mb-2"></div>
+                <div class="h-4 w-2/3 bg-on-surface/20 mb-4"></div>
+                <div class="flex-1 bg-on-surface/10"></div>
+            </div>
+            <div class="w-48 h-64 bg-surface-container-high -rotate-6 mix-blend-multiply flex flex-col p-4">
+                <div class="h-2 w-full bg-on-surface/20 mb-1"></div>
+                <div class="h-2 w-full bg-on-surface/20 mb-1"></div>
+                <div class="h-2 w-1/2 bg-on-surface/20 mb-4"></div>
+                <div class="flex-1 bg-on-surface/5"></div>
+            </div>
+            <div class="w-72 h-40 bg-surface-container rotate-12 mix-blend-multiply"></div>
+        </div>
+        <!-- Main Folder Container -->
+        <div class="relative w-full max-w-md bg-[#F5E6C8] text-[#131313] p-8 shadow-2xl relative z-10 overflow-hidden">
+            <div class="absolute inset-0 paper-texture pointer-events-none"></div>
+            <!-- Coffee Stains -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 coffee-stain"></div>
+            <div class="absolute bottom-20 -left-10 w-24 h-24 coffee-stain"></div>
+            <!-- Paperclip -->
+            <div class="absolute top-4 left-6 z-20">
+                <div class="w-8 h-12 border-4 border-slate-400/40 rounded-full rotate-12"></div>
+                <div class="absolute top-2 left-1 w-6 h-10 border-4 border-slate-500/30 rounded-full"></div>
+            </div>
+            <!-- Header Labels -->
+            <div class="flex justify-between items-start mb-8 pl-12">
+                <div
+                    class="border-2 border-[#B71C1C] text-[#B71C1C] px-2 py-0.5 text-[10px] font-arcade tracking-widest font-bold">
+                    TOP SECRET</div>
+                <h2 class="text-4xl font-['Yatra_One'] font-bold uppercase tracking-tight leading-none text-center">
+                    MISSION REPORT</h2>
+                <div
+                    class="border-2 border-[#B71C1C] text-[#B71C1C] px-2 py-0.5 text-[10px] font-arcade tracking-widest font-bold">
+                    CLASSIFIED</div>
+            </div>
+            <!-- Redacted Progress Bar -->
+            <div class="mb-10 space-y-2">
+                <div class="flex justify-between font-arcade text-xs tracking-tighter opacity-70">
+                    <span>ANALYSIS PROGRESS</span>
+                    <span>70% EXTRACTED</span>
+                </div>
+                <div class="h-6 w-full flex bg-[#131313]">
+                    <div class="h-full w-[70%] bg-[#B71C1C] relative overflow-hidden">
+                        <div class="absolute inset-0 redacted-bar opacity-30"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Stats Block -->
+            <div class="grid grid-cols-1 gap-6 relative">
+                <div class="flex items-center justify-between border-b border-[#131313]/10 pb-2">
+                    <span class="font-arcade text-lg tracking-widest text-[#131313]/60 uppercase">Correct:</span>
+                    <span class="font-numbers text-5xl leading-none text-[#131313]">7/10</span>
+                </div>
+                <div class="flex items-center justify-between border-b border-[#131313]/10 pb-2">
+                    <span class="font-arcade text-lg tracking-widest text-[#131313]/60 uppercase">Skipped:</span>
+                    <span class="font-numbers text-5xl leading-none text-[#131313]">2</span>
+                </div>
+                <div class="flex items-center justify-between border-b border-[#131313]/10 pb-2">
+                    <span class="font-arcade text-lg tracking-widest text-[#131313]/60 uppercase">Hints Used:</span>
+                    <span class="font-numbers text-5xl leading-none text-[#131313]">1</span>
+                </div>
+                <!-- Rubber Stamp -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-12deg] pointer-events-none opacity-90 scale-110">
+                    <div
+                        class="w-48 h-48 border-8 border-dashed border-[#FF6B00] rounded-full flex flex-col items-center justify-center p-4">
+                        <span class="material-symbols-outlined text-6xl text-[#FF6B00]"
+                            style="font-variation-settings: 'FILL' 1;">handshake</span>
+                        <div class="font-['Yatra_One'] text-[#FF6B00] text-xl leading-tight text-center mt-1">AGENT
+                            OF<br />CHANGE</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Social Card Insert -->
+            <div class="mt-16 bg-white p-4 shadow-sm rotate-1 flex flex-col items-center border border-gray-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[#1A237E] text-sm">handshake</span>
+                        <div class="flex gap-0.5 ml-1">
+                            <div class="w-3 h-3 rounded-full bg-[#1A237E]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#FF6B00]"></div>
+                        </div>
+                    </div>
+                    <span class="font-arcade text-[10px] tracking-tight">THE CONGRESS BJP DEAL</span>
+                </div>
+                <p class="font-typewriter text-sm text-center mb-4">"I exposed 7/10 Congress BJP deals!"</p>
+                <div class="flex gap-4">
+                    <span
+                        class="material-symbols-outlined text-gray-400 hover:text-[#131313] cursor-pointer text-xl">share</span>
+                    <span
+                        class="material-symbols-outlined text-gray-400 hover:text-[#25D366] cursor-pointer text-xl">chat</span>
+                    <span
+                        class="material-symbols-outlined text-gray-400 hover:text-[#0088cc] cursor-pointer text-xl">send</span>
+                </div>
+            </div>
+        </div>
+        <!-- Background Quote -->
+        <div class="max-w-md w-full mt-10 px-4">
+            <p class="font-typewriter text-[#F5E6C8]/60 text-center italic leading-relaxed">
+                "They crossed the floor like seasoned commuters. The public remains, as always, the last on the bus."
+            </p>
+        </div>
+        <!-- Action Buttons -->
+        <div class="fixed bottom-24 left-0 w-full px-6 flex flex-col gap-3 z-50">
+            <button
+                class="w-full bg-[#FF6B00] text-[#131313] font-arcade text-xl py-4 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                PLAY AGAIN
+            </button>
+            <button
+                class="w-full border-2 border-[#F5E6C8]/30 text-[#F5E6C8] font-arcade text-xl py-4 hover:bg-[#F5E6C8]/10 active:scale-[0.98] transition-transform">
+                SHARE RESULTS
+            </button>
+        </div>
+    </main>
+    <!-- Bottom Nav Bar -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 bg-[#131313] flex justify-around items-center px-4 pb-2 pt-2 border-t border-[#F5E6C8]/10">
+        <div class="flex flex-col items-center justify-center bg-[#FF6B00] text-[#131313] p-2 transition-all w-20">
+            <span class="material-symbols-outlined">folder_open</span>
+            <span class="font-['Barlow_Condensed'] font-bold text-[10px] tracking-widest">DOSSIER</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-[#F5E6C8]/50 p-2 w-20">
+            <span class="material-symbols-outlined">visibility_lock</span>
+            <span class="font-['Barlow_Condensed'] font-bold text-[10px] tracking-widest">INTEL</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-[#F5E6C8]/50 p-2 w-20">
+            <span class="material-symbols-outlined">inventory_2</span>
+            <span class="font-['Barlow_Condensed'] font-bold text-[10px] tracking-widest">ARCHIVE</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-[#F5E6C8]/50 p-2 w-20">
+            <span class="material-symbols-outlined">hub</span>
+            <span class="font-['Barlow_Condensed'] font-bold text-[10px] tracking-widest">NETWORK</span>
+        </div>
+    </nav>
+    <!-- Image Prompts & Accessibility -->
+    <img class="hidden"
+        data-alt="Dark gritty cinematic collage of vintage newspaper fragments and silhouetted neoclassical government architecture with high contrast shadows and grain."
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" />
+</body>
+
+</html>

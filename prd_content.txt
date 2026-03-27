@@ -1,0 +1,553 @@
+ 
+PRODUCT REQUIREMENTS DOCUMENT
+Version 1.0  |  Confidential
+ 
+The Congress BJP Deal
+A Political Expose Mobile Game
+ 
+"Congress Today. BJP Tomorrow."
+Platform
+Mobile Web (PWA) + iOS / Android
+Stack
+Next.js 14 (App Router) + TypeScript
+Version
+1.0 — MVP
+Date
+March 2026
+Status
+Draft — For Review
+Table of Contents
+  1. EXECUTIVE SUMMARY  
+1.1 Product Vision
+The Congress BJP Deal is a mobile-first political trivia game that exposes India's most significant party defections through an addictive, gamified experience. Players act as intelligence analysts tasked with identifying Congress leaders who crossed over to the BJP between 2014 and 2026.
+"Congress Today. BJP Tomorrow." — The tagline encapsulates the game's central thesis: that political allegiance in India is transactional, and that voters deserve to know who made the deal.
+1.2 Opportunity
+India's political defection phenomenon — colloquially called 'aaya ram gaya ram' — has accelerated dramatically since 2014. Yet public awareness of individual defectors remains fragmented across news archives. This game consolidates 60+ documented defections into an engaging, shareable mobile experience that is equal parts entertainment and civic education.
+1.3 Success Metrics (MVP)
+Metric
+MVP Target (30 days)
+6-Month Target
+Daily Active Users
+5,000
+50,000
+Sessions per DAU
+2.5
+4.0
+Session Duration
+4 min
+7 min
+Share Rate
+15%
+30%
+D7 Retention
+25%
+40%
+Defector DB Coverage
+60 entries
+120 entries
+  2. PRODUCT OVERVIEW  
+2.1 Core Game Loop
+Each game session consists of 10 rounds. In each round the player is shown a classified dossier containing contextual clues about a defector — their former Congress role, home state, year of crossing over, and an intel clue — but no name or photo. The player must identify the person by typing their name.
+Step
+Action
+Outcome
+1
+Dossier card animates onto screen
+Player reads clues
+2
+Player types suspect name
+Partial match accepted
+3a
+Correct guess submitted
++10 pts (−1 per hint used)
+3b
+Wrong guess submitted
+−3 pts, try again
+3c
+Hint requested
+−1 pt, clue revealed
+3d
+Skip pressed
+0 pts, answer revealed
+4
+Deal Done overlay fires
+Name + defection story
+5
+Next dossier loaded
+Round counter increments
+2.2 Game Modes
+2.2.1 Standard Mode (MVP)
+10-round session drawn from shuffled defector database
+No time limit — contemplative, reading-focused
+Score tracked, streak counter, sharable result card
+2.2.2 Speed Mode (Phase 2)
+30-second countdown per round
+Multiplier increases with each correct answer under time
+Leaderboard integration
+2.2.3 State Mode (Phase 2)
+Filter rounds by state — e.g. only Kerala defectors
+Useful for regional political relevance
+2.2.4 Daily Dossier (Phase 2)
+One new defector revealed each day, same for all users
+Wordle-style social sharing — 'I solved today's Deal in 2 tries'
+2.3 Scoring System
+Event
+Points
+Notes
+Correct answer (no hints)
++10
+Maximum score per round
+Correct answer (1 hint)
++9
+Deduct 1 per hint used
+Correct answer (2 hints)
++8
+Correct answer (3 hints)
++7
+Minimum for correct
+Wrong answer submitted
+−3
+Input clears, retry allowed
+Skip round
+0
+Answer revealed, no penalty
+Streak bonus (×3 in a row)
++5 bonus
+Saffron banner animation
+Perfect round (10/10 correct)
++20 bonus
+End-of-game only
+  3. DESIGN SYSTEM  
+3.1 Visual Identity
+The game's visual language is built around a single central metaphor: a leaked government intelligence file that has been turned into a game. Every screen must feel like classified material that the player shouldn't have access to — aged paper, rubber stamps, redacted text blocks, and manila folder textures.
+3.2 Color Palette
+Name
+Hex
+Usage
+Saffron
+#FF6B00
+Primary CTA, BJP pill, rewards, streaks
+BJP Dark
+#E65100
+Hover states, deep saffron accents
+Congress Blue
+#1A237E
+Congress pill, hints, H3 headings
+Near Black
+#1C1C1C
+App background, dossier header strips
+Aged Paper
+#F5E6C8
+Card surfaces, dossier body
+Danger Red
+#B71C1C
+Wrong answer feedback, CLASSIFIED stamp
+Turmeric
+#FFD600
+Streak fire, coin burst animations
+Verified Green
+#2E7D32
+Correct answer feedback, Deal Confirmed
+Mid Grey
+#9E9E9E
+Metadata, labels, secondary text
+3.3 Typography
+Role
+Font
+Notes
+Game Title / Masthead
+Yatra One
+Devanagari-influenced, political poster energy
+Section Headlines
+Playfair Display Black
+Authoritative newspaper feel
+UI Labels, HUD, Score
+Barlow Condensed Black
+Tight, arcade scoreboard style
+Intel Clues, Hints
+Special Elite
+Typewriter / leaked document authenticity
+Score Numbers
+Bebas Neue
+Large, arcade counter display
+Body / Paragraphs
+Noto Sans
+Accessible, multi-script support
+3.4 Screen Specifications
+3.4.1 Splash / Home Screen
+Full-bleed background: grainy desaturated Parliament + newspaper collage with saffron-to-black vignette
+Animated ticker: 'BREAKING: 60+ Congress Leaders Crossed Over ★ The Deal Nobody Talks About'
+Game title in Yatra One at 72px with CSS paper-tear pseudo-element below
+Rubber stamp animation: 'EXPOSED' slams diagonally across title on initial load (scale 0→1.1→1.0, 300ms)
+CTAs: 'BEGIN MISSION' (saffron filled, 56px height) + 'HOW TO PLAY' (outlined)
+Footer tagline: 'Congress Today. BJP Tomorrow.' in Special Elite with blinking cursor
+3.4.2 HUD / Persistent Top Bar
+Styled as a newspaper masthead strip — dark background, saffron bottom border
+Left: SCORE with coin icon — numbers tick up via counter animation, never jump
+Center: Round progress as 10 redacted file blocks (filled = solved, hollow = pending, dim = skipped)
+Right: STREAK counter with animated flame emoji on 3+ streak
+Milestone banner: drops from top at streak 3, 5, 7 — '3 DEALS EXPOSED 🔥'
+3.4.3 Dossier Card
+Card styled as manila folder — visible fold lines, subtle coffee-stain texture, hole-punch on left
+Top strip: RED 'CLASSIFIED' band with file number (e.g. FILE #21) and difficulty stars
+Photo zone: blurred silhouette in polaroid frame, -2° rotation, 'IDENTITY WITHHELD' red stamp
+On correct answer: silhouette transitions desaturated → full color with scanline wipe (400ms)
+Intel fields: typewritten monospace on dotted underlines — POSITION, STATE, YEAR OF DEAL
+Clue block: yellowed sticky-note texture, paperclip SVG at corner, Special Elite font
+Bottom banner: Congress blue pill → handshake → saffron BJP pill (WhatsApp-forward styling)
+Card entry animation: slide in with -3° initial rotation, spring settle, 380ms total
+3.4.4 Input / Guess Zone
+Styled as reporter's notepad — spiral binding graphic at top, lined paper texture
+Input: typewriter-style, 48px height, blinking cursor placeholder
+SUBMIT: large saffron button, ink-splat press animation, also triggered by Enter key
+HINT: stamped look, blue ink, shows used-hint dots as ink blots (3 max per round)
+SKIP →: muted, bottom right, smaller — intentionally de-emphasized
+3.4.5 Feedback States
+Correct: full-card green flash → rubber stamp 'DEAL CONFIRMED ✓' animates in → coin burst from stamp
+Wrong: card shakes 3-frame rapid left-right (150ms) → red 'INCORRECT' stamp → input clears
+Skip: card flies off-screen upward (300ms) → grey 'UNSOLVED — ' stamp fades in
+3.4.6 Deal Done Celebration
+Fullscreen overlay: deep dark background, saffron border
+Giant handshake icon pulses (scale 1.0→1.1→1.0, looping, 1.2s)
+'DEAL DONE 🤝' in Playfair Display at 48px saffron
+Defector name + defection summary line below
+WhatsApp-forward styled share card: 'Congress Today. BJP Tomorrow.' — designed to be screenshotted
+Confetti burst: saffron + tricolour particles from center, 2s duration
+3.4.7 Game Over / Results
+'MISSION REPORT' headline in massive display font
+Stats card styled as classified document: Correct / Hints Used / Skipped / Final Score
+Performance stamp based on score: VETERAN ANALYST / FIELD AGENT / TRAINEE / NEEDS CHAI
+Verdict quote in Special Elite, appropriate to score bracket
+'I exposed X/10 Congress BJP deals' shareable image card with game branding
+CTAs: 'PLAY AGAIN' + 'SHARE RESULTS'
+  4. TECHNICAL ARCHITECTURE  
+4.1 Technology Stack
+Layer
+Technology
+Rationale
+Framework
+Next.js 14 (App Router)
+SSR, RSC, file-based routing, Vercel deploy
+Language
+TypeScript 5.x
+Type safety across game state and DB schema
+Styling
+Tailwind CSS + CSS Modules
+Tailwind for utilities, Modules for complex textures
+Animation
+Framer Motion
+Spring physics, gesture support, layout animations
+State
+Zustand
+Lightweight, persistent game state without Redux overhead
+Database
+Supabase (Postgres)
+Defector DB, leaderboards, daily dossier
+ORM
+Drizzle ORM
+Type-safe SQL, fast migrations, Edge-compatible
+Auth
+NextAuth.js v5
+Optional — Google + anonymous sessions
+PWA
+next-pwa
+Offline support, Add to Home Screen prompt
+Analytics
+Posthog
+Event tracking, funnel analysis, feature flags
+Deployment
+Vercel
+Edge functions, ISR for daily dossier, CDN
+Image CDN
+Cloudinary
+Politician photo hosting, transformations
+Share Cards
+Satori + Sharp
+OG image generation on Edge for share cards
+4.2 Project Structure
+The following directory layout follows Next.js App Router conventions:
+ 
+congress-bjp-deal/
+├── app/
+│   ├── layout.tsx               # Root layout — fonts, PWA meta, analytics
+│   ├── page.tsx                 # Home / Splash screen
+│   ├── game/
+│   │   ├── page.tsx             # Game screen (10-round session)
+│   │   └── loading.tsx          # Skeleton loader
+│   ├── results/[sessionId]/
+│   │   └── page.tsx             # Game over + share card
+│   ├── leaderboard/
+│   │   └── page.tsx             # Global + State leaderboards (Phase 2)
+│   ├── how-to-play/
+│   │   └── page.tsx             # Rules overlay
+│   └── api/
+│       ├── session/route.ts     # POST: create session, GET: fetch session
+│       ├── guess/route.ts       # POST: validate guess server-side
+│       ├── defectors/route.ts   # GET: fetch round queue (shuffled)
+│       ├── daily/route.ts       # GET: today's dossier (ISR revalidate 86400s)
+│       └── og/route.ts          # GET: generate share OG image (Satori)
+├── components/
+│   ├── game/
+│   │   ├── DossierCard.tsx      # Main round card with animations
+│   │   ├── PhotoZone.tsx        # Silhouette → reveal transition
+│   │   ├── IntelFields.tsx      # Typewritten form fields
+│   │   ├── ClueBlock.tsx        # Sticky-note clue display
+│   │   ├── DealBanner.tsx       # Congress → BJP pill banner
+│   │   ├── GuessInput.tsx       # Notepad-styled input zone
+│   │   ├── HintDots.tsx         # Ink-blot hint tracker
+│   │   ├── FeedbackStamp.tsx    # Correct/Wrong/Skip stamp animations
+│   │   └── DealDoneOverlay.tsx  # Fullscreen celebration
+│   ├── hud/
+│   │   ├── MastheadBar.tsx      # Score + Round + Streak HUD
+│   │   ├── ProgressBlocks.tsx   # 10-block round tracker
+│   │   └── StreakBanner.tsx     # Drop-in milestone banner
+│   ├── ui/
+│   │   ├── TickerBar.tsx        # Animated news ticker
+│   │   ├── RubberStamp.tsx      # Reusable stamp animation component
+│   │   ├── PartyPill.tsx        # Congress/BJP colored pill badges
+│   │   ├── ConfettiBurst.tsx    # Saffron tricolour confetti
+│   │   └── Button.tsx           # Saffron / outlined / muted variants
+│   └── screens/
+│       ├── SplashScreen.tsx
+│       ├── ResultsScreen.tsx
+│       └── HowToPlay.tsx
+├── lib/
+│   ├── db/
+│   │   ├── schema.ts            # Drizzle schema: defectors, sessions, scores
+│   │   └── queries.ts           # Typed query functions
+│   ├── game/
+│   │   ├── scoring.ts           # Score calculation logic
+│   │   ├── matching.ts          # Fuzzy name match algorithm
+│   │   └── shuffle.ts           # Fisher-Yates seeded shuffle
+│   └── constants.ts             # Color tokens, timing constants
+├── store/
+│   └── gameStore.ts             # Zustand store: session, round, score, streak
+├── data/
+│   └── defectors.ts             # Static seed data (60+ entries)
+├── public/
+│   ├── manifest.json            # PWA manifest
+│   └── icons/                   # App icons for PWA
+└── styles/
+    ├── globals.css              # CSS variables, font imports
+    └── textures.module.css      # Paper, manila, notepad textures
+4.3 Data Schema
+4.3.1 Defectors Table
+id: uuid PRIMARY KEY
+name: text NOT NULL — canonical full name
+aliases: text[] — accepted partial matches (surname, common name, nicknames)
+position: text — last Congress role held
+state: text — home state
+year_of_defection: integer
+outcome: text — what they became in BJP
+clue: text — main intel paragraph (shown every round)
+hints: text[3] — progressive hints, ordered easiest last
+difficulty: smallint — 1 (easy) to 5 (hard)
+photo_url: text — Cloudinary URL (Phase 2)
+source_url: text — journalistic source for the defection
+active: boolean DEFAULT true — allows toggling entries
+4.3.2 Sessions Table
+id: uuid PRIMARY KEY
+user_id: uuid REFERENCES users (nullable for anonymous)
+created_at: timestamptz
+completed_at: timestamptz
+score: integer
+rounds_correct: smallint
+rounds_skipped: smallint
+defector_ids: uuid[] — ordered list of defectors in this session
+mode: text — 'standard' | 'speed' | 'state' | 'daily'
+4.4 API Endpoints
+Method
+Route
+Description
+Response
+POST
+/api/session
+Create new game session
+{ sessionId, defectors: DefectorClue[] }
+POST
+/api/guess
+Validate answer server-side
+{ correct: bool, points: int, defector?: DefectorFull }
+GET
+/api/daily
+Today's daily dossier (ISR)
+{ defector: DefectorClue, date: string }
+GET
+/api/og
+Edge OG image for share cards
+image/png — Satori rendered share card
+4.5 Name Matching Algorithm
+Guesses are validated server-side via /api/guess to prevent client-side answer exposure. The matching algorithm uses the following priority chain:
+Exact full-name match (case-insensitive, trimmed)
+Alias match — check all entries in the aliases[] array
+Substring match — if guess length ≥ 4 and is fully contained in canonical name
+Token match — if any significant name token (>3 chars) matches a token in the guess
+Levenshtein distance ≤ 2 for inputs ≥ 6 characters (handles typos)
+Security note: The canonical name, aliases, and hints array are NEVER sent to the client before a correct guess. Only the clue, position, state, and year fields are exposed. Validation happens exclusively on the server.
+  5. ANIMATION & MOTION SPEC  
+5.1 Core Principles
+All transitions under 400ms — this is a fast-paced game, not a portfolio site
+Spring physics preferred over linear easing — use Framer Motion spring with stiffness 300, damping 20
+Every animation must have a clear game-feel purpose: surprise, reward, punishment, or pacing
+Reduce motion: respect prefers-reduced-motion — replace all animations with instant transitions
+5.2 Animation Register
+Animation
+Duration
+Spec
+Card Entry
+380ms
+translateY(30px)→0, rotate(-3deg)→0, opacity 0→1, spring
+Rubber Stamp
+260ms
+scale(0)→1.1→1.0, rotate(±12deg), ease-out-back
+Wrong Shake
+150ms
+translateX: 0→-8px→8px→-8px→0, 4 keyframes
+Score Tick-Up
+600ms
+Counter increments from prev → new value, ease-out
+Card Skip-Away
+300ms
+translateY(-120%), opacity 1→0, ease-in
+Photo Reveal
+400ms
+filter: grayscale(1)→0, brightness(0.4)→1, scanline wipe
+Confetti Burst
+2000ms
+60 particles, saffron+white+green, physics spread from center
+Deal Done Overlay
+320ms
+scale(0.5)→1, rotate(-5deg)→0, spring stiffness 200
+Streak Banner
+240ms
+translateY(-100%)→0, holds 1.8s, translateY(0)→-100%
+Ticker Scroll
+Infinite
+translateX(100vw)→-100%, linear, 25s cycle
+Splash Stamp
+300ms + 400ms delay
+Stamp slams on load after 400ms, scale+rotate easeOutBack
+  6. CONTENT REQUIREMENTS  
+6.1 Defector Database — MVP Entries (60+)
+Each entry requires the following content fields to be researched and written:
+Canonical full name + 3–5 aliases
+Last held Congress position (specific — not just 'MP')
+Home state
+Year of formal defection (date of joining BJP, not resignation from Congress)
+Post-defection outcome in BJP (current as of March 2026)
+Intel clue paragraph (80–120 words, third-person, wire reporter tone, no name)
+3 progressive hints (most obscure → most obvious, each max 15 words)
+Difficulty rating 1–5 (1 = Scindia-level famous, 5 = obscure state leader)
+Journalistic source URL
+6.2 Copy Voice Guidelines
+Copy Element
+Tone
+Example
+Intel Clue
+Wire reporter — terse, factual, slightly damning
+Once a powerful Congress minister in Assam, this leader felt sidelined by the Gandhi family...
+Hints
+WhatsApp tip — informal, gossipy, knowing
+He was passed over for Punjab CM in favour of Channi
+Correct Feedback
+Punchy headline
+DEAL CONFIRMED. +10 POINTS.
+Wrong Feedback
+Punchy headline
+WRONG LEAD. −3 POINTS.
+Skip Feedback
+Archival
+CASE UNSOLVED — The defector was:
+Labels/Stamps
+Bureaucratic ALL CAPS
+CLASSIFIED / DEFECTOR / DEAL DONE / EXPOSED
+Tagline
+WhatsApp-forward energy
+Congress Today. BJP Tomorrow.
+Performance Verdict
+Classified report language
+VETERAN ANALYST — ELITE GRADE
+  7. MOBILE UX REQUIREMENTS  
+7.1 Layout Constraints
+Single column layout throughout — no horizontal scroll anywhere
+Dossier card: 55–60% of viewport height (dvh units)
+Input + CTA zone: always in bottom 40% of screen, always visible without scroll
+All tap targets minimum 48×48px, preferred 56px height for primary CTAs
+Safe area padding: env(safe-area-inset-*) on all screen edges — notch + home bar
+Keyboard-aware layout: use dvh units, card compresses gracefully when keyboard opens
+7.2 Touch Interactions
+Swipe left on dossier card = SKIP (with confirmation haptic)
+Long press on clue text = request first hint (discovery mechanic)
+Double-tap on Deal Done overlay = advance to next round
+Haptic feedback (navigator.vibrate where supported): correct answer (double pulse), wrong (single sharp), streak (triple)
+7.3 PWA Requirements
+manifest.json: name, short_name, theme_color (#FF6B00), background_color (#1C1C1C), display: standalone
+Offline support: Service Worker caches defector data + assets — game fully playable offline
+Add to Home Screen prompt triggered after 3rd session
+Splash screen matches game aesthetic — saffron logo on near-black background
+7.4 Performance Targets
+LCP < 1.5s on 4G (Vercel Edge + CDN)
+CLS = 0 — no layout shift on card entry (reserve card height before load)
+FID < 50ms — input response must feel instant
+Total JS bundle < 180KB gzipped (lazy-load Framer Motion + game screen)
+Defector data: first 10 entries pre-fetched at session start, remainder on demand
+  8. PHASE ROADMAP  
+Phase 1 — MVP (Weeks 1–4)
+Core game loop: 10 rounds, standard mode
+60+ defector entries in static data file
+Full design system implementation (textures, animations, color system)
+Server-side guess validation API
+Results + share card screen
+PWA manifest + basic offline support
+Posthog analytics integration
+Vercel deployment with staging environment
+Phase 2 — Engagement (Weeks 5–10)
+Daily Dossier mode (Wordle-style, ISR)
+Politician photos via Cloudinary (photo reveal animation)
+Speed Mode with timer and multiplier
+State Filter mode
+Global leaderboard (Supabase + NextAuth optional login)
+Streak rewards: unlock 'classified' bonus rounds at streak 5+
+Push notifications for Daily Dossier (web push)
+Phase 3 — Growth (Weeks 11–16)
+State-specific leaderboards with regional competition
+User-submitted defection tips (moderated queue)
+Multilingual support: Hindi, Malayalam, Tamil, Bengali
+Embed widget for news/political blogs
+Election-event tie-ins: themed dossier packs per state election
+'Create a Dossier' — user-generated political expose format
+  9. RISKS & MITIGATIONS  
+Risk
+Severity
+Description
+Mitigation
+Legal / Defamation
+High
+Content about real politicians could attract legal challenge
+All claims cited to published news sources. No editorializing. Factual defection dates only.
+Answer Leakage
+Medium
+Client-side code exposes correct answers to savvy users
+All answer validation server-side only. Names never in client bundle. Session tokens.
+Content Staleness
+Medium
+Political situations change — ministers resign, return to Congress
+active boolean flag per entry. Quarterly content review cadence. DB not baked into build.
+Mobile Perf on Low-end
+Medium
+Heavy animations on budget Android devices cause jank
+prefers-reduced-motion respected. Framer Motion lazy loaded. Canvas confetti not DOM-based.
+Political Bias Perception
+Low–Med
+Game perceived as partisan against Congress
+Tagline is factual, not pejorative. All defections documented. No commentary on BJP.
+  10. OPEN QUESTIONS  
+Pending Decisions
+Photo sourcing strategy — Wikimedia Commons (free) vs licensed press photos? Wikimedia preferred for MVP cost and legal clarity.
+Anonymous vs required login for leaderboard — recommend anonymous sessions with optional name claim for Phase 2.
+Hindi localization in Phase 2 or Phase 3? Large TAM upside but significant content effort.
+Should the game also cover BJP → Congress defections for balance? Smaller dataset but reduces legal/perception risk.
+App Store distribution (React Native wrapper) — worth the overhead vs PWA-first approach?
+Monetization: No ads in MVP. Phase 3 options: cosmetic dossier themes, premium daily unlock early access. No paywall on core game.
+This document is confidential and intended for the development team only. All content about named politicians is based on publicly documented events reported in the press. "The Congress BJP Deal" does not allege illegality — it documents electoral defections as reported by journalists.
+— END OF DOCUMENT —

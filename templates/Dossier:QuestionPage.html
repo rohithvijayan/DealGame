@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;800&amp;family=Newsreader:ital,wght@0,400;0,600;1,400&amp;family=Public+Sans:wght@400;600&amp;family=Yatra+One&amp;family=Special+Elite&amp;family=Barlow+Condensed:wght@700&amp;family=Bebas+Neue&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .grainy-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .coffee-stain {
+            background: radial-gradient(circle at center, rgba(101, 67, 33, 0.15) 0%, rgba(101, 67, 33, 0) 70%);
+            filter: blur(8px);
+        }
+
+        .paper-fold {
+            background: linear-gradient(90deg, transparent 49.5%, rgba(0, 0, 0, 0.05) 50%, transparent 50.5%);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary": "#1b247f",
+                        "on-surface": "#e5e2e1",
+                        "secondary": "#bdc2ff",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "primary-fixed-dim": "#ffb693",
+                        "error-container": "#93000a",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#343d96",
+                        "tertiary": "#ffb4ab",
+                        "primary-container": "#ff6b00",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#351000",
+                        "on-error": "#690005",
+                        "primary": "#ffb693",
+                        "on-primary-container": "#572000",
+                        "on-tertiary-container": "#6a0005",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#000767",
+                        "on-background": "#e5e2e1",
+                        "on-surface-variant": "#F5E6C8",
+                        "tertiary-container": "#ff675b",
+                        "surface-container-low": "#1b1b1b",
+                        "tertiary-fixed": "#ffdad6",
+                        "outline-variant": "#5a4136",
+                        "on-primary": "#561f00",
+                        "primary-fixed": "#ffdbcc",
+                        "outline": "#a98a7d",
+                        "on-tertiary-fixed": "#410002",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#393939",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container": "#20201f",
+                        "on-tertiary": "#690005",
+                        "surface-container-highest": "#353535",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "background": "#131313",
+                        "secondary-fixed-dim": "#bdc2ff",
+                        "on-secondary-container": "#a8afff",
+                        "surface-tint": "#ffb693",
+                        "surface-variant": "#353535",
+                        "secondary-container": "#343d96",
+                        "inverse-surface": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#a04100",
+                        "secondary-fixed": "#e0e0ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Newsreader"],
+                        "label": ["Public Sans"],
+                        "arcade": ["Barlow Condensed"],
+                        "typewriter": ["Special Elite"],
+                        "stencil": ["Yatra One"],
+                        "numbers": ["Bebas Neue"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary-container selection:text-on-primary-fixed overflow-x-hidden">
+    <!-- TopAppBar Fragment -->
+    <header
+        class="bg-[#131313] dark:bg-[#131313] docked full-width top-0 border-none fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-16">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[#FF6B00]">security</span>
+            <h1
+                class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-xl text-[#FF6B00] tracking-widest">
+                CLASSIFIED: THE CONGRESS BJP DEAL</h1>
+        </div>
+        <div class="flex items-center">
+            <span class="material-symbols-outlined text-[#FF6B00]">more_vert</span>
+        </div>
+        <!-- Separation Logic -->
+        <div class="absolute bottom-0 left-0 bg-[#1A237E] h-1 w-full"></div>
+    </header>
+    <main class="pt-20 pb-24 px-4 flex flex-col items-center justify-start min-h-screen relative">
+        <!-- Canvas Background effects -->
+        <div class="fixed inset-0 grainy-bg z-[-1]"></div>
+        <div
+            class="fixed inset-0 bg-gradient-to-b from-surface via-surface-container-low to-surface-container-lowest z-[-2]">
+        </div>
+        <!-- Manila Folder Component -->
+        <div
+            class="relative w-full max-w-md bg-[#F5E6C8] shadow-2xl p-6 min-h-[600px] flex flex-col gap-6 overflow-hidden">
+            <!-- Noise texture for paper -->
+            <div class="absolute inset-0 grainy-bg opacity-10 pointer-events-none"></div>
+            <!-- Coffee Stain -->
+            <div class="absolute -top-10 -right-10 w-48 h-48 coffee-stain rotate-12 pointer-events-none"></div>
+            <!-- Folder Vertical Fold -->
+            <div class="absolute inset-y-0 left-1/2 w-px paper-fold pointer-events-none opacity-20"></div>
+            <!-- Hole Punch Marks -->
+            <div class="absolute left-2 inset-y-0 flex flex-col justify-around py-12 pointer-events-none">
+                <div
+                    class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-inner border border-outline-variant/20">
+                </div>
+                <div
+                    class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-inner border border-outline-variant/20">
+                </div>
+                <div
+                    class="w-4 h-4 rounded-full bg-surface-container-lowest shadow-inner border border-outline-variant/20">
+                </div>
+            </div>
+            <!-- Top Header Band -->
+            <div class="flex flex-col gap-2">
+                <div
+                    class="bg-[#B71C1C] py-2 px-4 flex justify-between items-center -mx-6 mb-4 transform -rotate-1 shadow-md">
+                    <span class="font-arcade text-white tracking-[0.2em] text-lg uppercase">CLASSIFIED
+                        INFORMATION</span>
+                    <div class="flex gap-1">
+                        <span class="material-symbols-outlined text-white text-sm"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-white text-sm"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-white text-sm"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-baseline px-2 border-b border-black/10 pb-2">
+                    <span class="font-typewriter text-black/60 text-xs">FILE REF:</span>
+                    <span class="font-numbers text-black text-2xl tracking-widest">#IND-DEAL-064</span>
+                </div>
+            </div>
+            <!-- Content Grid: Photo and Clue -->
+            <div class="flex flex-col sm:flex-row gap-6 items-start mt-4">
+                <!-- Photo Zone: Polaroid -->
+                <div
+                    class="relative bg-white p-2 pb-10 shadow-lg transform -rotate-2 border border-black/5 self-center">
+                    <div class="w-40 h-40 bg-zinc-800 relative overflow-hidden">
+                        <img class="w-full h-full object-cover filter blur-md grayscale opacity-60"
+                            data-alt="Blurred shadowy silhouette of a man in a suit standing against a grey wall with high contrast lighting"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyUcOGXH0TnX3aTRZOUFnG-VnUi4_fM5QnW6tD9fmFEkdEo6b09ReQgL_qMKLHDaVPht-E_qwo0kpqgSJyqE-NBbMQcKnHI9TSq3UBGRbw8xQ8Kw7Q2DmeoJx4Bn_CIkNEk1aFC38C-7JoOVbKO4LR7jOHsXxRrEJNUrBmEGpn4DgnXqy_3fDMKZuk4z-ZKUISJSLhVn1Y2qZfd473aqF4jIlz4SUyT0zWJrO1VZn0pE4Yg9XckTccQmnpgT2rX1xS36CeLscpT40" />
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div class="border-4 border-[#B71C1C] px-2 py-1 transform -rotate-12 bg-[#B71C1C]/10">
+                                <span class="font-arcade text-[#B71C1C] text-xs font-black">IDENTITY WITHHELD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 font-typewriter text-[10px] text-zinc-400">
+                        EXP-DATE: N/A</div>
+                </div>
+                <!-- Intel Fields -->
+                <div class="flex-1 space-y-4 w-full">
+                    <div class="space-y-1">
+                        <label class="font-typewriter text-black/50 text-xs block">POSITION:</label>
+                        <div class="font-typewriter text-black text-sm border-b border-dotted border-black/40 pb-1">
+                            CABINET MINISTER</div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-typewriter text-black/50 text-xs block">STATE:</label>
+                        <div class="font-typewriter text-black text-sm border-b border-dotted border-black/40 pb-1">
+                            MAHARASHTRA</div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-typewriter text-black/50 text-xs block">YEAR OF DEAL:</label>
+                        <div class="font-typewriter text-black text-sm border-b border-dotted border-black/40 pb-1">2022
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sticky Note Clue Block -->
+            <div class="relative bg-[#FFFD82] p-4 shadow-md transform rotate-1 mt-6 border-l-4 border-yellow-400">
+                <div class="absolute -top-3 left-4 w-10 h-10 pointer-events-none">
+                    <!-- Paperclip Simulation -->
+                    <div class="w-2 h-8 border-2 border-slate-400 rounded-full opacity-60"></div>
+                </div>
+                <span
+                    class="font-typewriter text-xs text-black/40 uppercase block mb-1 underline decoration-black/10">Field
+                    Agent Note:</span>
+                <p class="font-typewriter text-sm text-black leading-relaxed">
+                    'Held key port portfolios for 15 years before crossing over.'
+                </p>
+                <div class="absolute bottom-1 right-2 opacity-20 transform rotate-12">
+                    <span class="material-symbols-outlined text-black text-3xl">keep</span>
+                </div>
+            </div>
+            <!-- Bottom Banner -->
+            <div class="mt-auto pt-8">
+                <div class="flex items-center justify-between gap-4 border-t-2 border-black/5 pt-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#1A237E]">handshake</span>
+                        <span class="font-arcade text-black text-sm tracking-tight">THE CONGRESS DEFECTION DEAL</span>
+                    </div>
+                    <div class="flex gap-1">
+                        <div class="w-8 h-4 bg-[#1A237E] rounded-full"></div>
+                        <div class="w-8 h-4 bg-[#FF6B00] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Rubber Stamp Action Indicator (Pure CSS) -->
+            <div
+                class="absolute bottom-20 right-4 transform rotate-[-15deg] opacity-40 pointer-events-none border-4 border-[#2E7D32] px-4 py-2 flex items-center justify-center">
+                <span class="font-stencil text-[#2E7D32] text-2xl font-black uppercase">PENDING</span>
+            </div>
+        </div>
+        <!-- Action Button -->
+        <button
+            class="mt-8 bg-primary-container hover:bg-on-primary-fixed-variant text-on-primary-fixed font-arcade font-bold text-xl px-12 py-4 tracking-widest shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all uppercase">
+            REVEAL ID
+        </button>
+    </main>
+    <!-- BottomNavBar Fragment -->
+    <nav
+        class="bg-[#131313] dark:bg-[#131313] fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 tonal-shift-no-borders flat no shadows">
+        <a class="flex flex-col items-center justify-center bg-[#FF6B00] text-[#131313] p-2 h-full scale-95 transition-all"
+            href="#">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">Missions</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-500 p-2 h-full hover:bg-slate-800" href="#">
+            <span class="material-symbols-outlined">visibility</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">Intel</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-500 p-2 h-full hover:bg-slate-800" href="#">
+            <span class="material-symbols-outlined">leaderboard</span>
+            <span class="font-['Barlow_Condensed'] font-bold uppercase text-xs">Ranking</span>
+        </a>
+    </nav>
+</body>
+
+</html>

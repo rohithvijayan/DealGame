@@ -1,0 +1,281 @@
+[
+  {
+    "id": "jyotiraditya-scindia",
+    "name": "Jyotiraditya Scindia",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/jyotiraditya-scindia.jpg"
+  },
+  {
+    "id": "himanta-biswa-sarma",
+    "name": "Himanta Biswa Sarma",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/himanta-biswa-sarma.jpg"
+  },
+  {
+    "id": "chaudhary-birendra-singh",
+    "name": "Chaudhary Birendra Singh",
+    "status": "not_found"
+  },
+  {
+    "id": "rao-inderjit-singh",
+    "name": "Rao Inderjit Singh",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/rao-inderjit-singh.jpg"
+  },
+  {
+    "id": "satpal-maharaj",
+    "name": "Satpal Maharaj",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/satpal-maharaj.jpg"
+  },
+  {
+    "id": "girdhar-gamang",
+    "name": "Girdhar Gamang",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/girdhar-gamang.jpg"
+  },
+  {
+    "id": "rita-bahuguna-joshi",
+    "name": "Rita Bahuguna Joshi",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/rita-bahuguna-joshi.jpg"
+  },
+  {
+    "id": "pema-khandu",
+    "name": "Pema Khandu",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/pema-khandu.jpg"
+  },
+  {
+    "id": "n-biren-singh",
+    "name": "N. Biren Singh",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/n-biren-singh.jpg"
+  },
+  {
+    "id": "nd-tiwari",
+    "name": "N.D. Tiwari",
+    "status": "ok",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/nd-tiwari.jpg",
+    "article": "A. N. Tiwari",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/The_Secretary_Urban_Development_and_Poverty_Alleviation_Shri_A.N._Tiwari_speaking_at_an_International_Workshop_on_%22Urban_Renewal_%22_at_Manesar_near_Delhi_on_February_17%2C_2004.jpg/500px-thumbnail.jpg"
+  },
+  {
+    "id": "sm-krishna",
+    "name": "S.M. Krishna",
+    "status": "not_found"
+  },
+  {
+    "id": "vijay-bahuguna",
+    "name": "Vijay Bahuguna",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/vijay-bahuguna.jpg"
+  },
+  {
+    "id": "tom-vadakkan",
+    "name": "Tom Vadakkan",
+    "status": "not_found"
+  },
+  {
+    "id": "ap-abdullakutty",
+    "name": "A.P. Abdullakutty",
+    "status": "not_found"
+  },
+  {
+    "id": "bhubaneswar-kalita",
+    "name": "Bhubaneswar Kalita",
+    "status": "not_found"
+  },
+  {
+    "id": "n-kiran-kumar-reddy",
+    "name": "N. Kiran Kumar Reddy",
+    "status": "not_found"
+  },
+  {
+    "id": "radha-krishna-vikhe-patil",
+    "name": "Radha Krishna Vikhe Patil",
+    "status": "not_found"
+  },
+  {
+    "id": "khushbu-sundar",
+    "name": "Khushbu Sundar",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/khushbu-sundar.jpg"
+  },
+  {
+    "id": "jitin-prasada",
+    "name": "Jitin Prasada",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/jitin-prasada.jpg"
+  },
+  {
+    "id": "rpn-singh",
+    "name": "R.P.N. Singh",
+    "status": "not_found"
+  },
+  {
+    "id": "hardik-patel",
+    "name": "Hardik Patel",
+    "status": "not_found"
+  },
+  {
+    "id": "kuldeep-bishnoi",
+    "name": "Kuldeep Bishnoi",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/kuldeep-bishnoi.jpg"
+  },
+  {
+    "id": "sunil-jakhar",
+    "name": "Sunil Jakhar",
+    "status": "not_found"
+  },
+  {
+    "id": "capt-amarinder-singh",
+    "name": "Capt. Amarinder Singh",
+    "status": "not_found"
+  },
+  {
+    "id": "digambar-kamat",
+    "name": "Digambar Kamat",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/digambar-kamat.jpg"
+  },
+  {
+    "id": "ashok-tanwar",
+    "name": "Ashok Tanwar",
+    "status": "not_found"
+  },
+  {
+    "id": "anil-antony",
+    "name": "Anil Antony",
+    "status": "not_found"
+  },
+  {
+    "id": "ashok-chavan",
+    "name": "Ashok Chavan",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/ashok-chavan.jpg"
+  },
+  {
+    "id": "padmaja-venugopal",
+    "name": "Padmaja Venugopal",
+    "status": "not_found"
+  },
+  {
+    "id": "ravneet-singh-bittu",
+    "name": "Ravneet Singh Bittu",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/ravneet-singh-bittu.jpg"
+  },
+  {
+    "id": "preneet-kaur",
+    "name": "Preneet Kaur",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/preneet-kaur.jpg"
+  },
+  {
+    "id": "jagdambika-pal",
+    "name": "Jagdambika Pal",
+    "status": "not_found"
+  },
+  {
+    "id": "alpesh-thakor",
+    "name": "Alpesh Thakor",
+    "status": "not_found"
+  },
+  {
+    "id": "aditi-singh",
+    "name": "Aditi Singh",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/aditi-singh.jpg"
+  },
+  {
+    "id": "krishna-tirath",
+    "name": "Krishna Tirath",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/krishna-tirath.jpg"
+  },
+  {
+    "id": "naveen-jindal",
+    "name": "Naveen Jindal",
+    "status": "not_found"
+  },
+  {
+    "id": "jyoti-mirdha",
+    "name": "Jyoti Mirdha",
+    "status": "not_found"
+  },
+  {
+    "id": "suresh-pachouri",
+    "name": "Suresh Pachouri",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/suresh-pachouri.jpg"
+  },
+  {
+    "id": "pradeep-balmuchu",
+    "name": "Pradeep Balmuchu",
+    "status": "not_found"
+  },
+  {
+    "id": "narayan-rane",
+    "name": "Narayan Rane",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/narayan-rane.jpg"
+  },
+  {
+    "id": "yashpal-arya",
+    "name": "Yashpal Arya",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/yashpal-arya.jpg"
+  },
+  {
+    "id": "pawan-kumar-kajal",
+    "name": "Pawan Kumar Kajal",
+    "status": "not_found"
+  },
+  {
+    "id": "harsh-mahajan",
+    "name": "Harsh Mahajan",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/harsh-mahajan.jpg"
+  },
+  {
+    "id": "gajendra-singh-rajukhedi",
+    "name": "Gajendra Singh Rajukhedi",
+    "status": "not_found"
+  },
+  {
+    "id": "lalitesh-pati-tripathi",
+    "name": "Lalitesh Pati Tripathi",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/lalitesh-pati-tripathi.jpg"
+  },
+  {
+    "id": "ravi-kishan",
+    "name": "Ravi Kishan",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/ravi-kishan.jpg"
+  },
+  {
+    "id": "pradyut-bordoloi",
+    "name": "Pradyut Bordoloi",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/pradyut-bordoloi.jpg"
+  },
+  {
+    "id": "bhupen-kumar-borah",
+    "name": "Bhupen Kumar Borah",
+    "status": "skipped",
+    "path": "/home/rohithvijayan/Desktop/DealGame/deal-game/public/politicians/bhupen-kumar-borah.jpg"
+  },
+  {
+    "id": "sanjay-patil",
+    "name": "Sanjay Patil",
+    "status": "not_found"
+  },
+  {
+    "id": "om-prakash-pahadia",
+    "name": "Om Prakash Pahadia",
+    "status": "not_found"
+  }
+]
