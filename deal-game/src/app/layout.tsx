@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { inter, specialElite, playfairDisplay, barlowCondensed, bebasNeue, yatraOne, notoSans, notoSansMalayalam, anekMalayalam } from "@/styles/fonts";
 import "./globals.css";
 import LangWatcher from "@/components/common/LangWatcher";
+import Script from 'next/script';
 
 const BASE_URL = "https://thecongressbjpdeal.com";
 
@@ -73,7 +74,35 @@ export default function RootLayout({
       ${notoSansMalayalam.variable}
       ${anekMalayalam.variable}
     `}>
+      <head>
+        <Script
+          id="fb-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '1283860547013976');
+              fbq('track', 'PageView');
+            `,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning className="antialiased min-h-dvh flex flex-col font-noto overflow-x-hidden">
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=1283860547013976&ev=PageView&noscript=1"
+          />
+        </noscript>
         <LangWatcher />
         {children}
       </body>
