@@ -819,7 +819,7 @@ export const defectors: Defector[] = [
             "He joined BJP in 2021 ahead of UP elections."
         ],
         difficulty: 4,
-        photo_url: "/politicians/lalitesh-pati-tripathi.jpg",
+        photo_url: "/politicians/lalitesh-pati-tripathi.avif",
         source_url: "https://www.ndtv.com/india-news/lalitesh-pati-tripathi-joins-bjp-2498171"
     },
     {
