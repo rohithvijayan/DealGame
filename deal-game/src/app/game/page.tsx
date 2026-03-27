@@ -13,6 +13,7 @@ import WrongLeadOverlay from "@/components/game/WrongLeadOverlay";
 import CaseUnsolvedOverlay from "@/components/game/CaseUnsolvedOverlay";
 import { useTranslation } from "@/hooks/useTranslation";
 import { LangToggle } from "@/components/ui/LangToggle";
+import LotusSpinner from "@/components/ui/LotusSpinner";
 
 type AnswerState = "playing" | "correct" | "wrong" | "skipped";
 
@@ -31,6 +32,7 @@ export default function GameScreen() {
     const [mistakes, setMistakes] = useState(0);
     const [hintsShown, setHintsShown] = useState(0);
     const [imageError, setImageError] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const MAX_MISTAKES = 4;
     const inputRef = useRef<HTMLInputElement>(null);
     const { t, lang } = useTranslation();
@@ -57,11 +59,13 @@ export default function GameScreen() {
 
     const handleSubmit = useCallback(async (e?: React.FormEvent) => {
         e?.preventDefault();
-        if (answerState !== "playing" || !guess.trim()) return;
+        if (answerState !== "playing" || !guess.trim() || isSubmitting) return;
 
+        setIsSubmitting(true);
         // Scoring: 1st=10, 2nd=8, 3rd=6, 4th=4
         const points = Math.max(4, 10 - (mistakes * 2));
         const result = await submitGuess(guess, points);
+        setIsSubmitting(false);
 
         if (result.correct) {
             setLastPoints(result.points);
@@ -75,22 +79,26 @@ export default function GameScreen() {
             if (nextMistakes >= MAX_MISTAKES) {
                 // Out of chances after 3 hints / 4 tries
                 if (currentDefector) {
+                    setIsSubmitting(true);
                     markAsSkipped(currentDefector.id);
                     await revealRound(currentRound);
+                    setIsSubmitting(false);
                 }
                 setAnswerState("skipped");
             } else {
                 setAnswerState("wrong");
             }
         }
-    }, [guess, answerState, submitGuess, mistakes, currentDefector, markAsSkipped, revealRound, currentRound]);
+    }, [guess, answerState, isSubmitting, submitGuess, mistakes, currentDefector, markAsSkipped, revealRound, currentRound]);
 
     const handleSkip = useCallback(async () => {
-        if (!currentDefector) return;
+        if (!currentDefector || isSubmitting) return;
+        setIsSubmitting(true);
         markAsSkipped(currentDefector.id);
         await revealRound(currentRound);
+        setIsSubmitting(false);
         setAnswerState("skipped");
-    }, [markAsSkipped, currentDefector, revealRound, currentRound]);
+    }, [markAsSkipped, currentDefector, revealRound, currentRound, isSubmitting]);
 
     const handleTryAgain = useCallback(() => {
         setAnswerState("playing");
@@ -124,6 +132,8 @@ export default function GameScreen() {
 
     return (
         <>
+            <LotusSpinner visible={isSubmitting} label="Cross-checking intel…" />
+
             {/* ─────────────────── DOSSIER GAME SCREEN ─────────────────── */}
             <div className="min-h-dvh bg-[#131313] text-[#e5e2e1] font-noto overflow-x-hidden flex flex-col">
                 {/* Grainy Background */}

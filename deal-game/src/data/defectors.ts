@@ -387,7 +387,7 @@ export const defectors: Defector[] = [
             "He joined the Congress before then joining the BJP."
         ],
         difficulty: 1,
-        photo_url: "/politicians/hardik-patel.avif",
+        photo_url: "/politicians/hardik-patel.jpg",
         source_url: "https://www.thehindu.com/news/national/hardik-patel-joins-bjp/article65484042.ece"
     },
     {
@@ -441,7 +441,7 @@ export const defectors: Defector[] = [
             "He had a very public feud with Navjot Singh Sidhu."
         ],
         difficulty: 1,
-        photo_url: "/politicians/capt-amarinder-singh.webp",
+        photo_url: "/politicians/capt-amarinder-singh.jpg",
         source_url: "https://www.thehindu.com/news/national/amarinder-singh-merges-plc-with-bjp/article65059984.ece"
     },
     {
@@ -495,7 +495,7 @@ export const defectors: Defector[] = [
             "He is from Kerala and lost the 2024 LS election for BJP."
         ],
         difficulty: 3,
-        photo_url: "/politicians/anil-antony.webp",
+        photo_url: "/politicians/anil-antony.jpg",
         source_url: "https://www.thehindu.com/news/national/kerala/anil-antony-joins-bjp/article66393050.ece"
     },
     {
@@ -531,7 +531,7 @@ export const defectors: Defector[] = [
             "She joined BJP in 2024 ahead of elections."
         ],
         difficulty: 4,
-        photo_url: "/politicians/padmaja-venugopal.avif",
+        photo_url: "/politicians/padmaja-venugopal.jpg",
         source_url: "https://www.thehindu.com/news/national/kerala/padmaja-venugopal-joins-bjp/article67916802.ece"
     },
     {
@@ -585,7 +585,7 @@ export const defectors: Defector[] = [
             "He chaired the Parliament committee on the Waqf Amendment Bill."
         ],
         difficulty: 3,
-        photo_url: "/politicians/jagdambika-pal.webp",
+        photo_url: "/politicians/jagdambika-pal.jpg",
         source_url: "https://www.thehindu.com/news/national/politics-and-policy/jagdambika-pal-joins-bjp/article5164963.ece"
     },
     {
@@ -819,7 +819,7 @@ export const defectors: Defector[] = [
             "He joined BJP in 2021 ahead of UP elections."
         ],
         difficulty: 4,
-        photo_url: "/politicians/lalitesh-pati-tripathi.avif",
+        photo_url: "/politicians/lalitesh-pati-tripathi.jpg",
         source_url: "https://www.ndtv.com/india-news/lalitesh-pati-tripathi-joins-bjp-2498171"
     },
     {
@@ -891,7 +891,7 @@ export const defectors: Defector[] = [
             "He joined BJP ahead of the 2019 Lok Sabha elections."
         ],
         difficulty: 5,
-        photo_url: "/politicians/Sanjay Patil.jpeg",
+        photo_url: "/politicians/sanjay-patil.jpeg",
         source_url: "https://www.ndtv.com/india-news/sanjay-patil-joins-bjp-maharashtra-2020841"
     },
     {
@@ -909,7 +909,7 @@ export const defectors: Defector[] = [
             "He joined BJP ahead of the 2024 Lok Sabha elections."
         ],
         difficulty: 5,
-        photo_url: "/politicians/Om Prakash Pahadia.webp",
+        photo_url: "/politicians/Om Prakash Pahadia.jpg",
         source_url: "https://www.ndtv.com/india-news/om-prakash-pahadia-joins-bjp-rajasthan-5097831"
     },
 ];

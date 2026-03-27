@@ -250,3 +250,10 @@ body {
 nextjs-portal {
   display: none !important;
 }
+
+/* ── Intel defector profile layout ── */
+@media (min-width: 1024px) {
+  .intel-profile-grid {
+    grid-template-columns: 2fr 1fr !important;
+  }
+}

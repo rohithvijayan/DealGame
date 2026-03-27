@@ -9,12 +9,14 @@ import Image from "next/image";
 import { useTranslation } from "@/hooks/useTranslation";
 import { LangToggle } from "@/components/ui/LangToggle";
 import HowToPlayModal from "./HowToPlayModal";
+import LotusSpinner from "@/components/ui/LotusSpinner";
 
 export default function SplashScreen() {
     const router = useRouter();
     const { startNewGame } = useGameStore();
     const [stampActive, setStampActive] = useState(false);
     const [showHowToPlay, setShowHowToPlay] = useState(false);
+    const [starting, setStarting] = useState(false);
     const { t, lang } = useTranslation();
     const { splash } = t;
 
@@ -24,6 +26,8 @@ export default function SplashScreen() {
     }, []);
 
     const handleStart = async () => {
+        if (starting) return;
+        setStarting(true);
         await startNewGame();
         router.push("/game");
     };
@@ -32,6 +36,8 @@ export default function SplashScreen() {
 
     return (
         <div className="relative min-h-dvh flex flex-col overflow-hidden splash-root">
+
+            <LotusSpinner visible={starting} label="Preparing mission…" />
 
             {/* Film grain noise overlay */}
             <div className="grain-overlay pointer-events-none" />
@@ -182,12 +188,15 @@ export default function SplashScreen() {
 
                     {/* BEGIN MISSION */}
                     <motion.button
-                        whileHover={{ scale: 1.025 }}
-                        whileTap={{ scale: 0.97, y: 3 }}
+                        whileHover={starting ? {} : { scale: 1.025 }}
+                        whileTap={starting ? {} : { scale: 0.97, y: 3 }}
                         onClick={handleStart}
+                        disabled={starting}
                         className={`w-full bg-saffron text-near-black py-4 font-barlow font-black flex items-center justify-center transition-all ${lang === 'ml' ? 'text-lg gap-2 py-3' : 'text-2xl uppercase tracking-wider gap-3'}`}
                         style={{
                             boxShadow: "0 5px 0 0 #7a3000, inset 0 1px 0 rgba(255,200,120,0.35)",
+                            opacity: starting ? 0.6 : 1,
+                            cursor: starting ? "not-allowed" : "pointer",
                         }}
                     >
                         <Play fill="currentColor" size={22} className={lang === 'ml' ? 'shrink-0' : ''} />

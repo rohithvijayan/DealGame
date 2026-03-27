@@ -19,7 +19,16 @@
       "Bash(curl -sL \"https://www.transparenttextures.com/patterns/cardboard-flat.png\" -o /home/rohithvijayan/Desktop/DealGame/deal-game/public/textures/cardboard-flat.png)",
       "Bash(npm install:*)",
       "Bash(openssl rand:*)",
-      "Bash(xargs cat:*)"
+      "Bash(xargs cat:*)",
+      "Bash(/tmp/tree_output.txt:*)",
+      "Read(//tmp/**)",
+      "Bash(grep -n \"return \\(\" /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/district/[district]/page.tsx)",
+      "Bash(head -3 grep -n \"return \\(\" /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/wave/[year]/page.tsx)",
+      "Bash(head -3 grep -n \"return \\(\" /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/analysis/[slug]/page.tsx)",
+      "Bash(head -3 grep -n \"return \\(\" /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/search/page.tsx)",
+      "Bash(tail -10 /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/district/[district]/page.tsx)",
+      "Bash(tail -10 /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/wave/[year]/page.tsx)",
+      "Bash(tail -10 /home/rohithvijayan/Desktop/DealGame/deal-game/src/app/intel/analysis/[slug]/page.tsx)"
     ]
   }
 }

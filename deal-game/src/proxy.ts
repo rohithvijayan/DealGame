@@ -1,6 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function proxy(request: NextRequest) {
+    // Intel subdomain rewriting: intel.* → /intel/...
+    const hostname = request.headers.get('host') ?? '';
+    const url = request.nextUrl.clone();
+    if (hostname.startsWith('intel.') && !url.pathname.startsWith('/intel')) {
+        url.pathname = '/intel' + url.pathname;
+        // Build CSP headers for the rewrite
+        const intelNonce = Buffer.from(crypto.randomUUID()).toString('base64');
+        const isDev = process.env.NODE_ENV === 'development';
+        const intelCsp = [
+            `default-src 'self'`,
+            `script-src 'self' 'nonce-${intelNonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''}`,
+            `style-src 'self' 'unsafe-inline'`,
+            `img-src 'self' blob: data:`,
+            `font-src 'self' data:`,
+            `connect-src 'self'`,
+            `object-src 'none'`,
+            `base-uri 'self'`,
+            `form-action 'self'`,
+            `frame-ancestors 'none'`,
+            `upgrade-insecure-requests`,
+        ].join('; ');
+        const intelHeaders = new Headers(request.headers);
+        intelHeaders.set('x-nonce', intelNonce);
+        intelHeaders.set('Content-Security-Policy', intelCsp);
+        const rewriteResponse = NextResponse.rewrite(url, {
+            request: { headers: intelHeaders },
+        });
+        rewriteResponse.headers.set('Content-Security-Policy', intelCsp);
+        return rewriteResponse;
+    }
+
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
     const isDev = process.env.NODE_ENV === 'development';
 
