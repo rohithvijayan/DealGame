@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { defectors } from '@/data/defectors';
 import { verifySessionToken } from '@/lib/session';
+import { matches } from '@/lib/game/fuzzyMatch';
 
 const defectorMap = new Map(defectors.map(d => [d.id, d]));
 
@@ -41,11 +42,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Unknown defector' }, { status: 500 });
     }
 
-    const normalizedGuess = guess.toLowerCase().trim();
     const isMatch = [
-        defector.name.toLowerCase(),
-        ...defector.aliases.map(a => a.toLowerCase()),
-    ].some(n => n === normalizedGuess || (normalizedGuess.length >= 4 && n.includes(normalizedGuess)));
+        defector.name,
+        ...defector.aliases,
+    ].some(n => matches(guess, n));
 
     if (isMatch) {
         return NextResponse.json({ correct: true, revealedName: defector.name });
