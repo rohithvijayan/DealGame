@@ -9,8 +9,8 @@ interface LangState {
 export const useLangStore = create<LangState>()(
     persist(
         (set, get) => ({
-            lang: 'en',
-            toggleLang: () => set({ lang: get().lang === 'en' ? 'ml' : 'en' }),
+            lang: 'ml',
+            toggleLang: () => set({ lang: get().lang === 'ml' ? 'en' : 'ml' }),
         }),
         { name: 'deal-game-lang' }
     )
