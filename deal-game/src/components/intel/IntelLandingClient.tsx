@@ -287,8 +287,6 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         className="absolute bottom-6 flex flex-col items-center gap-4"
                         style={{ zIndex: 30 }}
                     >
-                        <LangToggle variant="light" className="scale-125 mb-4 opacity-80" />
-
                         <div
                             style={{
                                 fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
