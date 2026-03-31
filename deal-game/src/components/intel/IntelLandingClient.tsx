@@ -240,7 +240,11 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         style={{ maxWidth: "420px" }}
                     >
                         <Link
-                            href="/intel#archive"
+                            href="#archive"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById('archive')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                             className="flex items-center justify-center gap-2 flex-1"
                             style={{
                                 backgroundColor: "#FF6B00",

@@ -16,6 +16,7 @@ import { LangToggle } from "@/components/ui/LangToggle";
 import LotusSpinner from "@/components/ui/LotusSpinner";
 import { translateToMalayalam } from "@/utils/translate";
 import SplashScreen from "@/components/screens/SplashScreen";
+import HowToPlayModal from "@/components/screens/HowToPlayModal";
 
 type AnswerState = "playing" | "correct" | "wrong" | "skipped";
 
@@ -37,6 +38,7 @@ export default function GameScreen() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [translatedDefector, setTranslatedDefector] = useState<DefectorDisplay | null>(null);
     const [isTranslating, setIsTranslating] = useState(false);
+    const [showAutoTutorial, setShowAutoTutorial] = useState(false);
     const MAX_MISTAKES = 4;
     const inputRef = useRef<HTMLInputElement>(null);
     const { t, lang } = useTranslation();
@@ -71,6 +73,18 @@ export default function GameScreen() {
             setTimeout(() => inputRef.current?.focus(), 400);
         }
     }, [currentRound]);
+
+    // Auto-show tutorial on first load of the game page
+    useEffect(() => {
+        const hasSeenInSession = sessionStorage.getItem("hasSeenGameTutorial");
+        if (!hasSeenInSession) {
+            const timer = setTimeout(() => {
+                setShowAutoTutorial(true);
+                sessionStorage.setItem("hasSeenGameTutorial", "true");
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, []);
 
     // Handle automatic translation
     useEffect(() => {
@@ -211,7 +225,7 @@ export default function GameScreen() {
             <div className="fixed inset-0 bg-gradient-to-b from-[#131313] via-[#1b1b1b] to-[#0e0e0e] z-[-1] pointer-events-none" />
 
             {sessionDefectors.length === 0 || !currentDefector ? (
-                <SplashScreen autoShowHowToPlay={true} />
+                <SplashScreen />
             ) : (
                 <>
 
@@ -554,6 +568,12 @@ export default function GameScreen() {
                             />
                         )}
                     </AnimatePresence>
+
+                    {/* Auto-tutorial modal */}
+                    <HowToPlayModal
+                        isOpen={showAutoTutorial}
+                        onClose={() => setShowAutoTutorial(false)}
+                    />
                 </>
             )}
         </div >

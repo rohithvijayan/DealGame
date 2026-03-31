@@ -20,9 +20,6 @@ export const metadata: Metadata = {
 
 const NAV_LINKS = [
   { label: 'Home', href: '/intel' },
-  { label: 'Defectors', href: '/intel' },
-  { label: 'Districts', href: '/intel' },
-  { label: 'Analysis', href: '/intel/analysis/why-kerala-congress-leaks' },
   { label: 'Search', href: '/intel/search' },
 ];
 
@@ -36,6 +33,7 @@ const TICKER_ITEMS = [
 ];
 
 import { IntelHeaderClient } from '@/components/intel/IntelHeaderClient';
+import { IntelFooterClient } from '@/components/intel/IntelFooterClient';
 
 export default function IntelLayout({ children }: { children: React.ReactNode }) {
   const tickerText = TICKER_ITEMS.join('   ◆   ');
@@ -74,129 +72,7 @@ export default function IntelLayout({ children }: { children: React.ReactNode })
       {/* Page content — pages control their own layout/bg */}
       <main style={{ overflowX: 'hidden' }}>{children}</main>
 
-      {/* Footer */}
-      <footer
-        style={{
-          backgroundColor: '#2C1810',
-          color: '#F5E6C8',
-          padding: '40px 24px',
-          marginTop: '48px',
-        }}
-      >
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '32px',
-              marginBottom: '32px',
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-playfair)',
-                  fontSize: '28px',
-                  fontWeight: 900,
-                  color: '#B8860B',
-                  marginBottom: '8px',
-                }}
-              >
-                CJP ARCHIVES
-              </div>
-              <p
-                style={{
-                  fontFamily: 'var(--font-noto)',
-                  fontSize: '13px',
-                  color: '#9E9E9E',
-                  lineHeight: 1.6,
-                }}
-              >
-                The Congress-BJP Deal Archive documents every Kerala Congress defection to BJP
-                since 2014. Independent, sourced, archived.
-              </p>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-barlow)',
-                  fontWeight: 700,
-                  fontSize: '12px',
-                  letterSpacing: '0.15em',
-                  color: '#B8860B',
-                  marginBottom: '12px',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Archive
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    style={{ color: '#F5E6C8', fontSize: '13px', textDecoration: 'none' }}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-barlow)',
-                  fontWeight: 700,
-                  fontSize: '12px',
-                  letterSpacing: '0.15em',
-                  color: '#B8860B',
-                  marginBottom: '12px',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Play the Game
-              </div>
-              <p style={{ fontSize: '13px', color: '#9E9E9E', marginBottom: '16px' }}>
-                Think you know these defectors? Test your knowledge in the original political
-                exposé game.
-              </p>
-              <a
-                href={GAME_BASE}
-                style={{
-                  display: 'inline-block',
-                  backgroundColor: '#FF6B00',
-                  color: '#fff',
-                  fontFamily: 'var(--font-barlow)',
-                  fontWeight: 900,
-                  fontSize: '13px',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  padding: '10px 20px',
-                  textDecoration: 'none',
-                }}
-              >
-                Play Now →
-              </a>
-            </div>
-          </div>
-          <div
-            style={{
-              borderTop: '1px solid #4a3020',
-              paddingTop: '16px',
-              fontSize: '11px',
-              color: '#9E9E9E',
-              fontFamily: 'var(--font-special-elite)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '8px',
-            }}
-          >
-            <span>© 2026 CJP Archives. All defections documented.</span>
-            <span>cjparchives.in</span>
-          </div>
-        </div>
-      </footer>
+      <IntelFooterClient />
     </>
   );
 }

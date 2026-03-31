@@ -1,0 +1,42 @@
+
+> deal-game@0.1.0 test
+> vitest run src/app/game/page.test.tsx
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+
+[1m[46m RUN [49m[22m [36mv4.1.2 [39m[90m/home/rohithvijayan/Desktop/DealGame/deal-game[39m
+
+ [31m❯[39m src/app/game/page.test.tsx [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 27[2mms[22m[39m
+[31m     [31m×[31m shows the tutorial popup automatically on first visit without sessionStorage[39m[32m 21[2mms[22m[39m
+[31m     [31m×[31m does NOT show the tutorial popup if it has been seen in session[39m[32m 4[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/app/game/page.test.tsx[2m > [22mGameScreen Auto Tutorial Popup[2m > [22mshows the tutorial popup automatically on first visit without sessionStorage
+[41m[1m FAIL [22m[49m src/app/game/page.test.tsx[2m > [22mGameScreen Auto Tutorial Popup[2m > [22mdoes NOT show the tutorial popup if it has been seen in session
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'home')[39m
+[36m [2m❯[22m GameScreen src/app/game/page.tsx:[2m242:177[22m[39m
+    [90m240|[39m                             [33m>[39m
+    [90m241|[39m                                 [33m<[39m[33mHome[39m [33msize[39m[33m=[39m[33m{[39m[34m18[39m[33m}[39m [33m/[39m[33m>[39m
+    [90m242|[39m                                 <span className={`font-barlow font-bla…
+    [90m   |[39m                                                                                                                                                                                 [31m^[39m
+    [90m243|[39m                             [33m<[39m[33m/[39m[33mLink[39m[33m>[39m
+    [90m244|[39m                             {currentRound > 0 && answerState === "play…
+[90m [2m❯[22m Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:[2m25904:20[22m[39m
+[90m [2m❯[22m renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:[2m7662:22[22m[39m
+[90m [2m❯[22m updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:[2m10166:19[22m[39m
+[90m [2m❯[22m beginWork node_modules/react-dom/cjs/react-dom-client.development.js:[2m11778:18[22m[39m
+[90m [2m❯[22m runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:[2m874:13[22m[39m
+[90m [2m❯[22m performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:[2m17641:22[22m[39m
+[90m [2m❯[22m workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:[2m17469:41[22m[39m
+[90m [2m❯[22m renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:[2m17450:11[22m[39m
+[90m [2m❯[22m performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:[2m16583:35[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 02:25:28
+[2m   Duration [22m 1.02s[2m (transform 99ms, setup 26ms, import 256ms, tests 27ms, environment 501ms)[22m
+

@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { DefectorMeta } from '@/types/intel';
 import ArticleCard from '@/components/intel/ArticleCard';
+import { useTranslation } from '@/hooks/useTranslation';
+import { translateToMalayalam } from '@/utils/translate';
 
 interface Props {
   defectors: DefectorMeta[];
@@ -12,9 +14,40 @@ interface Props {
 export default function SearchClient({ defectors }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t, lang } = useTranslation();
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  const [translatedDefectorMeta, setTranslatedDefectorMeta] = useState<DefectorMeta[]>([]);
+  const [isTranslating, setIsTranslating] = useState(false);
 
-  const filtered = defectors.filter((d) => {
+  useEffect(() => {
+    const translateData = async () => {
+      if (lang === 'ml') {
+        setIsTranslating(true);
+        try {
+          const trans = await Promise.all(defectors.map(async (d) => ({
+            ...d,
+            name: await translateToMalayalam(d.name),
+            district: await translateToMalayalam(d.district),
+            congressRole: await translateToMalayalam(d.congressRole),
+            bjpRole: await translateToMalayalam(d.bjpRole),
+            tags: d.tags ? await Promise.all(d.tags.map(tag => translateToMalayalam(tag))) : []
+          })));
+          setTranslatedDefectorMeta(trans);
+        } catch (e) {
+          setTranslatedDefectorMeta(defectors);
+        } finally {
+          setIsTranslating(false);
+        }
+      } else {
+        setTranslatedDefectorMeta(defectors);
+      }
+    };
+    translateData();
+  }, [lang, defectors]);
+
+  const displayList = lang === 'ml' ? translatedDefectorMeta : defectors;
+
+  const filtered = displayList.filter((d) => {
     if (!query.trim()) return true;
     const q = query.toLowerCase();
     return (
@@ -52,11 +85,11 @@ export default function SearchClient({ defectors }: Props) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search by name, district, or role…"
+          placeholder={t.intel.search_placeholder}
           style={{
             width: '100%',
             padding: '14px 20px',
-            fontFamily: 'var(--font-noto)',
+            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
             fontSize: '16px',
             backgroundColor: '#FFF8F0',
             border: '2px solid #2C1810',
@@ -67,16 +100,16 @@ export default function SearchClient({ defectors }: Props) {
         />
         <div
           style={{
-            fontFamily: 'var(--font-barlow)',
+            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
             fontSize: '12px',
             color: '#9E9E9E',
             marginTop: '8px',
             letterSpacing: '0.08em',
           }}
         >
-          {query.trim()
-            ? `${filtered.length} result${filtered.length !== 1 ? 's' : ''} for "${query}"`
-            : `${defectors.length} defectors in archive`}
+          {isTranslating ? (lang === 'ml' ? 'വിവരങ്ങൾ വിവർത്തനം ചെയ്യുന്നു...' : 'Translating intel...') : query.trim()
+            ? t.intel.search_results(filtered.length, query)
+            : t.intel.search_total(displayList.length)}
         </div>
       </div>
 
@@ -99,11 +132,11 @@ export default function SearchClient({ defectors }: Props) {
             padding: '64px',
             textAlign: 'center',
             color: '#9E9E9E',
-            fontFamily: 'var(--font-special-elite)',
+            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
             fontSize: '18px',
           }}
         >
-          No defectors match &ldquo;{query}&rdquo;
+          {t.intel.search_not_found(query)}
         </div>
       )}
     </div>

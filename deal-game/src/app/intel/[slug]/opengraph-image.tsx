@@ -113,7 +113,7 @@ export default async function OpengraphImage({ params }: Props) {
           }}
         >
           <div style={{ fontSize: '14px', color: '#9E9E9E', letterSpacing: '0.08em' }}>
-            cjparchives.in
+            cjp.info
           </div>
 
           {/* THE DEAL stamp */}
