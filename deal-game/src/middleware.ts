@@ -5,6 +5,8 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     const { pathname } = url;
 
+    console.log(`[Middleware] Host: ${hostname}, Path: ${pathname}`);
+
     // 1. Dealers Subdomain
     // dealers.cjp.info/ should show the Intel page (/intel)
     // /game should show the game naturally

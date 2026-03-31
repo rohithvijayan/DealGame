@@ -7,7 +7,7 @@ import { BookOpen, Play, FileText } from "lucide-react";
 import ArticleCard from "@/components/intel/ArticleCard";
 import type { DefectorMeta } from "@/types/intel";
 
-const GAME_BASE = "https://dealers.cjp.info";
+const GAME_URL = "https://dealers.cjp.info/game";
 
 interface Props {
     defectors: DefectorMeta[];
@@ -224,7 +224,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                             Browse Archive
                         </Link>
                         <a
-                            href={GAME_BASE}
+                            href={GAME_URL}
                             className="flex items-center justify-center gap-2 flex-1"
                             style={{
                                 backgroundColor: "transparent",
@@ -381,7 +381,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         </h2>
                     </div>
                     <motion.a
-                        href={GAME_BASE}
+                        href={GAME_URL}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         className="flex items-center gap-3 shrink-0"
