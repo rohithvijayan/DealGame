@@ -11,7 +11,11 @@ import { LangToggle } from "@/components/ui/LangToggle";
 import HowToPlayModal from "./HowToPlayModal";
 import LotusSpinner from "@/components/ui/LotusSpinner";
 
-export default function SplashScreen() {
+interface Props {
+    autoShowHowToPlay?: boolean;
+}
+
+export default function SplashScreen({ autoShowHowToPlay = false }: Props) {
     const router = useRouter();
     const { startNewGame } = useGameStore();
     const [stampActive, setStampActive] = useState(false);
@@ -22,8 +26,15 @@ export default function SplashScreen() {
 
     useEffect(() => {
         const timer = setTimeout(() => setStampActive(true), 500);
+        if (autoShowHowToPlay) {
+            const modalTimer = setTimeout(() => setShowHowToPlay(true), 1200);
+            return () => {
+                clearTimeout(timer);
+                clearTimeout(modalTimer);
+            };
+        }
         return () => clearTimeout(timer);
-    }, []);
+    }, [autoShowHowToPlay]);
 
     const handleStart = async () => {
         if (starting) return;

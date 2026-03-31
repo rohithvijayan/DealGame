@@ -211,7 +211,7 @@ export default function GameScreen() {
             <div className="fixed inset-0 bg-gradient-to-b from-[#131313] via-[#1b1b1b] to-[#0e0e0e] z-[-1] pointer-events-none" />
 
             {sessionDefectors.length === 0 || !currentDefector ? (
-                <SplashScreen />
+                <SplashScreen autoShowHowToPlay={true} />
             ) : (
                 <>
 
