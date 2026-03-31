@@ -5,6 +5,8 @@ import { Shield } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface Props {
+    defector: any;
+    revealedName: string;
     wrongGuess: string;
     score: number;
     mistakes: number;
@@ -14,7 +16,7 @@ interface Props {
     onEndGame?: () => void;
 }
 
-export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMistakes, onTryAgain, onSkip, onEndGame }: Props) {
+export default function WrongLeadOverlay({ defector, revealedName, wrongGuess, score, mistakes, maxMistakes, onTryAgain, onSkip, onEndGame }: Props) {
     const { t, lang } = useTranslation();
 
     return (
@@ -105,10 +107,21 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                             {t.common.classified_eyes}
                         </div>
 
-                        {/* Photo zone — blurred silhouette */}
+                        {/* Photo zone — high contrast silhouette/photo */}
                         <div className="relative w-32 h-40 sm:w-40 sm:h-48 bg-[#131313]/10 border-4 border-white shadow-md rotate-2 flex-shrink-0 overflow-hidden">
-                            <div className="w-full h-full" style={{ background: "linear-gradient(160deg, #3a3a3a 0%, #1a1a1a 100%)", filter: "contrast(1.5) brightness(0.75)" }} />
-                            {/* X cross mark on blurred photo */}
+                            {defector.photo_url ? (
+                                <div className="relative w-full h-full">
+                                    <img
+                                        src={defector.photo_url}
+                                        alt="Target"
+                                        className="w-full h-full object-cover object-top grayscale contrast-150 brightness-75"
+                                    />
+                                    <div className="absolute inset-0 bg-danger-red/10 mix-blend-overlay" />
+                                </div>
+                            ) : (
+                                <div className="w-full h-full" style={{ background: "linear-gradient(160deg, #3a3a3a 0%, #1a1a1a 100%)", filter: "contrast(1.5) brightness(0.75)" }} />
+                            )}
+                            {/* X cross mark on photo */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="text-danger-red text-6xl sm:text-7xl font-bebas leading-none opacity-60">✕</div>
                             </div>
@@ -171,17 +184,32 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                     >
                         {t.common.confirm_deal}
                     </button>
-                    {/* Try Again */}
-                    <motion.button
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.35 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={onTryAgain}
-                        className="w-full py-3.5 sm:py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
-                    >
-                        {t.wrongLead.try_again}
-                    </motion.button>
+                    {/* Try Again or Read Instead */}
+                    {lang === 'ml' ? (
+                        <motion.a
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.35 }}
+                            whileTap={{ scale: 0.97 }}
+                            href={`/intel/${defector.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-3.5 sm:py-4 bg-saffron text-white font-anek-ml font-black text-lg sm:text-xl tracking-wide uppercase flex items-center justify-center text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all no-underline px-4"
+                        >
+                            ഈ ഡീലർ ആരെന്ന് അറിയാൻ ക്ലിക്ക് ചെയ്യൂ
+                        </motion.a>
+                    ) : (
+                        <motion.button
+                            initial={{ y: 10, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.35 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={onTryAgain}
+                            className="w-full py-3.5 sm:py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
+                        >
+                            {t.wrongLead.try_again}
+                        </motion.button>
+                    )}
                     {/* Skip instead */}
                     <button
                         onClick={onSkip}

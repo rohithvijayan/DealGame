@@ -523,6 +523,8 @@ export default function GameScreen() {
                 {answerState === "wrong" && currentDefector && (
                     <WrongLeadOverlay
                         key="wrong"
+                        defector={displayDefector}
+                        revealedName={displayRevealedName}
                         wrongGuess={wrongGuess}
                         score={score}
                         mistakes={mistakes}
