@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "The Congress BJP Deal",
     title: "The Congress BJP Deal — Political Exposé Game",
     description: "Can you identify the Congress leaders who crossed the floor to join BJP? Play the political exposé quiz — 10 rounds, real politicians, real deals.",
-    locale: "en_IN",
+    locale: "ml_IN",
     images: [
       {
         url: "/og-image.png",
@@ -66,7 +66,7 @@ export default async function RootLayout({
   const nonce = (await headers()).get('x-nonce') ?? '';
 
   return (
-    <html lang="en" suppressHydrationWarning className={`
+    <html lang="ml" suppressHydrationWarning className={`
       ${inter.variable} 
       ${specialElite.variable} 
       ${playfairDisplay.variable} 
