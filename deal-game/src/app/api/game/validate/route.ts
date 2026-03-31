@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { defectors } from '@/data/defectors';
 import { verifySessionToken } from '@/lib/session';
 import { matches } from '@/lib/game/fuzzyMatch';
+import { performTranslation } from '@/lib/translate';
 
 const defectorMap = new Map(defectors.map(d => [d.id, d]));
 
@@ -42,10 +43,27 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Unknown defector' }, { status: 500 });
     }
 
-    const isMatch = [
+    const possibleNames = [
         defector.name,
         ...defector.aliases,
-    ].some(n => matches(guess, n));
+    ];
+
+    // Detection for Malayalam characters (U+0D00 to U+0D7F)
+    const isMalayalamGuess = /[\u0D00-\u0D7F]/.test(guess);
+
+    if (isMalayalamGuess) {
+        // Translate primary name to Malayalam to compare
+        try {
+            const mlName = await performTranslation(defector.name, 'ml');
+            if (mlName && mlName !== defector.name) {
+                possibleNames.push(mlName);
+            }
+        } catch (e) {
+            console.error("ML Validation translation error:", e);
+        }
+    }
+
+    const isMatch = possibleNames.some(n => matches(guess, n));
 
     if (isMatch) {
         return NextResponse.json({ correct: true, revealedName: defector.name });

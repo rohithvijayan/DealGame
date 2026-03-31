@@ -53,7 +53,7 @@ const en = {
         mission: "Mission",
         skip: "Skip",
         placeholder: "NAME THE DEFECTOR...",
-        id_button: "ID",
+        id_button: "SUBMIT",
         the_deal_footer: "THE CONGRESS DEFECTION DEAL",
         exp_date: "EXP-DATE: N/A",
         pending: "PENDING",

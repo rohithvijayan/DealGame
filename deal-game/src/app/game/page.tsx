@@ -14,6 +14,7 @@ import CaseUnsolvedOverlay from "@/components/game/CaseUnsolvedOverlay";
 import { useTranslation } from "@/hooks/useTranslation";
 import { LangToggle } from "@/components/ui/LangToggle";
 import LotusSpinner from "@/components/ui/LotusSpinner";
+import { translateToMalayalam } from "@/utils/translate";
 
 type AnswerState = "playing" | "correct" | "wrong" | "skipped";
 
@@ -33,12 +34,15 @@ export default function GameScreen() {
     const [hintsShown, setHintsShown] = useState(0);
     const [imageError, setImageError] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [translatedDefector, setTranslatedDefector] = useState<DefectorDisplay | null>(null);
+    const [isTranslating, setIsTranslating] = useState(false);
     const MAX_MISTAKES = 4;
     const inputRef = useRef<HTMLInputElement>(null);
     const { t, lang } = useTranslation();
 
     const currentDefector: DefectorDisplay = sessionDefectors[currentRound];
     const revealedName = revealedNames?.[currentRound] ?? "";
+    const [displayRevealedName, setDisplayRevealedName] = useState("");
 
     useEffect(() => {
         if (isGameComplete) {
@@ -54,8 +58,47 @@ export default function GameScreen() {
         setMistakes(0);
         setWrongGuess("");
         setImageError(false);
-        setTimeout(() => inputRef.current?.focus(), 400);
+        // Only autofocus on desktop; it blocks content on mobile
+        if (window.innerWidth > 768) {
+            setTimeout(() => inputRef.current?.focus(), 400);
+        }
     }, [currentRound]);
+
+    // Handle automatic translation
+    useEffect(() => {
+        const handleTranslation = async () => {
+            if (lang === "ml" && currentDefector) {
+                setIsTranslating(true);
+                try {
+                    const [translatedPosition, translatedState, translatedClue, translatedOutcome, ...translatedHints] = await Promise.all([
+                        translateToMalayalam(currentDefector.position),
+                        translateToMalayalam(currentDefector.state),
+                        translateToMalayalam(currentDefector.clue),
+                        translateToMalayalam(currentDefector.outcome),
+                        ...currentDefector.hints.map(hint => translateToMalayalam(hint))
+                    ]);
+
+                    setTranslatedDefector({
+                        ...currentDefector,
+                        position: translatedPosition,
+                        state: translatedState,
+                        clue: translatedClue,
+                        outcome: translatedOutcome,
+                        hints: translatedHints
+                    });
+                } catch (error) {
+                    console.error("Translation failed:", error);
+                    setTranslatedDefector(currentDefector);
+                } finally {
+                    setIsTranslating(false);
+                }
+            } else {
+                setTranslatedDefector(null);
+            }
+        };
+
+        handleTranslation();
+    }, [lang, currentDefector]);
 
     const handleSubmit = useCallback(async (e?: React.FormEvent) => {
         e?.preventDefault();
@@ -100,10 +143,25 @@ export default function GameScreen() {
         setAnswerState("skipped");
     }, [markAsSkipped, currentDefector, revealRound, currentRound, isSubmitting]);
 
+    // Handle name translation when revealed
+    useEffect(() => {
+        const translateRevealedName = async () => {
+            if (lang === "ml" && revealedName) {
+                const translated = await translateToMalayalam(revealedName);
+                setDisplayRevealedName(translated);
+            } else {
+                setDisplayRevealedName(revealedName);
+            }
+        };
+        translateRevealedName();
+    }, [lang, revealedName]);
+
     const handleTryAgain = useCallback(() => {
         setAnswerState("playing");
         setWrongGuess("");
-        setTimeout(() => inputRef.current?.focus(), 100);
+        if (window.innerWidth > 768) {
+            setTimeout(() => inputRef.current?.focus(), 100);
+        }
     }, []);
 
     const handleHome = () => { /* Now using <Link> */ };
@@ -129,6 +187,8 @@ export default function GameScreen() {
     }, [router]);
 
     if (!currentDefector) return null;
+
+    const displayDefector = (lang === "ml" && translatedDefector) ? translatedDefector : currentDefector;
 
     return (
         <>
@@ -256,7 +316,7 @@ export default function GameScreen() {
                                 <div className="bg-danger-red py-2 px-4 flex justify-between items-center -mx-6 transform -rotate-1 shadow-md">
                                     <span className="font-barlow font-black text-white tracking-[0.2em] text-lg uppercase">{t.game.classified_information}</span>
                                     <div className="flex gap-0.5">
-                                        {Array.from({ length: currentDefector.difficulty }).map((_, i) => (
+                                        {Array.from({ length: displayDefector.difficulty }).map((_, i) => (
                                             <Star key={i} size={14} className="text-white" fill="white" />
                                         ))}
                                     </div>
@@ -265,6 +325,7 @@ export default function GameScreen() {
                                     <span className="font-special-elite text-black/60 text-xs">{t.game.file_ref}</span>
                                     <span className="font-bebas text-black text-2xl tracking-widest">
                                         #CONG_BJP DEAL-{String(currentRound + 1).padStart(3, "0")}
+                                        {isTranslating && <span className="ml-2 text-[8px] animate-pulse">Translating...</span>}
                                     </span>
                                 </div>
                             </div>
@@ -274,9 +335,9 @@ export default function GameScreen() {
                                 {/* Polaroid */}
                                 <div className="relative bg-white p-1.5 pb-8 sm:p-2 sm:pb-10 shadow-lg transform -rotate-2 border border-black/5 self-center flex-shrink-0">
                                     <div className="w-28 h-28 sm:w-36 sm:h-36 bg-zinc-800 relative overflow-hidden">
-                                        {currentDefector.photo_url && !imageError ? (
+                                        {displayDefector.photo_url && !imageError ? (
                                             <Image
-                                                src={currentDefector.photo_url}
+                                                src={displayDefector.photo_url}
                                                 alt="Defector photo"
                                                 fill
                                                 className="object-cover object-top"
@@ -297,7 +358,7 @@ export default function GameScreen() {
                                         )}
                                     </div>
                                     <div className="absolute bottom-2 left-1/2 -translate-x-1/2 font-special-elite text-[9px] text-zinc-400 whitespace-nowrap">
-                                        {t.game.exp_date}
+
                                     </div>
                                 </div>
                                 {/* Mistakes tracker dots */}
@@ -311,9 +372,9 @@ export default function GameScreen() {
                                 {/* Intel Fields */}
                                 <div className="flex-1 space-y-3 w-full min-w-0">
                                     {[
-                                        { label: t.common.position, value: currentDefector.position },
-                                        { label: t.common.state, value: currentDefector.state },
-                                        { label: t.common.year_of_deal, value: String(currentDefector.year) },
+                                        { label: t.common.position, value: displayDefector.position },
+                                        { label: t.common.state, value: displayDefector.state },
+                                        { label: t.common.year_of_deal, value: String(displayDefector.year) },
                                     ].map((field) => (
                                         <div key={field.label} className="space-y-0 sm:space-y-0.5">
                                             <label className="font-special-elite text-black/50 text-[9px] sm:text-[10px] block">{field.label}</label>
@@ -331,7 +392,7 @@ export default function GameScreen() {
                                     <div className="w-2 h-8 border-2 border-slate-400 rounded-full opacity-60" />
                                 </div>
                                 <span className="font-special-elite text-[9px] text-black/40 uppercase block mb-0.5">{t.game.field_agent_note}</span>
-                                <p className="font-special-elite text-xs sm:text-sm text-black leading-snug sm:leading-relaxed">{currentDefector.clue}</p>
+                                <p className="font-special-elite text-xs sm:text-sm text-black leading-snug sm:leading-relaxed">{displayDefector.clue}</p>
                                 <div className="absolute bottom-1 right-2 opacity-10 transform rotate-12 text-2xl">📎</div>
                             </div>
 
@@ -339,7 +400,7 @@ export default function GameScreen() {
                             <AnimatePresence>
                                 {hintsShown > 0 && (
                                     <div className="space-y-2">
-                                        {currentDefector.hints.slice(0, hintsShown).map((hint, i) => (
+                                        {displayDefector.hints.slice(0, hintsShown).map((hint, i) => (
                                             <motion.div
                                                 key={i}
                                                 initial={{ opacity: 0, y: 8 }}
@@ -384,20 +445,20 @@ export default function GameScreen() {
                             <span className="font-barlow font-black uppercase text-[10px] tracking-widest">{t.game.mission}</span>
                         </div>
                         <button
-                            onClick={() => hintsShown < (currentDefector?.hints.length ?? 0) && setHintsShown((h) => h + 1)}
-                            disabled={hintsShown >= (currentDefector?.hints.length ?? 0) || answerState !== "playing"}
+                            onClick={() => hintsShown < (displayDefector?.hints.length ?? 0) && setHintsShown((h) => h + 1)}
+                            disabled={hintsShown >= (displayDefector?.hints.length ?? 0) || answerState !== "playing" || isTranslating}
                             className="flex-1 flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                             <span className="text-lg">💡</span>
                             <span className="font-barlow font-black uppercase text-[10px] tracking-widest">
                                 {hintsShown > 0
-                                    ? t.game.hint_with_count(hintsShown, currentDefector?.hints.length ?? 0)
+                                    ? t.game.hint_with_count(hintsShown, displayDefector?.hints.length ?? 0)
                                     : t.game.hint}
                             </span>
                         </button>
                         <button
                             onClick={handleSkip}
-                            disabled={answerState !== "playing"}
+                            disabled={answerState !== "playing" || isTranslating}
                             className="flex-1 flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                         >
                             <span className="text-lg">⏭</span>
@@ -417,14 +478,14 @@ export default function GameScreen() {
                                     type="text"
                                     value={guess}
                                     onChange={(e) => setGuess(e.target.value)}
-                                    placeholder={t.game.placeholder}
-                                    disabled={answerState !== "playing"}
+                                    placeholder={isTranslating ? "Translating intel..." : t.game.placeholder}
+                                    disabled={answerState !== "playing" || isTranslating}
                                     className={`w-full bg-[#1b1b1b] border-b-2 border-white/20 focus:border-saffron px-4 py-3 font-special-elite text-lg text-white placeholder:text-white/20 focus:outline-none transition-colors uppercase disabled:opacity-50`}
                                 />
                             </div>
                             <button
                                 type="submit"
-                                disabled={!guess.trim() || answerState !== "playing"}
+                                disabled={!guess.trim() || answerState !== "playing" || isTranslating}
                                 className="bg-saffron text-[#131313] px-6 py-3 font-barlow font-black text-xl uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                             >
                                 {t.game.id_button}
@@ -450,8 +511,8 @@ export default function GameScreen() {
                 {answerState === "correct" && currentDefector && (
                     <DealConfirmedOverlay
                         key="correct"
-                        defector={currentDefector}
-                        revealedName={revealedName}
+                        defector={displayDefector}
+                        revealedName={displayRevealedName}
                         pointsGained={lastPoints}
                         totalScore={score}
                         round={currentRound + 1}
@@ -474,8 +535,8 @@ export default function GameScreen() {
                 {answerState === "skipped" && currentDefector && (
                     <CaseUnsolvedOverlay
                         key="skipped"
-                        defector={currentDefector}
-                        revealedName={revealedName}
+                        defector={displayDefector}
+                        revealedName={displayRevealedName}
                         score={score}
                         round={currentRound + 1}
                         onNext={handleNext}

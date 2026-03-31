@@ -159,7 +159,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         }}
                     >
                         {[
-                            { value: String(stats.total), label: "Defectors" },
+                            { value: `${stats.total}+`, label: "Defectors" },
                             {
                                 value: `${stats.minYear}–${stats.maxYear}`,
                                 label: "Years Covered",

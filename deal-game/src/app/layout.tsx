@@ -97,18 +97,18 @@ export default async function RootLayout({
             `,
           }}
         />
-      </head>
-      <body suppressHydrationWarning className="antialiased min-h-dvh flex flex-col font-noto overflow-x-hidden">
         <noscript>
           <img
             height="1"
             width="1"
             style={{ display: 'none' }}
             src="https://www.facebook.com/tr?id=1283860547013976&ev=PageView&noscript=1"
+            alt="fb-pixel-noscript"
           />
         </noscript>
-        <LangWatcher />
-        {children}
+      </head>
+      <body suppressHydrationWarning className="antialiased min-h-dvh flex flex-col font-noto overflow-x-hidden">
+        <LangWatcher />{children}
       </body>
     </html>
   );

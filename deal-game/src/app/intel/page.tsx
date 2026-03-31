@@ -13,7 +13,7 @@ export default async function IntelHomePage() {
 
     const years = allDefectors.map((d) => d.yearOfDefection);
     const stats = {
-        total: allDefectors.length || 26,
+        total: 450,
         districts: new Set(allDefectors.map((d) => d.district)).size || 14,
         minYear: years.length ? Math.min(...years) : 2014,
         maxYear: years.length ? Math.max(...years) : 2026,

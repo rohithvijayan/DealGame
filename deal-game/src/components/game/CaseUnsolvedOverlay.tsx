@@ -24,7 +24,7 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex flex-col overflow-hidden bg-[#131313]"
+            className="fixed inset-0 z-[100] flex flex-col overflow-y-auto bg-[#131313] overscroll-none"
         >
             {/* Background — desaturated hatching */}
             <div className="fixed inset-0 z-0 opacity-15" style={{ filter: "grayscale(1) contrast(1.2) brightness(0.4)" }}>
@@ -49,34 +49,34 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
             />
 
             {/* Top AppBar */}
-            <header className="relative z-10 flex justify-between items-center w-full px-4 h-14 bg-[#131313]">
+            <header className="relative z-10 flex justify-between items-center w-full px-4 h-14 bg-[#131313] shrink-0">
                 <div className="flex items-center gap-2 max-w-[55%]">
                     <Shield size={18} className="text-mid-grey shrink-0" />
-                    <h1 className={`font-barlow font-black tracking-widest uppercase text-mid-grey ${lang === 'ml' ? 'text-xs leading-tight' : 'text-lg'}`}>
+                    <h1 className={`font-barlow font-black tracking-widest uppercase text-mid-grey ${lang === 'ml' ? 'text-xs leading-tight' : 'text-sm sm:text-lg'}`}>
                         {t.caseUnsolved.title}
                     </h1>
                 </div>
                 <div className="flex gap-2 md:gap-4 items-center shrink-0">
                     <div className="flex flex-col items-end">
                         <span className="font-barlow text-[9px] leading-none opacity-60 uppercase">{t.common.score}</span>
-                        <span className={`font-bebas text-saffron ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{score.toLocaleString()}</span>
+                        <span className={`font-bebas text-saffron ${lang === 'ml' ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{score.toLocaleString()}</span>
                     </div>
                     <div className="h-8 w-px bg-mid-grey/30" />
                     <div className="flex flex-col items-end">
                         <SkipForward size={14} className="text-mid-grey ml-auto" />
-                        <span className={`font-bebas text-mid-grey ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{t.caseUnsolved.round(round)}</span>
+                        <span className={`font-bebas text-mid-grey ${lang === 'ml' ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t.caseUnsolved.round(round)}</span>
                     </div>
                 </div>
                 <div className="absolute bottom-0 left-0 bg-mid-grey/30 h-1 w-full" />
             </header>
 
             {/* Main */}
-            <main className="relative z-10 flex flex-col items-center justify-center flex-1 px-6 py-4 gap-4">
+            <main className="relative z-10 flex flex-col items-center justify-center flex-1 px-4 sm:px-6 py-4 sm:py-6 gap-4">
                 <motion.div
                     initial={{ y: 30, opacity: 0, rotate: -4 }}
                     animate={{ y: 0, opacity: 1, rotate: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 22 }}
-                    className="relative w-full max-w-md bg-[#F5E6C8] shadow-2xl"
+                    className="relative w-full max-w-[280px] sm:max-w-md bg-[#F5E6C8] shadow-2xl"
                     style={{
                         boxShadow: "4px 4px 0 rgba(0,0,0,0.5), 8px 8px 0 #1b1b1b",
                         filter: "grayscale(0.35) brightness(0.95)",
@@ -93,29 +93,29 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
                     <div className="absolute top-10 left-6 w-20 h-20 rounded-full opacity-10 blur-3xl bg-[#4a3728]" />
                     <div className="absolute bottom-12 right-4 w-24 h-24 rounded-full opacity-5 blur-2xl bg-[#5d4037]" />
                     {/* Hole punches */}
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 flex flex-col gap-12">
-                        <div className="w-4 h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
-                        <div className="w-4 h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
+                    <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 flex flex-col gap-8 sm:gap-12">
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
                     </div>
                     {/* Fold line */}
                     <div className="absolute top-0 bottom-0 left-1/2 w-px bg-[#131313]/5" />
 
                     {/* Content */}
-                    <div className="relative h-full p-8 pl-10 flex flex-col items-center text-[#131313] gap-4">
+                    <div className="relative h-full p-4 sm:p-8 pl-8 sm:pl-10 flex flex-col items-center text-[#131313] gap-3 sm:gap-4">
                         {/* Label */}
-                        <div className="self-start font-barlow text-xs tracking-widest opacity-40 uppercase">
+                        <div className="self-start font-barlow text-[10px] tracking-widest opacity-40 uppercase">
                             {t.common.classified_eyes}
                         </div>
 
                         {/* Photo zone — REVEALED in greyscale */}
-                        <div className="relative w-40 h-48 bg-[#131313]/10 border-4 border-white/80 shadow-md -rotate-1 flex-shrink-0 overflow-hidden">
+                        <div className="relative w-32 h-40 sm:w-40 sm:h-48 bg-[#131313]/10 border-4 border-white/80 shadow-md -rotate-1 flex-shrink-0 overflow-hidden">
                             {defector.photo_url ? (
                                 <Image
                                     src={defector.photo_url}
                                     alt={revealedName}
                                     fill
                                     className="object-cover object-top"
-                                    sizes="160px"
+                                    sizes="(max-width: 640px) 128px, 160px"
                                     style={{ filter: "grayscale(1) brightness(0.7) contrast(1.1)" }}
                                 />
                             ) : (
@@ -124,8 +124,8 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
                                     style={{ background: "linear-gradient(160deg, #4a4a4a 0%, #1e1e1e 100%)", filter: "brightness(0.6)" }}
                                 >
                                     <div className="text-white/20 text-center">
-                                        <div className="text-5xl">👤</div>
-                                        <div className="font-special-elite text-[9px] text-white/30 mt-1">FILE CLOSED</div>
+                                        <div className="text-4xl sm:text-5xl">👤</div>
+                                        <div className="font-special-elite text-[8px] sm:text-[9px] text-white/30 mt-1">FILE CLOSED</div>
                                     </div>
                                 </div>
                             )}
@@ -136,39 +136,39 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
                             initial={{ scale: 4, opacity: 0, rotate: -20 }}
                             animate={{ scale: 1, opacity: 0.85, rotate: -12 }}
                             transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 15 }}
-                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-8 border-mid-grey px-4 py-1 bg-white/20 shadow-xl"
+                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 sm:border-8 border-mid-grey px-3 sm:px-4 py-0.5 sm:py-1 bg-white/20 shadow-xl"
                         >
-                            <span className={`font-yatra text-mid-grey uppercase leading-none block whitespace-nowrap ${lang === 'ml' ? 'text-2xl' : 'text-5xl'}`}>
+                            <span className={`font-yatra text-mid-grey uppercase leading-none block whitespace-nowrap ${lang === 'ml' ? 'text-xl sm:text-2xl' : 'text-3xl sm:text-5xl'}`}>
                                 {t.caseUnsolved.case_closed}
                             </span>
                         </motion.div>
 
                         {/* Defector Revealed */}
-                        <div className="w-full bg-[#131313]/8 border-l-4 border-mid-grey px-4 py-3 mt-2">
-                            <div className="font-special-elite text-[9px] text-black/40 uppercase mb-1">
+                        <div className="w-full bg-[#131313]/8 border-l-4 border-mid-grey px-3 sm:px-4 py-2 sm:py-3 mt-1 sm:mt-2">
+                            <div className="font-special-elite text-[8px] sm:text-[9px] text-black/40 uppercase mb-0.5 sm:mb-1">
                                 {t.caseUnsolved.identity_was}
                             </div>
-                            <div className="font-playfair font-black text-xl text-[#131313]">{revealedName}</div>
-                            <div className="font-special-elite text-[10px] text-black/50 mt-0.5">
+                            <div className={`font-playfair font-black text-[#131313] ${lang === 'ml' ? 'text-lg sm:text-xl' : 'text-xl'}`}>{revealedName}</div>
+                            <div className="font-special-elite text-[9px] sm:text-[10px] text-black/50 mt-0.5">
                                 {defector.position} · {defector.state} · {defector.year}
                             </div>
-                            <div className="font-special-elite text-[10px] text-mid-grey mt-1 leading-tight">
+                            <div className="font-special-elite text-[9px] sm:text-[10px] text-mid-grey mt-0.5 sm:mt-1 leading-tight">
                                 {defector.outcome}
                             </div>
                         </div>
 
                         {/* Intel fields — Revealed */}
-                        <div className="w-full space-y-3">
+                        <div className="w-full space-y-2 sm:space-y-3">
                             {[
                                 { label: t.common.position, value: defector.position },
                                 { label: t.common.state, value: defector.state },
                                 { label: t.common.year_of_deal, value: defector.year },
                             ].map((field) => (
-                                <div key={field.label} className="flex items-start gap-3">
-                                    <span className={`font-special-elite text-xs font-bold flex-shrink-0 opacity-50 ${lang === 'ml' ? 'w-32' : 'w-24'}`}>
+                                <div key={field.label} className="flex items-start gap-2 sm:gap-3">
+                                    <span className={`font-special-elite text-[10px] sm:text-xs font-bold flex-shrink-0 opacity-50 ${lang === 'ml' ? 'w-24 sm:w-32' : 'w-20 sm:w-24'}`}>
                                         {field.label}
                                     </span>
-                                    <div className="flex-1 border-b border-dotted border-[#131313]/20 h-5 relative font-special-elite text-xs uppercase flex items-end pb-0.5">
+                                    <div className="flex-1 border-b border-dotted border-[#131313]/20 h-4 sm:h-5 relative font-special-elite text-[10px] sm:text-xs uppercase flex items-end pb-0.5">
                                         {field.value}
                                     </div>
                                 </div>
@@ -176,8 +176,8 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
                         </div>
 
                         {/* Message */}
-                        <div className="text-center mt-2 px-2">
-                            <p className={`font-special-elite text-danger-red/80 text-center ${lang === 'ml' ? 'text-[15px] font-black leading-normal' : 'text-sm font-bold tracking-tight'}`}>
+                        <div className="text-center mt-1 sm:mt-2 px-1 sm:px-2">
+                            <p className={`font-special-elite text-danger-red/80 text-center ${lang === 'ml' ? 'text-[13px] sm:text-[15px] font-black leading-normal' : 'text-[11px] sm:text-sm font-bold tracking-tight'}`}>
                                 {t.caseUnsolved.asset_unmasked}
                             </p>
                         </div>
@@ -186,11 +186,11 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
             </main>
 
             {/* Footer Controls */}
-            <footer className="relative z-10 bg-[#131313] px-6 pb-8 pt-4 border-t border-white/5">
-                <div className="max-w-md mx-auto flex flex-col gap-3">
+            <footer className="relative z-10 bg-[#131313] px-6 pb-6 sm:pb-8 pt-3 sm:pt-4 border-t border-white/5 shrink-0">
+                <div className="max-w-md mx-auto flex flex-col gap-2 sm:gap-3">
                     <button
                         disabled
-                        className={`w-full bg-[#353535] text-white/20 font-barlow font-black tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed ${lang === 'ml' ? 'text-lg py-2' : 'text-xl py-3'}`}
+                        className={`w-full bg-[#353535] text-white/20 font-barlow font-black tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed ${lang === 'ml' ? 'text-base sm:text-lg py-1.5 sm:py-2' : 'text-lg sm:text-xl py-2.5 sm:py-3'}`}
                     >
                         {t.common.confirm_deal}
                     </button>
@@ -200,9 +200,9 @@ export default function CaseUnsolvedOverlay({ defector, revealedName, score, rou
                         transition={{ delay: 0.3 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={onNext}
-                        className={`w-full bg-mid-grey/20 text-[#e5e2e1] border-2 border-mid-grey/40 font-barlow font-black tracking-widest uppercase flex items-center justify-center gap-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-0.5 active:shadow-none transition-all ${lang === 'ml' ? 'text-xl py-3' : 'text-2xl py-4'}`}
+                        className={`w-full bg-mid-grey/20 text-[#e5e2e1] border-2 border-mid-grey/40 font-barlow font-black tracking-widest uppercase flex items-center justify-center gap-2 sm:gap-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-0.5 active:shadow-none transition-all ${lang === 'ml' ? 'text-lg sm:text-xl py-2.5 sm:py-3' : 'text-xl sm:text-2xl py-3.5 sm:py-4'}`}
                     >
-                        <SkipForward size={20} /> {t.caseUnsolved.next_dossier}
+                        <SkipForward size={lang === 'ml' ? 16 : 20} /> {t.caseUnsolved.next_dossier}
                     </motion.button>
                 </div>
             </footer>

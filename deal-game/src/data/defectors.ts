@@ -909,7 +909,7 @@ export const defectors: Defector[] = [
             "He joined BJP ahead of the 2024 Lok Sabha elections."
         ],
         difficulty: 5,
-        photo_url: "/politicians/Om Prakash Pahadia.jpg",
+        photo_url: "/politicians/om-prakash-pahadia.jpg",
         source_url: "https://www.ndtv.com/india-news/om-prakash-pahadia-joins-bjp-rajasthan-5097831"
     },
 ];

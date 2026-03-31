@@ -133,7 +133,7 @@
                 "context": "Search placeholder"
             },
             "id_button": {
-                "text": "ID",
+                "text": "SUBMIT",
                 "element": "button",
                 "context": "Identify button"
             }

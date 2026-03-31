@@ -42,9 +42,6 @@ const ShareCard = forwardRef<HTMLDivElement, Props>(({ score, correct, total, hi
 
             {/* Main Content Area */}
             <div className="flex-1 w-full flex items-center justify-center p-8 relative">
-                {/* Background Shadow */}
-                <div className="absolute w-[440px] h-[680px] bg-black/40 rotate-2 translate-y-2 translate-x-1 pointer-events-none blur-md" />
-
                 {/* The Paper */}
                 <div className="relative w-[440px] h-[720px] shadow-2xl p-10 flex flex-col items-center rotate-[-0.5deg]"
                     style={{ backgroundColor: "#F5E6C8", color: "#131313" }}>
@@ -88,17 +85,10 @@ const ShareCard = forwardRef<HTMLDivElement, Props>(({ score, correct, total, hi
                             <span className="font-special-elite text-sm uppercase opacity-60">Mission Intel Score</span>
                             <span className="font-special-elite text-4xl font-bold">{score}</span>
                         </div>
-
-                        {/* DEAL DONE STAMP - MOVED HIGHER */}
-                        <div className="absolute right-[-40px] top-[-140px] rotate-[-12deg] opacity-80 pointer-events-none origin-center">
-                            <div className="border-[7px] border-danger-red/60 px-8 py-3 bg-white/5 flex flex-col items-center shadow-2xl">
-                                <span className="font-yatra text-danger-red/60 text-5xl font-black uppercase tracking-tight">DEAL DONE</span>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* ANALYST VERDICT SEAL (ROUND) - MOVED HIGHER */}
-                    <div className="absolute right-[-20px] top-[40px] flex flex-col items-center border-[5px] border-orange-500/40 rounded-full w-36 h-36 justify-center p-4 rotate-12 bg-white/5 z-20">
+                    {/* ANALYST VERDICT SEAL (ROUND) */}
+                    <div className="absolute right-3 top-6 flex flex-col items-center border-[5px] border-orange-500/40 rounded-full w-36 h-36 justify-center p-4 rotate-12 bg-white/5 z-20">
                         <Star size={16} color="rgba(255,107,0,0.4)" className="mb-1" />
                         <span className="font-yatra text-orange-600/70 text-2xl font-bold uppercase leading-tight text-center">
                             {verdict.label.split(' ')[0]}<br />{verdict.label.split(' ')[1] || 'ANALYST'}
@@ -107,8 +97,16 @@ const ShareCard = forwardRef<HTMLDivElement, Props>(({ score, correct, total, hi
                         <span className="font-special-elite text-[8px] uppercase opacity-40">CERTIFIED INTEL</span>
                     </div>
 
+                    {/* URL on Paper */}
+                    <span
+                        className="absolute bottom-24 left-1/2 -translate-x-1/2 whitespace-nowrap font-barlow font-black text-xl uppercase leading-none tracking-[0.2em] z-10"
+                        style={{ color: "#DC143C", backgroundColor: "transparent", border: "none", outline: "none" }}
+                    >
+                        dealers.cjp.info
+                    </span>
+
                     {/* Logo on Paper Bottom */}
-                    <div className="absolute bottom-6 flex justify-center w-full opacity-60">
+                    <div className="absolute bottom-6 flex justify-center w-full">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/lotusCongrss.png" alt="Deal Logo" className="h-10 w-auto object-contain" />
                     </div>
@@ -125,14 +123,8 @@ const ShareCard = forwardRef<HTMLDivElement, Props>(({ score, correct, total, hi
                 <div className="flex-1 flex justify-center">
                 </div>
                 <div className="flex flex-col items-end">
-                    <span className="font-barlow font-black text-[10px] uppercase tracking-widest leading-none mb-1 opacity-40">PLAY AT</span>
-                    <span className="font-barlow font-black text-xl uppercase leading-none tracking-tight">THE-DEAL.SITE</span>
                 </div>
             </div>
-
-            {/* Vignette Overlay */}
-            <div className="absolute inset-0 pointer-events-none z-20"
-                style={{ background: "radial-gradient(circle at top, transparent 50%, rgba(0,0,0,0.85) 100%)" }} />
         </div>
     );
 });

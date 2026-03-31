@@ -23,7 +23,7 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex flex-col overflow-hidden bg-[#131313]"
+            className="fixed inset-0 z-[100] flex flex-col overflow-y-auto bg-[#131313] overscroll-none"
         >
             {/* Background collage — desaturated, high contrast */}
             <div className="fixed inset-0 z-0 opacity-20" style={{ filter: "grayscale(1) contrast(1.25) brightness(0.5)" }}>
@@ -49,35 +49,35 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
             />
 
             {/* Top AppBar */}
-            <header className="relative z-10 flex justify-between items-center w-full px-4 h-14 bg-[#131313]">
+            <header className="relative z-10 flex justify-between items-center w-full px-4 h-14 bg-[#131313] shrink-0">
                 <div className="flex items-center gap-2 max-w-[55%]">
                     <Shield size={18} className="text-saffron shrink-0" />
-                    <h1 className={`font-barlow font-black tracking-widest uppercase text-saffron ${lang === 'ml' ? 'text-xs leading-tight' : 'text-lg'}`}>
+                    <h1 className={`font-barlow font-black tracking-widest uppercase text-saffron ${lang === 'ml' ? 'text-xs leading-tight' : 'text-sm sm:text-lg'}`}>
                         {t.wrongLead.title}
                     </h1>
                 </div>
                 <div className="flex gap-2 md:gap-4 items-center shrink-0">
                     <div className="flex flex-col items-end">
                         <span className="font-barlow text-[9px] leading-none opacity-60 uppercase">{t.common.score}</span>
-                        <span className={`font-bebas text-saffron ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{score.toLocaleString()}</span>
+                        <span className={`font-bebas text-saffron ${lang === 'ml' ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{score.toLocaleString()}</span>
                     </div>
                     <div className="h-8 w-px bg-mid-grey/30" />
                     <div className="flex flex-col items-end">
                         <span className="font-barlow text-[9px] leading-none opacity-60 uppercase">{t.common.mistakes}</span>
-                        <span className={`font-bebas text-danger-red ${lang === 'ml' ? 'text-lg' : 'text-xl'}`}>{mistakes}/{maxMistakes}</span>
+                        <span className={`font-bebas text-danger-red ${lang === 'ml' ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{mistakes}/{maxMistakes}</span>
                     </div>
                 </div>
                 <div className="absolute bottom-0 left-0 bg-congress-blue h-1 w-full" />
             </header>
 
             {/* Main */}
-            <main className="relative z-10 flex flex-col items-center justify-center flex-1 px-6 py-4 gap-4">
+            <main className="relative z-10 flex flex-col items-center justify-center flex-1 px-4 sm:px-6 py-4 sm:py-6 gap-4">
                 {/* Manila Folder Card */}
                 <motion.div
                     initial={{ y: 30, opacity: 0, rotate: 3 }}
                     animate={{ y: 0, opacity: 1, rotate: -1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 22 }}
-                    className="relative w-full max-w-md bg-[#F5E6C8] shadow-2xl"
+                    className="relative w-full max-w-[280px] sm:max-w-md bg-[#F5E6C8] shadow-2xl"
                     style={{ boxShadow: "4px 4px 0 rgba(0,0,0,0.5), 8px 8px 0 #1b1b1b" }}
                 >
                     {/* Paper texture */}
@@ -91,26 +91,26 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                     <div className="absolute top-8 left-8 w-20 h-20 rounded-full opacity-10 blur-2xl mix-blend-multiply bg-[#4a3728]" />
                     <div className="absolute bottom-16 right-4 w-28 h-28 rounded-full opacity-5 blur-xl mix-blend-multiply bg-[#5d4037]" />
                     {/* Hole punches */}
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 flex flex-col gap-12">
-                        <div className="w-4 h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
-                        <div className="w-4 h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
+                    <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 flex flex-col gap-8 sm:gap-12">
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#131313]/20 border border-[#131313]/10 shadow-inner" />
                     </div>
                     {/* Fold line */}
                     <div className="absolute top-0 bottom-0 left-1/2 w-px bg-[#131313]/5" />
 
                     {/* Content */}
-                    <div className="relative h-full p-8 pl-10 flex flex-col items-center text-[#131313] gap-5">
+                    <div className="relative h-full p-4 sm:p-8 pl-8 sm:pl-10 flex flex-col items-center text-[#131313] gap-3 sm:gap-5">
                         {/* CLASSIFIED label */}
-                        <div className="self-start font-barlow text-xs tracking-widest opacity-40 uppercase">
+                        <div className="self-start font-barlow text-[10px] tracking-widest opacity-40 uppercase">
                             {t.common.classified_eyes}
                         </div>
 
                         {/* Photo zone — blurred silhouette */}
-                        <div className="relative w-40 h-48 bg-[#131313]/10 border-4 border-white shadow-md rotate-2 flex-shrink-0 overflow-hidden">
+                        <div className="relative w-32 h-40 sm:w-40 sm:h-48 bg-[#131313]/10 border-4 border-white shadow-md rotate-2 flex-shrink-0 overflow-hidden">
                             <div className="w-full h-full" style={{ background: "linear-gradient(160deg, #3a3a3a 0%, #1a1a1a 100%)", filter: "contrast(1.5) brightness(0.75)" }} />
                             {/* X cross mark on blurred photo */}
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-danger-red text-7xl font-bebas leading-none opacity-60">✕</div>
+                                <div className="text-danger-red text-6xl sm:text-7xl font-bebas leading-none opacity-60">✕</div>
                             </div>
                         </div>
 
@@ -119,25 +119,25 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                             initial={{ scale: 4, opacity: 0, rotate: 25 }}
                             animate={{ scale: 1, opacity: 1, rotate: 15 }}
                             transition={{ delay: 0.2, type: "spring", stiffness: 280, damping: 14 }}
-                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-8 border-danger-red px-5 py-1 bg-white/20 shadow-xl"
+                            className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 sm:border-8 border-danger-red px-3 sm:px-5 py-0.5 sm:py-1 bg-white/20 shadow-xl"
                         >
-                            <span className={`font-yatra text-danger-red uppercase leading-none block ${lang === 'ml' ? 'text-4xl' : 'text-6xl'}`}>
+                            <span className={`font-yatra text-danger-red uppercase leading-none block ${lang === 'ml' ? 'text-2xl sm:text-4xl' : 'text-4xl sm:text-6xl'}`}>
                                 {t.wrongLead.incorrect}
                             </span>
                         </motion.div>
 
                         {/* Intel Fields — values are redacted/blank */}
-                        <div className="w-full space-y-4 mt-2">
+                        <div className="w-full space-y-3 sm:space-y-4 mt-1 sm:mt-2">
                             {[
                                 { label: t.common.position },
                                 { label: t.common.state },
                                 { label: t.common.year_of_deal },
                             ].map((f) => (
-                                <div key={f.label} className="flex items-start gap-3">
-                                    <span className={`font-special-elite text-sm font-bold flex-shrink-0 opacity-50 ${lang === 'ml' ? 'w-32' : 'w-24'}`}>
+                                <div key={f.label} className="flex items-start gap-2 sm:gap-3">
+                                    <span className={`font-special-elite text-[11px] sm:text-sm font-bold flex-shrink-0 opacity-50 ${lang === 'ml' ? 'w-24 sm:w-32' : 'w-20 sm:w-24'}`}>
                                         {f.label}
                                     </span>
-                                    <div className="flex-1 border-b-2 border-[#131313]/25 h-6 relative">
+                                    <div className="flex-1 border-b-2 border-[#131313]/25 h-5 sm:h-6 relative">
                                         {/* redacted bar */}
                                         <div className="absolute bottom-1 left-0 h-4 w-3/4 bg-[#131313] opacity-80 rounded-sm" />
                                     </div>
@@ -162,12 +162,12 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
             </main>
 
             {/* Footer Controls */}
-            <footer className="relative z-10 bg-[#131313] px-6 pb-8 pt-4 border-t border-white/5">
-                <div className="max-w-md mx-auto flex flex-col gap-3">
+            <footer className="relative z-10 bg-[#131313] px-6 pb-6 sm:pb-8 pt-3 sm:pt-4 border-t border-white/5 shrink-0">
+                <div className="max-w-md mx-auto flex flex-col gap-2 sm:gap-3">
                     {/* Disabled confirm */}
                     <button
                         disabled
-                        className="w-full py-3 bg-[#353535] text-white/20 font-barlow font-black text-xl tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed"
+                        className="w-full py-2.5 sm:py-3 bg-[#353535] text-white/20 font-barlow font-black text-lg sm:text-xl tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed"
                     >
                         {t.common.confirm_deal}
                     </button>
@@ -178,21 +178,21 @@ export default function WrongLeadOverlay({ wrongGuess, score, mistakes, maxMista
                         transition={{ delay: 0.35 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={onTryAgain}
-                        className="w-full py-4 bg-saffron text-[#131313] font-barlow font-black text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
+                        className="w-full py-3.5 sm:py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
                     >
                         {t.wrongLead.try_again}
                     </motion.button>
                     {/* Skip instead */}
                     <button
                         onClick={onSkip}
-                        className="w-full py-2 text-mid-grey font-barlow font-black text-sm tracking-widest uppercase opacity-60 hover:opacity-100 transition-opacity"
+                        className="w-full py-1.5 sm:py-2 text-mid-grey font-barlow font-black text-xs sm:text-sm tracking-widest uppercase opacity-60 hover:opacity-100 transition-opacity"
                     >
                         {t.wrongLead.skip_dossier}
                     </button>
                     {onEndGame && (
                         <button
                             onClick={onEndGame}
-                            className="w-full py-2 text-danger-red/60 font-barlow font-black text-xs tracking-[0.2em] uppercase hover:text-danger-red transition-colors mt-2"
+                            className="w-full py-1.5 sm:py-2 text-danger-red/60 font-barlow font-black text-[10px] sm:text-xs tracking-[0.2em] uppercase hover:text-danger-red transition-colors mt-1 sm:mt-2"
                         >
                             {t.common.end_mission_brackets}
                         </button>
