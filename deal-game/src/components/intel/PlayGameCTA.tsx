@@ -1,16 +1,21 @@
-'use client';
+"use client";
 
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/hooks/useTranslation';
+import Link from 'next/link';
 
 interface Props {
   defectorName?: string;
   variant: 'mid' | 'bottom';
 }
 
-const GAME_URL = 'https://dealers.cjp.info/game';
+const GAME_URL = '/game';
 
-export default function PlayGameCTA({ defectorName, variant }: Props) {
+export default function PlayGameCTA({ defectorName: initialName, variant }: Props) {
+  const { t, lang } = useTranslation();
   const isMid = variant === 'mid';
+
+  const defectorName = initialName; // Name is already translated in parent if needed
 
   return (
     <motion.div
@@ -31,20 +36,20 @@ export default function PlayGameCTA({ defectorName, variant }: Props) {
       {/* Dossier label */}
       <div
         style={{
-          fontFamily: 'var(--font-special-elite)',
+          fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
           fontSize: '10px',
           letterSpacing: '0.2em',
           color: '#FF6B00',
           textTransform: 'uppercase',
         }}
       >
-        Challenge
+        {lang === 'ml' ? 'ദൗത്യം' : 'Challenge'}
       </div>
 
       {/* Copy */}
       <p
         style={{
-          fontFamily: 'var(--font-playfair)',
+          fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-playfair)',
           fontSize: isMid ? '22px' : '26px',
           fontWeight: 900,
           color: '#F5E6C8',
@@ -53,30 +58,30 @@ export default function PlayGameCTA({ defectorName, variant }: Props) {
         }}
       >
         {defectorName
-          ? `Think you know ${defectorName}? Prove it in the game.`
-          : 'Think you know these defectors? Prove it in the game.'}
+          ? (lang === 'ml' ? `${defectorName} ആരെന്ന് നിങ്ങൾക്കറിയാമോ? ഗെയിമിലൂടെ കണ്ടെത്തൂ.` : `Think you know ${defectorName}? Prove it in the game.`)
+          : (lang === 'ml' ? 'ഈ രാഷ്ട്രീയക്കാരെ നിങ്ങൾക്ക് തിരിച്ചറിയാമോ? ഗെയിമിലൂടെ പരീക്ഷിക്കൂ.' : 'Think you know these defectors? Prove it in the game.')}
       </p>
 
       <p
         style={{
-          fontFamily: 'var(--font-noto)',
+          fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
           fontSize: '14px',
           color: '#9E9E9E',
           margin: 0,
         }}
       >
-        10 rounds. Real politicians. Real deals. Can you tell who crossed the floor?
+        {lang === 'ml' ? '10 റൗണ്ടുകൾ. യഥാർത്ഥ രാഷ്ട്രീയക്കാർ. യഥാർത്ഥ കരാറുകൾ. ആരാണ് കൂറുമാറിയതെന്ന് നിങ്ങൾക്കറിയാമോ?' : '10 rounds. Real politicians. Real deals. Can you tell who crossed the floor?'}
       </p>
 
       {/* CTA button */}
       <div>
-        <a
+        <Link
           href={GAME_URL}
           style={{
             display: 'inline-block',
             backgroundColor: '#FF6B00',
             color: '#fff',
-            fontFamily: 'var(--font-barlow)',
+            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
             fontWeight: 900,
             fontSize: '14px',
             letterSpacing: '0.12em',
@@ -86,8 +91,8 @@ export default function PlayGameCTA({ defectorName, variant }: Props) {
             transition: 'background-color 0.2s ease',
           }}
         >
-          Play The Congress-BJP Deal →
-        </a>
+          {lang === 'ml' ? 'കോൺഗ്രസ്-ബി.ജെ.പി ഡീൽ കളിക്കുക →' : 'Play The Congress-BJP Deal →'}
+        </Link>
       </div>
     </motion.div>
   );

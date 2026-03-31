@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
 import Link from 'next/link';
 import type { DefectorMeta } from '@/types/intel';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Props {
   defectors: DefectorMeta[];
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function RelatedDefectors({ defectors, currentSlug }: Props) {
+  const { t, lang } = useTranslation();
   const related = defectors
     .filter((d) => d.slug !== currentSlug)
     .slice(0, 3);
@@ -19,7 +21,7 @@ export default function RelatedDefectors({ defectors, currentSlug }: Props) {
     <div style={{ marginTop: '48px' }}>
       <div
         style={{
-          fontFamily: 'var(--font-barlow)',
+          fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
           fontWeight: 900,
           fontSize: '12px',
           letterSpacing: '0.2em',
@@ -30,7 +32,7 @@ export default function RelatedDefectors({ defectors, currentSlug }: Props) {
           marginBottom: '24px',
         }}
       >
-        More from the Archive
+        {lang === 'ml' ? 'ആർക്കൈവിൽ നിന്നുള്ള കൂടുതൽ' : 'More from the Archive'}
       </div>
 
       {/* Horizontal scroll on mobile, grid on desktop */}
@@ -96,7 +98,7 @@ export default function RelatedDefectors({ defectors, currentSlug }: Props) {
 
               <div
                 style={{
-                  fontFamily: 'var(--font-playfair)',
+                  fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-playfair)',
                   fontSize: '15px',
                   fontWeight: 900,
                   color: '#2C1810',
@@ -108,7 +110,7 @@ export default function RelatedDefectors({ defectors, currentSlug }: Props) {
               </div>
               <div
                 style={{
-                  fontFamily: 'var(--font-barlow)',
+                  fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                   fontSize: '11px',
                   color: '#B8860B',
                   letterSpacing: '0.06em',
@@ -118,7 +120,7 @@ export default function RelatedDefectors({ defectors, currentSlug }: Props) {
               </div>
               <div
                 style={{
-                  fontFamily: 'var(--font-noto)',
+                  fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
                   fontSize: '11px',
                   color: '#9E9E9E',
                   marginTop: '4px',

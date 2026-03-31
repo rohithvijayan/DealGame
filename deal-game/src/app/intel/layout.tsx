@@ -35,6 +35,8 @@ const TICKER_ITEMS = [
   'FILED: Tom Vadakkan departure linked to Pulwama aftermath, sources confirm',
 ];
 
+import { IntelHeaderClient } from '@/components/intel/IntelHeaderClient';
+
 export default function IntelLayout({ children }: { children: React.ReactNode }) {
   const tickerText = TICKER_ITEMS.join('   ◆   ');
 
@@ -42,58 +44,22 @@ export default function IntelLayout({ children }: { children: React.ReactNode })
     <>
       {/* Breaking news ticker */}
       <div
-        style={{
-          backgroundColor: '#FF6B00',
-          color: '#fff',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          position: 'relative',
-          height: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          boxSizing: 'border-box',
-          width: '100%',
-        }}
+        className="fixed top-0 left-0 w-full z-[100] h-8 bg-[#FF6B00] text-white flex items-center overflow-hidden whitespace-nowrap"
       >
         <div
-          style={{
-            backgroundColor: '#2C1810',
-            color: '#FF6B00',
-            fontFamily: 'var(--font-barlow)',
-            fontWeight: 900,
-            fontSize: '11px',
-            letterSpacing: '0.1em',
-            padding: '0 12px',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            flexShrink: 0,
-            zIndex: 1,
-          }}
+          className="h-full bg-[#2C1810] text-[#FF6B00] font-barlow font-black text-[11px] tracking-widest px-4 flex items-center z-10 shrink-0"
         >
           CJP ARCHIVES
         </div>
-        <div style={{ overflow: 'hidden', flex: 1 }}>
-          <div className="animate-ticker" style={{ display: 'inline-block' }}>
+        <div className="overflow-hidden flex-1">
+          <div className="animate-ticker inline-block">
             <span
-              style={{
-                fontFamily: 'var(--font-barlow)',
-                fontSize: '12px',
-                fontWeight: 600,
-                letterSpacing: '0.05em',
-                padding: '0 24px',
-              }}
+              className="font-barlow text-[12px] font-semibold tracking-wider px-6"
             >
               {tickerText}
             </span>
             <span
-              style={{
-                fontFamily: 'var(--font-barlow)',
-                fontSize: '12px',
-                fontWeight: 600,
-                letterSpacing: '0.05em',
-                padding: '0 24px',
-              }}
+              className="font-barlow text-[12px] font-semibold tracking-wider px-6"
             >
               {tickerText}
             </span>
@@ -101,50 +67,9 @@ export default function IntelLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      {/* Top Header Navigation */}
-      <nav
-        style={{
-          borderBottom: '2px solid #2C1810',
-          padding: '16px 24px',
-          backgroundColor: '#F5E6C8',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          boxSizing: 'border-box',
-          width: '100%',
-        }}
-      >
-        <Link
-          href="/intel"
-          style={{
-            fontFamily: 'var(--font-barlow)',
-            fontSize: '11px',
-            fontWeight: 900,
-            letterSpacing: '0.15em',
-            textDecoration: 'none',
-            border: '1.5px solid #2C1810',
-            padding: '4px 12px',
-            textTransform: 'uppercase',
-            backgroundColor: '#FF6B00',
-            color: '#fff',
-            boxShadow: '2px 2px 0 #2C1810',
-          }}
-        >
-          HOME
-        </Link>
-        <div
-          style={{
-            fontFamily: 'var(--font-playfair)',
-            fontSize: '18px',
-            fontWeight: 900,
-            color: '#2C1810',
-            letterSpacing: '-0.01em',
-            textTransform: 'uppercase',
-          }}
-        >
-          CJP ARCHIVES
-        </div>
-      </nav>
+      <div className="pt-8">
+        <IntelHeaderClient title="CJP ARCHIVES" />
+      </div>
 
       {/* Page content — pages control their own layout/bg */}
       <main style={{ overflowX: 'hidden' }}>{children}</main>

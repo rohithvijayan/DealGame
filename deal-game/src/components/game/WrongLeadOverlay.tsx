@@ -184,31 +184,28 @@ export default function WrongLeadOverlay({ defector, revealedName, wrongGuess, s
                     >
                         {t.common.confirm_deal}
                     </button>
-                    {/* Try Again or Read Instead */}
-                    {lang === 'ml' ? (
+                    {/* Try Again button */}
+                    <motion.button
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.35 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={onTryAgain}
+                        className="w-full py-3.5 sm:py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
+                    >
+                        {t.wrongLead.try_again}
+                    </motion.button>
+
+                    {/* Optional Intel Link for Malayalam */}
+                    {lang === 'ml' && (
                         <motion.a
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.35 }}
-                            whileTap={{ scale: 0.97 }}
                             href={`/intel/${defector.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full py-3.5 sm:py-4 bg-saffron text-white font-anek-ml font-black text-lg sm:text-xl tracking-wide uppercase flex items-center justify-center text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all no-underline px-4"
+                            className="w-full py-2 bg-near-black/40 text-saffron font-anek-ml font-bold text-sm tracking-wide uppercase flex items-center justify-center text-center transition-all no-underline border border-saffron/20"
                         >
-                            ഈ ഡീലർ ആരെന്ന് അറിയാൻ ക്ലിക്ക് ചെയ്യൂ
+                            ഈ ഡീലറെക്കുറിച്ചുള്ള കൂടുതൽ വിവരങ്ങൾ വായിക്കുക
                         </motion.a>
-                    ) : (
-                        <motion.button
-                            initial={{ y: 10, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.35 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={onTryAgain}
-                            className="w-full py-3.5 sm:py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
-                        >
-                            {t.wrongLead.try_again}
-                        </motion.button>
                     )}
                     {/* Skip instead */}
                     <button

@@ -5,24 +5,16 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     const { pathname } = url;
 
-    console.log(`[Middleware] Host: ${hostname}, Path: ${pathname}`);
-
-    // 1. Dealers Subdomain
-    // dealers.cjp.info/ should show the Intel page (/intel)
-    // /game should show the game naturally
+    // 1. Dealers Subdomain (The Game)
+    // dealers.cjp.info/ should show the Splash Screen (/)
+    // dealers.cjp.info/game should show the game rounds (/game)
     if (hostname.includes('dealers.cjp.info')) {
         // Skip Rewriting for API, Next.js internals, and Files
         if (pathname.startsWith('/api') || pathname.startsWith('/_next') || pathname.includes('.')) {
             return handleSecurity(request);
         }
 
-        // If at root (/), rewrite to /intel
-        if (pathname === '/') {
-            url.pathname = '/intel';
-            return rewriteWithCsp(request, url);
-        }
-
-        // Proceed naturally for /game, /intel, etc.
+        // Just proceed naturally — the root (/) is the splash screen, /game is the game
         return handleSecurity(request);
     }
 
@@ -35,8 +27,19 @@ export function middleware(request: NextRequest) {
             return handleSecurity(request);
         }
 
-        // Already on /intel or /results? Proceed
-        if (pathname.startsWith('/intel') || pathname.startsWith('/results')) {
+        // If trying to access /game or /results from the main domain, redirect to the subdomain in production
+        if (pathname.startsWith('/game') || pathname.startsWith('/results')) {
+            const isProd = hostname === 'cjp.info' || hostname === 'www.cjp.info';
+            if (isProd) {
+                const newUrl = new URL(`https://dealers.cjp.info${pathname}`, request.url);
+                return NextResponse.redirect(newUrl);
+            }
+            // For local dev where we don't have subdomains, just let it through
+            return handleSecurity(request);
+        }
+
+        // Already on /intel? Proceed
+        if (pathname.startsWith('/intel')) {
             return handleSecurity(request);
         }
 

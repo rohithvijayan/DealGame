@@ -1,10 +1,15 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
+"use client";
+
+import { MDXRemote } from 'next-mdx-remote';
 import type { DefectorFrontmatter, DefectorMeta } from '@/types/intel';
 import DealBanner from './DealBanner';
 import DefectionTimeline from './DefectionTimeline';
 import PlayGameCTA from './PlayGameCTA';
 import SourceCitations from './SourceCitations';
 import RelatedDefectors from './RelatedDefectors';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useEffect, useState } from 'react';
+import { translateToMalayalam } from '@/utils/translate';
 
 interface Props {
   frontmatter: DefectorFrontmatter;
@@ -12,19 +17,19 @@ interface Props {
   allDefectors: DefectorMeta[];
 }
 
-function buildTimelineEvents(fm: DefectorFrontmatter) {
+function buildTimelineEvents(fm: DefectorFrontmatter, t: any, lang: string) {
   const events: Array<{ year: number; label: string; type: 'congress' | 'peak' | 'rumour' | 'defection' | 'bjp' }> = [];
 
   events.push({
     year: fm.congressFrom,
-    label: `Joined Congress — ${fm.congressRole}`,
+    label: lang === 'ml' ? `കോൺഗ്രസിൽ ചേർന്നു — ${fm.congressRole}` : `Joined Congress — ${fm.congressRole}`,
     type: 'congress',
   });
 
   if (fm.yearOfDefection - fm.congressFrom > 2) {
     events.push({
       year: fm.congressFrom + Math.floor((fm.yearOfDefection - fm.congressFrom) / 2),
-      label: 'Active Congress career — campaigns, media, party work',
+      label: lang === 'ml' ? 'സജീവ കോൺഗ്രസ് പ്രവർത്തനം — പ്രചാരണങ്ങൾ, പാർട്ടിവേലകൾ' : 'Active Congress career — campaigns, media, party work',
       type: 'peak',
     });
   }
@@ -37,7 +42,7 @@ function buildTimelineEvents(fm: DefectorFrontmatter) {
 
   events.push({
     year: fm.yearOfDefection,
-    label: `Joined BJP — ${fm.bjpRole}`,
+    label: lang === 'ml' ? `ബി.ജെ.പിയിൽ ചേർന്നു — ${fm.bjpRole}` : `Joined BJP — ${fm.bjpRole}`,
     type: 'bjp',
   });
 
@@ -52,25 +57,97 @@ const DIFFICULTY_LABELS: Record<number, string> = {
   5: 'Expert',
 };
 
-export default function DefectorProfile({ frontmatter, content, allDefectors }: Props) {
-  const timelineEvents = buildTimelineEvents(frontmatter);
+const DIFFICULTY_LABELS_ML: Record<number, string> = {
+  1: 'ലളിതം',
+  2: 'എളുപ്പം',
+  3: 'സാധാരണം',
+  4: 'കഠിനം',
+  5: 'അതീവ കഠിനം',
+};
+
+export default function DefectorProfile({ frontmatter: initialFrontmatter, content: initialContent, allDefectors }: Props) {
+  const { t, lang } = useTranslation();
+  const [frontmatter, setFrontmatter] = useState(initialFrontmatter);
+  const [content, setContent] = useState(initialContent);
+  const [isTranslating, setIsTranslating] = useState(false);
+
+  useEffect(() => {
+    const handleTranslation = async () => {
+      if (lang === 'ml') {
+        setIsTranslating(true);
+        try {
+          const [
+            translatedName,
+            translatedCongressRole,
+            translatedBjpRole,
+            translatedDistrict,
+            translatedTrigger,
+            translatedStatus,
+            translatedTags,
+            translatedContent
+          ] = await Promise.all([
+            translateToMalayalam(initialFrontmatter.name),
+            translateToMalayalam(initialFrontmatter.congressRole),
+            translateToMalayalam(initialFrontmatter.bjpRole),
+            translateToMalayalam(initialFrontmatter.district),
+            translateToMalayalam(initialFrontmatter.triggerEvent),
+            translateToMalayalam(initialFrontmatter.currentStatus),
+            Promise.all((initialFrontmatter.tags || []).map(tag => translateToMalayalam(tag))),
+            translateToMalayalam(initialContent)
+          ]);
+
+          setFrontmatter({
+            ...initialFrontmatter,
+            name: translatedName,
+            congressRole: translatedCongressRole,
+            bjpRole: translatedBjpRole,
+            district: translatedDistrict,
+            triggerEvent: translatedTrigger,
+            currentStatus: translatedStatus,
+            tags: translatedTags
+          });
+          setContent(translatedContent);
+        } catch (e) {
+          console.error("Translation failed", e);
+        } finally {
+          setIsTranslating(false);
+        }
+      } else {
+        setFrontmatter(initialFrontmatter);
+        setContent(initialContent);
+      }
+    };
+
+    handleTranslation();
+  }, [lang, initialFrontmatter, initialContent]);
+
+  const timelineEvents = buildTimelineEvents(frontmatter, t, lang);
 
   const related = allDefectors
     .filter((d) => d.slug !== frontmatter.slug)
     .sort((a, b) => {
-      // Prefer same district
-      const aMatch = a.district === frontmatter.district ? 1 : 0;
-      const bMatch = b.district === frontmatter.district ? 1 : 0;
+      const aMatch = a.district === initialFrontmatter.district ? 1 : 0;
+      const bMatch = b.district === initialFrontmatter.district ? 1 : 0;
       return bMatch - aMatch;
     })
     .slice(0, 3);
 
+  const difficultyLabel = lang === 'ml' ? DIFFICULTY_LABELS_ML[frontmatter.difficulty] : DIFFICULTY_LABELS[frontmatter.difficulty];
+
   return (
-    <article style={{ width: '100%' }}>
+    <article style={{ width: '100%', position: 'relative' }}>
+      {isTranslating && (
+        <div className="fixed inset-0 z-[200] bg-near-black/20 backdrop-blur-[2px] flex items-center justify-center pointer-events-none">
+          <div className="bg-[#2C1810] text-[#FF6B00] px-6 py-3 font-anek-ml text-lg border-2 border-[#FF6B00] shadow-2xl animate-pulse">
+            റിപ്പോർട്ട് ശരിയാക്കുന്നു...
+          </div>
+        </div>
+      )}
+
       {/* Dateline block */}
       <div
         style={{
-          fontFamily: 'var(--font-special-elite)',
+          fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
           fontSize: '12px',
           letterSpacing: '0.12em',
           color: '#B8860B',
@@ -80,13 +157,14 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
           paddingBottom: '8px',
         }}
       >
-        Filed:{' '}
-        {new Date(frontmatter.publishedAt).toLocaleDateString('en-IN', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}{' '}
-        · {frontmatter.district}, Kerala
+        {t.intel.filed_on(
+          new Date(frontmatter.publishedAt).toLocaleDateString(lang === 'ml' ? 'ml-IN' : 'en-IN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }),
+          frontmatter.district
+        )}
       </div>
 
       {/* Deal banner */}
@@ -111,7 +189,7 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
           <div style={{ marginBottom: '24px' }}>
             <h1
               style={{
-                fontFamily: 'var(--font-playfair)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-playfair)',
                 fontSize: 'clamp(30px, 7vw, 72px)',
                 fontWeight: 900,
                 color: '#2C1810',
@@ -135,7 +213,7 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
             >
               <span
                 style={{
-                  fontFamily: 'var(--font-barlow)',
+                  fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                   fontSize: '16px',
                   fontWeight: 700,
                   color: '#1A237E',
@@ -163,20 +241,20 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
                   style={{
                     border: `2px solid ${frontmatter.defectionType === 'expelled' ? '#B71C1C' : frontmatter.defectionType === 'voluntary' ? '#2E7D32' : '#B8860B'}`,
                     color: frontmatter.defectionType === 'expelled' ? '#B71C1C' : frontmatter.defectionType === 'voluntary' ? '#2E7D32' : '#B8860B',
-                    fontFamily: 'var(--font-special-elite)',
+                    fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
                     fontSize: '11px',
                     padding: '3px 10px',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
                   }}
                 >
-                  {frontmatter.defectionType}
+                  {lang === 'ml' ? (frontmatter.defectionType === 'expelled' ? 'പുറത്താക്കി' : frontmatter.defectionType === 'voluntary' ? 'സ്വമേധയാ' : 'ലയനം') : frontmatter.defectionType}
                 </span>
               )}
             </div>
           </div>
 
-          {/* Defector Photo — formatted as an archive clipping */}
+          {/* Defector Photo */}
           {frontmatter.photo && (
             <div
               style={{
@@ -218,54 +296,37 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
                   filter: 'sepia(0.25) contrast(1.1)',
                 }}
               />
-              <div
-                style={{
-                  marginTop: '10px',
-                  fontFamily: 'var(--font-special-elite)',
-                  fontSize: '11px',
-                  color: '#9E9E9E',
-                  letterSpacing: '0.05em',
-                  textAlign: 'center',
-                }}
-              >
-                Archive Photo (N-{(frontmatter.yearOfDefection % 100).toString().padStart(2, '0')}) · SOURCE: VERIFIED
-              </div>
             </div>
           )}
 
-          {/* MDX content */}
+          {/* Content */}
           <div
             style={{
-              fontFamily: 'var(--font-noto)',
-              fontSize: '17px',
+              fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
+              fontSize: lang === 'ml' ? '18px' : '17px',
               lineHeight: 1.8,
               color: '#1C1C1C',
               overflowWrap: 'break-word',
               wordBreak: 'break-word',
+              whiteSpace: 'pre-wrap',
               minWidth: 0,
               width: '100%',
               boxSizing: 'border-box',
             }}
           >
-            <MDXRemote source={content} />
+            {content}
           </div>
 
-          {/* Timeline */}
           <div style={{ marginTop: '48px', borderTop: '2px solid #2C1810', paddingTop: '32px' }}>
             <DefectionTimeline events={timelineEvents} />
           </div>
 
-          {/* Play game CTA */}
           <PlayGameCTA defectorName={frontmatter.name} variant="mid" />
-
-          {/* Sources */}
           <SourceCitations sources={frontmatter.sources} />
-
-          {/* Related defectors */}
           <RelatedDefectors defectors={related} currentSlug={frontmatter.slug} />
         </div>
 
-        {/* Sidebar — key facts */}
+        {/* Sidebar */}
         <aside
           style={{
             backgroundColor: '#FFF8F0',
@@ -277,9 +338,9 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
         >
           <div
             style={{
-              fontFamily: 'var(--font-barlow)',
+              fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
               fontWeight: 900,
-              fontSize: '11px',
+              fontSize: lang === 'ml' ? '14px' : '11px',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               color: '#B8860B',
@@ -288,25 +349,20 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
               borderBottom: '1px solid #2C1810',
             }}
           >
-            Key Facts
+            {t.intel.key_facts}
           </div>
 
           {[
-            { label: 'District', value: frontmatter.district },
-            { label: 'Congress Since', value: String(frontmatter.congressFrom) },
-            { label: 'Year Defected', value: String(frontmatter.yearOfDefection) },
-            frontmatter.monthOfDefection
-              ? { label: 'Month', value: frontmatter.monthOfDefection }
-              : null,
-            { label: 'Type', value: frontmatter.defectionType },
-            { label: 'BJP Role', value: frontmatter.bjpRole },
-            { label: 'Level', value: frontmatter.stateOrNational === 'national' ? 'National' : 'State' },
-            { label: 'Difficulty', value: `${frontmatter.difficulty}/5 — ${DIFFICULTY_LABELS[frontmatter.difficulty] ?? ''}` },
+            { label: lang === 'ml' ? 'ജില്ല' : 'District', value: frontmatter.district },
+            { label: lang === 'ml' ? 'കോൺഗ്രസിൽ പദവി' : 'Congress Since', value: String(frontmatter.congressFrom) },
+            { label: lang === 'ml' ? 'കൂറുമാറ്റ വർഷം' : 'Year Defected', value: String(frontmatter.yearOfDefection) },
+            { label: lang === 'ml' ? 'ഇനം' : 'Type', value: lang === 'ml' ? (frontmatter.defectionType === 'expelled' ? 'പുറത്താക്കി' : frontmatter.defectionType === 'voluntary' ? 'സ്വമേധയാ' : 'ലയനം') : frontmatter.defectionType },
+            { label: lang === 'ml' ? 'ബി.ജെ.പി പദവി' : 'BJP Role', value: frontmatter.bjpRole },
+            { label: t.intel.difficulty, value: `${frontmatter.difficulty}/5 — ${difficultyLabel}` },
           ]
-            .filter(Boolean)
             .map((item) => (
               <div
-                key={item!.label}
+                key={item.label}
                 style={{
                   marginBottom: '12px',
                   paddingBottom: '12px',
@@ -315,7 +371,7 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
               >
                 <div
                   style={{
-                    fontFamily: 'var(--font-barlow)',
+                    fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                     fontWeight: 700,
                     fontSize: '10px',
                     letterSpacing: '0.12em',
@@ -324,26 +380,25 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
                     marginBottom: '2px',
                   }}
                 >
-                  {item!.label}
+                  {item.label}
                 </div>
                 <div
                   style={{
-                    fontFamily: 'var(--font-noto)',
+                    fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
                     fontSize: '14px',
                     color: '#2C1810',
                     fontWeight: 600,
                   }}
                 >
-                  {item!.value}
+                  {item.value}
                 </div>
               </div>
             ))}
 
-          {/* Current status */}
           <div style={{ marginTop: '8px' }}>
             <div
               style={{
-                fontFamily: 'var(--font-barlow)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                 fontWeight: 700,
                 fontSize: '10px',
                 letterSpacing: '0.12em',
@@ -352,11 +407,11 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
                 marginBottom: '4px',
               }}
             >
-              Current Status
+              {t.intel.current_status}
             </div>
             <div
               style={{
-                fontFamily: 'var(--font-noto)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
                 fontSize: '13px',
                 color: '#2E7D32',
                 fontWeight: 600,
@@ -367,12 +422,11 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
             </div>
           </div>
 
-          {/* Tags */}
           {frontmatter.tags && frontmatter.tags.length > 0 && (
             <div style={{ marginTop: '20px' }}>
               <div
                 style={{
-                  fontFamily: 'var(--font-barlow)',
+                  fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                   fontWeight: 700,
                   fontSize: '10px',
                   letterSpacing: '0.12em',
@@ -381,7 +435,7 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
                   marginBottom: '8px',
                 }}
               >
-                Tags
+                {t.intel.tags}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {frontmatter.tags.map((tag) => (
@@ -390,7 +444,7 @@ export default function DefectorProfile({ frontmatter, content, allDefectors }: 
                     style={{
                       backgroundColor: '#e8d5b7',
                       color: '#2C1810',
-                      fontFamily: 'var(--font-barlow)',
+                      fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                       fontSize: '10px',
                       fontWeight: 700,
                       padding: '2px 8px',

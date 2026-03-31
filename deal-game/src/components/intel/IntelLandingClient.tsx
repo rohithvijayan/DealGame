@@ -6,8 +6,12 @@ import Link from "next/link";
 import { BookOpen, Play, FileText } from "lucide-react";
 import ArticleCard from "@/components/intel/ArticleCard";
 import type { DefectorMeta } from "@/types/intel";
+import { useTranslation } from "@/hooks/useTranslation";
+import { LangToggle } from "@/components/ui/LangToggle";
+import { useEffect, useState } from "react";
+import { translateToMalayalam } from "@/utils/translate";
 
-const GAME_URL = "https://dealers.cjp.info/game";
+const GAME_URL = "/game";
 
 interface Props {
     defectors: DefectorMeta[];
@@ -21,7 +25,38 @@ interface Props {
 }
 
 export default function IntelLandingClient({ defectors, stats }: Props) {
-    const featured = defectors.filter((d) => d.featured).slice(0, 6);
+    const { t, lang } = useTranslation();
+    const [translatedDefectors, setTranslatedDefectors] = useState<DefectorMeta[]>([]);
+    const [isTranslating, setIsTranslating] = useState(false);
+
+    useEffect(() => {
+        const handleTranslation = async () => {
+            if (lang === 'ml') {
+                setIsTranslating(true);
+                try {
+                    const translated = await Promise.all(defectors.map(async (d) => ({
+                        ...d,
+                        name: await translateToMalayalam(d.name),
+                        district: await translateToMalayalam(d.district),
+                        congressRole: await translateToMalayalam(d.congressRole),
+                        bjpRole: await translateToMalayalam(d.bjpRole)
+                    })));
+                    setTranslatedDefectors(translated);
+                } catch (e) {
+                    console.error("Translation failed", e);
+                    setTranslatedDefectors(defectors);
+                } finally {
+                    setIsTranslating(false);
+                }
+            } else {
+                setTranslatedDefectors(defectors);
+            }
+        };
+        handleTranslation();
+    }, [lang, defectors]);
+
+    const displayDefectors = lang === 'ml' ? translatedDefectors : defectors;
+    const featured = displayDefectors.filter((d) => d.featured).slice(0, 6);
 
     return (
         <div>
@@ -103,7 +138,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                                 textTransform: "uppercase",
                             }}
                         >
-                            CLASSIFIED ARCHIVE · KERALA
+                            {t.intel.hero_tag}
                         </span>
                         <div className="h-px w-12" style={{ backgroundColor: "#B8860B" }} />
                     </motion.div>
@@ -114,17 +149,17 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.65, delay: 0.1 }}
                         style={{
-                            fontFamily: "var(--font-playfair)",
+                            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-playfair)',
                             fontWeight: 900,
                             fontSize: "clamp(2.6rem, 8vw, 6rem)",
-                            lineHeight: 1.05,
+                            lineHeight: lang === 'ml' ? 1.2 : 1.05,
                             color: "#F5E6C8",
                             marginBottom: "20px",
                             textShadow: "0 3px 20px rgba(0,0,0,0.8)",
                         }}
                     >
-                        Today's Congress is Tommorow's BJP{" "}
-                        <span style={{ color: "#FF6B00" }}>REAL C.J.P DEALS</span>
+                        {t.intel.hero_title_line1} {t.intel.hero_title_line2}{" "}
+                        <span style={{ color: "#FF6B00" }}>{t.intel.hero_title_accent}</span>
                         <br />
                     </motion.h1>
 
@@ -134,16 +169,16 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                         style={{
-                            fontFamily: "var(--font-special-elite)",
+                            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
                             fontSize: "clamp(0.95rem, 2.5vw, 1.15rem)",
+                            fontWeight: lang === 'ml' ? 500 : 400,
                             color: "rgba(245,230,200,0.65)",
                             lineHeight: 1.7,
                             maxWidth: "580px",
                             marginBottom: "36px",
                         }}
                     >
-                        Names, roles, triggers, outcomes. The complete record of Kerala's
-                        Congress-to-BJP political crossovers — documented, sourced, archived.
+                        {t.intel.hero_sub}
                     </motion.p>
 
                     {/* Stats row */}
@@ -159,12 +194,12 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         }}
                     >
                         {[
-                            { value: `${stats.total}+`, label: "Defectors" },
+                            { value: `${stats.total}+`, label: t.intel.stat_defectors },
                             {
                                 value: `${stats.minYear}–${stats.maxYear}`,
-                                label: "Years Covered",
+                                label: t.intel.stat_years,
                             },
-                            { value: String(stats.articles), label: "Articles Filed" },
+                            { value: String(stats.articles), label: t.intel.stat_articles },
                         ].map((stat) => (
                             <div key={stat.label} className="text-center">
                                 <div
@@ -181,10 +216,10 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                                 </div>
                                 <div
                                     style={{
-                                        fontFamily: "var(--font-barlow)",
-                                        fontSize: "10px",
+                                        fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
+                                        fontSize: lang === 'ml' ? "12px" : "10px",
                                         fontWeight: 700,
-                                        letterSpacing: "0.2em",
+                                        letterSpacing: lang === 'ml' ? "normal" : "0.2em",
                                         color: "rgba(184,134,11,0.8)",
                                         textTransform: "uppercase",
                                         marginTop: "2px",
@@ -210,9 +245,9 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                             style={{
                                 backgroundColor: "#FF6B00",
                                 color: "#fff",
-                                fontFamily: "var(--font-barlow)",
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                                 fontWeight: 900,
-                                fontSize: "16px",
+                                fontSize: lang === 'ml' ? "18px" : "16px",
                                 letterSpacing: "0.1em",
                                 textTransform: "uppercase",
                                 padding: "16px 24px",
@@ -221,17 +256,17 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                             }}
                         >
                             <BookOpen size={18} />
-                            Browse Archive
+                            {t.intel.browse_archive}
                         </Link>
-                        <a
+                        <Link
                             href={GAME_URL}
                             className="flex items-center justify-center gap-2 flex-1"
                             style={{
                                 backgroundColor: "transparent",
                                 color: "#F5E6C8",
-                                fontFamily: "var(--font-barlow)",
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                                 fontWeight: 900,
-                                fontSize: "16px",
+                                fontSize: lang === 'ml' ? "18px" : "16px",
                                 letterSpacing: "0.1em",
                                 textTransform: "uppercase",
                                 padding: "16px 24px",
@@ -240,8 +275,8 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                             }}
                         >
                             <Play size={16} fill="currentColor" />
-                            Play the Game
-                        </a>
+                            {t.intel.play_game}
+                        </Link>
                     </motion.div>
 
                     {/* Scroll hint */}
@@ -249,16 +284,22 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.2, duration: 0.5 }}
-                        className="absolute bottom-6"
-                        style={{
-                            fontFamily: "var(--font-special-elite)",
-                            fontSize: "10px",
-                            letterSpacing: "0.2em",
-                            color: "rgba(184,134,11,0.5)",
-                            textTransform: "uppercase",
-                        }}
+                        className="absolute bottom-6 flex flex-col items-center gap-4"
+                        style={{ zIndex: 30 }}
                     >
-                        ↓ OPEN DOSSIERS
+                        <LangToggle variant="light" className="scale-125 mb-4 opacity-80" />
+
+                        <div
+                            style={{
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
+                                fontSize: "10px",
+                                letterSpacing: "0.2em",
+                                color: "rgba(184,134,11,0.5)",
+                                textTransform: "uppercase",
+                            }}
+                        >
+                            {t.intel.open_dossiers}
+                        </div>
                     </motion.div>
                 </div>
             </section>
@@ -277,25 +318,25 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         <FileText size={18} style={{ color: "#B71C1C" }} />
                         <span
                             style={{
-                                fontFamily: "var(--font-barlow)",
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                                 fontWeight: 900,
-                                fontSize: "13px",
+                                fontSize: lang === 'ml' ? "18px" : "13px",
                                 letterSpacing: "0.25em",
                                 textTransform: "uppercase",
                                 color: "#2C1810",
                             }}
                         >
-                            Filed Dossiers
+                            {t.intel.filed_dossiers}
                         </span>
                         <div className="flex-1 h-px" style={{ backgroundColor: "#B8860B", opacity: 0.4 }} />
                         <span
                             style={{
-                                fontFamily: "var(--font-special-elite)",
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
                                 fontSize: "11px",
                                 color: "#B8860B",
                             }}
                         >
-                            {defectors.length} on record
+                            {t.intel.on_record(displayDefectors.length)}
                         </span>
                     </div>
 
@@ -329,12 +370,12 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         >
                             <p
                                 style={{
-                                    fontFamily: "var(--font-special-elite)",
+                                    fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
                                     color: "#9E9E9E",
                                     fontSize: "14px",
                                 }}
                             >
-                                First dossiers being filed. Check back shortly.
+                                {isTranslating ? "ഇന്റലിജൻസ് റിപ്പോർട്ടുകൾ വിവർത്തനം ചെയ്യുന്നു..." : t.intel.no_dossiers}
                             </p>
                         </div>
                     )}
@@ -353,7 +394,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                     <div>
                         <div
                             style={{
-                                fontFamily: "var(--font-special-elite)",
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
                                 fontSize: "10px",
                                 letterSpacing: "0.25em",
                                 color: "#B8860B",
@@ -365,7 +406,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         </div>
                         <h2
                             style={{
-                                fontFamily: "var(--font-playfair)",
+                                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-playfair)',
                                 fontWeight: 900,
                                 fontSize: "clamp(1.8rem, 4vw, 3rem)",
                                 color: "#F5E6C8",
@@ -373,10 +414,10 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                                 margin: 0,
                             }}
                         >
-                            You've read the dossiers.
+                            {t.intel.challenge_title}
                             <br />
                             <span style={{ color: "#FF6B00" }}>
-                                Now identify the defectors.
+                                {t.intel.challenge_sub}
                             </span>
                         </h2>
                     </div>
@@ -388,7 +429,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         style={{
                             backgroundColor: "#FF6B00",
                             color: "#fff",
-                            fontFamily: "var(--font-barlow)",
+                            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                             fontWeight: 900,
                             fontSize: "18px",
                             letterSpacing: "0.1em",
@@ -399,7 +440,7 @@ export default function IntelLandingClient({ defectors, stats }: Props) {
                         }}
                     >
                         <Play size={20} fill="currentColor" />
-                        Play the Game
+                        {t.intel.play_game}
                     </motion.a>
                 </div>
             </section>

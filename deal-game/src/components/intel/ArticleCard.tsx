@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { DefectorMeta } from '@/types/intel';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Props {
   defector: DefectorMeta;
@@ -18,6 +19,16 @@ const TYPE_COLOR: Record<string, string> = {
 };
 
 export default function ArticleCard({ defector }: Props) {
+  const { t, lang } = useTranslation();
+
+  const TYPE_LABEL_ML: Record<string, string> = {
+    expelled: 'പുറത്താക്കി',
+    voluntary: 'സ്വമേധയാ',
+    merger: 'ലയനം',
+  };
+
+  const currentTypeLabel = lang === 'ml' ? (TYPE_LABEL_ML[defector.defectionType] || defector.defectionType) : (TYPE_LABEL[defector.defectionType] || defector.defectionType);
+
   return (
     <Link
       href={`/intel/${defector.slug}`}
@@ -93,8 +104,8 @@ export default function ArticleCard({ defector }: Props) {
           {/* Name */}
           <h2
             style={{
-              fontFamily: 'var(--font-playfair)',
-              fontSize: '20px',
+              fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-playfair)',
+              fontSize: lang === 'ml' ? '22px' : '20px',
               fontWeight: 900,
               color: '#2C1810',
               margin: '0 0 8px',
@@ -118,7 +129,7 @@ export default function ArticleCard({ defector }: Props) {
               style={{
                 backgroundColor: '#1A237E',
                 color: '#fff',
-                fontFamily: 'var(--font-barlow)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                 fontWeight: 700,
                 fontSize: '10px',
                 letterSpacing: '0.06em',
@@ -142,7 +153,7 @@ export default function ArticleCard({ defector }: Props) {
               style={{
                 backgroundColor: '#FF6B00',
                 color: '#fff',
-                fontFamily: 'var(--font-barlow)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                 fontWeight: 700,
                 fontSize: '10px',
                 letterSpacing: '0.06em',
@@ -168,7 +179,7 @@ export default function ArticleCard({ defector }: Props) {
             {/* District */}
             <span
               style={{
-                fontFamily: 'var(--font-barlow)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
                 fontSize: '11px',
                 fontWeight: 700,
                 color: '#2C1810',
@@ -183,26 +194,26 @@ export default function ArticleCard({ defector }: Props) {
             {/* Defection type */}
             <span
               style={{
-                fontFamily: 'var(--font-special-elite)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-special-elite)',
                 fontSize: '10px',
                 color: TYPE_COLOR[defector.defectionType] ?? '#9E9E9E',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}
             >
-              {TYPE_LABEL[defector.defectionType] ?? defector.defectionType}
+              {currentTypeLabel}
             </span>
 
             {/* Reading time */}
             <span
               style={{
-                fontFamily: 'var(--font-noto)',
+                fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-noto)',
                 fontSize: '11px',
                 color: '#9E9E9E',
                 marginLeft: 'auto',
               }}
             >
-              {defector.readingTimeMinutes} min
+              {defector.readingTimeMinutes} {lang === 'ml' ? 'മിനിറ്റ്' : 'min'}
             </span>
           </div>
         </div>

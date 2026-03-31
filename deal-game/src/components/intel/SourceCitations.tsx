@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Source {
   title: string;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export default function SourceCitations({ sources }: Props) {
+  const { lang } = useTranslation();
   const [open, setOpen] = useState(false);
 
   if (!sources || sources.length === 0) return null;
@@ -43,7 +45,7 @@ export default function SourceCitations({ sources }: Props) {
       >
         <span
           style={{
-            fontFamily: 'var(--font-barlow)',
+            fontFamily: lang === 'ml' ? 'var(--font-anek-ml)' : 'var(--font-barlow)',
             fontWeight: 900,
             fontSize: '13px',
             letterSpacing: '0.2em',
@@ -51,7 +53,7 @@ export default function SourceCitations({ sources }: Props) {
             color: '#2C1810',
           }}
         >
-          Sources
+          {lang === 'ml' ? 'അവലംബങ്ങൾ' : 'Sources'}
         </span>
         <span
           style={{
