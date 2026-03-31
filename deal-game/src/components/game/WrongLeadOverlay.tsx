@@ -177,36 +177,15 @@ export default function WrongLeadOverlay({ defector, revealedName, wrongGuess, s
             {/* Footer Controls */}
             <footer className="relative z-10 bg-[#131313] px-6 pb-6 sm:pb-8 pt-3 sm:pt-4 border-t border-white/5 shrink-0">
                 <div className="max-w-md mx-auto flex flex-col gap-2 sm:gap-3">
-                    {/* Disabled confirm */}
-                    <button
-                        disabled
-                        className="w-full py-2.5 sm:py-3 bg-[#353535] text-white/20 font-barlow font-black text-lg sm:text-xl tracking-widest uppercase flex items-center justify-center gap-2 cursor-not-allowed"
+                    {/* Intel Link — Always visible now */}
+                    <motion.a
+                        href={`/intel/${defector.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all no-underline"
                     >
-                        {t.common.confirm_deal}
-                    </button>
-                    {/* Try Again button */}
-                    <motion.button
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.35 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={onTryAgain}
-                        className="w-full py-3.5 sm:py-4 bg-saffron text-[#131313] font-barlow font-black text-xl sm:text-2xl tracking-widest uppercase flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.6)] active:translate-y-0.5 active:shadow-none transition-all"
-                    >
-                        {t.wrongLead.try_again}
-                    </motion.button>
-
-                    {/* Optional Intel Link for Malayalam */}
-                    {lang === 'ml' && (
-                        <motion.a
-                            href={`/intel/${defector.id}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full py-2 bg-near-black/40 text-saffron font-anek-ml font-bold text-sm tracking-wide uppercase flex items-center justify-center text-center transition-all no-underline border border-saffron/20"
-                        >
-                            ഈ ഡീലറെക്കുറിച്ചുള്ള കൂടുതൽ വിവരങ്ങൾ വായിക്കുക
-                        </motion.a>
-                    )}
+                        {t.wrongLead.read_more}
+                    </motion.a>
                     {/* Skip instead */}
                     <button
                         onClick={onSkip}

@@ -80,6 +80,7 @@ const en = {
         intel_flawed_msg: "INTEL FLAWED. CROSS-CHECK SOURCES.",
         try_again: "⚠️ TRY AGAIN",
         skip_dossier: "Skip This Dossier →",
+        read_more: "Read more about this dealer",
     },
     caseUnsolved: {
         title: "MISSION INTEL: REVEALED",
@@ -250,6 +251,7 @@ const ml = {
         intel_flawed_msg: "കണ്ടെത്തൽ തെറ്റാണ്. രേഖകൾ ഒന്നുകൂടി പരിശോധിക്കുക.",
         try_again: "⚠️ വീണ്ടും ശ്രമിക്കുക",
         skip_dossier: "ഈ ഫയൽ ഒഴിവാക്കുക →",
+        read_more: "ഈ ഡീലറെക്കുറിച്ചുള്ള കൂടുതൽ വിവരങ്ങൾ വായിക്കുക",
     },
     caseUnsolved: {
         title: "രഹസ്യരേഖ: വെളിപ്പെടുത്തി",
