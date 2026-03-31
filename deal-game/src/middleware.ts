@@ -14,7 +14,11 @@ export function middleware(request: NextRequest) {
             return handleSecurity(request);
         }
 
-        // Just proceed naturally — the root (/) is the splash screen, /game is the game
+        // Rewrite root (/) on the dealers subdomain to /intel
+        if (pathname === '/') {
+            url.pathname = '/intel';
+            return rewriteWithCsp(request, url);
+        }
         return handleSecurity(request);
     }
 

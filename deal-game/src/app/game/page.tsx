@@ -15,6 +15,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { LangToggle } from "@/components/ui/LangToggle";
 import LotusSpinner from "@/components/ui/LotusSpinner";
 import { translateToMalayalam } from "@/utils/translate";
+import SplashScreen from "@/components/screens/SplashScreen";
 
 type AnswerState = "playing" | "correct" | "wrong" | "skipped";
 
@@ -51,10 +52,11 @@ export default function GameScreen() {
         }
     }, [isGameComplete, router]);
 
+    // Automatic start removed - SplashScreen handles this now
     useEffect(() => {
-        if (sessionDefectors.length === 0) {
-            startNewGame();
-        }
+        // if (sessionDefectors.length === 0) {
+        //     startNewGame();
+        // }
     }, [sessionDefectors, startNewGame]);
 
     useEffect(() => {
@@ -209,12 +211,7 @@ export default function GameScreen() {
             <div className="fixed inset-0 bg-gradient-to-b from-[#131313] via-[#1b1b1b] to-[#0e0e0e] z-[-1] pointer-events-none" />
 
             {sessionDefectors.length === 0 || !currentDefector ? (
-                <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-[#131313]">
-                    <LotusSpinner visible={true} label="INITIALIZING ENCRYPTION…" />
-                    <p className="mt-8 font-special-elite text-saffron opacity-60 tracking-widest animate-pulse">
-                        INITIALIZING ENCRYPTION...
-                    </p>
-                </div>
+                <SplashScreen />
             ) : (
                 <>
 
