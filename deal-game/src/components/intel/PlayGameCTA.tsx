@@ -7,7 +7,7 @@ interface Props {
   variant: 'mid' | 'bottom';
 }
 
-const GAME_BASE = 'https://dealers.cjp.info';
+const GAME_URL = 'https://dealers.cjp.info/game';
 
 export default function PlayGameCTA({ defectorName, variant }: Props) {
   const isMid = variant === 'mid';
@@ -71,7 +71,7 @@ export default function PlayGameCTA({ defectorName, variant }: Props) {
       {/* CTA button */}
       <div>
         <a
-          href={GAME_BASE}
+          href={GAME_URL}
           style={{
             display: 'inline-block',
             backgroundColor: '#FF6B00',

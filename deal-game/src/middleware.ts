@@ -5,15 +5,22 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     const { pathname } = url;
 
-    // 1. Dealers Subdomain (The Game)
-    // dealers.cjp.info/ should show the Splash Screen (root /)
-    // /game and other subpaths should work as normal
+    // 1. Dealers Subdomain
+    // dealers.cjp.info/ should show the Intel page (/intel)
+    // /game should show the game naturally
     if (hostname.includes('dealers.cjp.info')) {
-        // If they try to access /intel on the game subdomain, redirect them to root
-        if (pathname.startsWith('/intel')) {
-            return NextResponse.redirect(new URL('/', request.url));
+        // Skip Rewriting for API, Next.js internals, and Files
+        if (pathname.startsWith('/api') || pathname.startsWith('/_next') || pathname.includes('.')) {
+            return handleSecurity(request);
         }
-        // Allow / (splash) and /game (game) to proceed naturally
+
+        // If at root (/), rewrite to /intel
+        if (pathname === '/') {
+            url.pathname = '/intel';
+            return rewriteWithCsp(request, url);
+        }
+
+        // Proceed naturally for /game, /intel, etc.
         return handleSecurity(request);
     }
 
