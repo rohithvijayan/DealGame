@@ -4,6 +4,7 @@ import "./globals.css";
 import LangWatcher from "@/components/common/LangWatcher";
 import Script from 'next/script';
 import { headers } from 'next/headers';
+import { Analytics } from '@vercel/analytics/next';
 
 const BASE_URL = "https://dealers.cjp.info";
 
@@ -79,6 +80,24 @@ export default async function RootLayout({
     `}>
       <head>
         <Script
+          id="gtag-src"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-E7S0F9P9JD"
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-E7S0F9P9JD');
+            `,
+          }}
+        />
+        <Script
           id="fb-pixel"
           strategy="afterInteractive"
           nonce={nonce}
@@ -109,6 +128,7 @@ export default async function RootLayout({
       </head>
       <body suppressHydrationWarning className="antialiased min-h-dvh flex flex-col font-noto overflow-x-hidden">
         <LangWatcher />{children}
+        <Analytics />
       </body>
     </html>
   );
