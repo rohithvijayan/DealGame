@@ -82,6 +82,7 @@ export default async function RootLayout({
         <Script
           id="gtag-src"
           strategy="afterInteractive"
+          nonce={nonce}
           src="https://www.googletagmanager.com/gtag/js?id=G-E7S0F9P9JD"
         />
         <Script

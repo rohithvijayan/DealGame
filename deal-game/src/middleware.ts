@@ -93,11 +93,11 @@ function handleSecurity(request: NextRequest) {
 function getCsp(nonce: string, isDev: boolean) {
     return [
         `default-src 'self'`,
-        `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''} https://connect.facebook.net`,
+        `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''} https://connect.facebook.net https://www.googletagmanager.com`,
         `style-src 'self' 'unsafe-inline'`,
-        `img-src 'self' blob: data: https://www.facebook.com`,
+        `img-src 'self' blob: data: https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com`,
         `font-src 'self' data:`,
-        `connect-src 'self' https://www.facebook.com https://connect.facebook.net`,
+        `connect-src 'self' https://www.facebook.com https://connect.facebook.net https://www.google-analytics.com https://*.googletagmanager.com`,
         `object-src 'none'`,
         `base-uri 'self'`,
         `form-action 'self'`,
